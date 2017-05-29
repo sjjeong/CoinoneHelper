@@ -1,10 +1,12 @@
 package com.googry.coinonehelper.ui.main;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.databinding.MainFragBinding;
+import com.googry.coinonehelper.ui.main.orderbook.OrderbookPagerAdapter;
 
 /**
  * Created by seokjunjeong on 2017. 5. 27..
@@ -12,7 +14,8 @@ import com.googry.coinonehelper.databinding.MainFragBinding;
 
 public class MainFragment extends BaseFragment<MainFragBinding> implements MainContract.View {
     private MainContract.Presenter mPresenter;
-
+    private ViewPager mVpDashboard;
+    private OrderbookPagerAdapter mOrderbookPagerAdapter;
 
     public static MainFragment newInstance() {
         MainFragment mainFragment = new MainFragment();
@@ -34,6 +37,10 @@ public class MainFragment extends BaseFragment<MainFragBinding> implements MainC
 
     @Override
     protected void initView() {
+        mVpDashboard = mBinding.vpDashboard;
+        mOrderbookPagerAdapter = new OrderbookPagerAdapter(getChildFragmentManager());
+        mVpDashboard.setAdapter(mOrderbookPagerAdapter);
+
         mPresenter.start();
     }
 }
