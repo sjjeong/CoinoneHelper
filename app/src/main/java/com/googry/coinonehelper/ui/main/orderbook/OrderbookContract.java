@@ -21,6 +21,5 @@ public class OrderbookContract {
     public interface Presenter extends BasePresenter{
         void setCoinType(String coinType);
         void stop();
-        void refresh();
     }
 }

@@ -6,6 +6,9 @@ import android.view.View;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.remote.ApiManager;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,6 +21,14 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     private OrderbookContract.View mView;
     private String mCoinType;
 
+    private Timer mTimer;
+    private TimerTask mTimerTask = new TimerTask() {
+        @Override
+        public void run() {
+            requestOrderbook(mCoinType);
+        }
+    };
+
     public OrderbookPresenter(OrderbookContract.View view){
         mView = view;
         mView.setPresenter(this);
@@ -26,6 +37,8 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     @Override
     public void start() {
         requestOrderbook(mCoinType);
+        mTimer = new Timer();
+        mTimer.schedule(mTimerTask,1000,1000);
 
     }
 
@@ -36,13 +49,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     @Override
     public void stop() {
-
-    }
-
-    @Override
-    public void refresh() {
-        mView.showProgressDialog();
-        requestOrderbook(mCoinType);
+        mTimer.cancel();
     }
 
     private void requestOrderbook(String coinType){

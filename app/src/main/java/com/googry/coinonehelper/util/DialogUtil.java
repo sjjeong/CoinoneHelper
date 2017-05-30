@@ -2,6 +2,7 @@ package com.googry.coinonehelper.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.view.WindowManager;
 
 /**
  * Created by seokjunjeong on 2017. 5. 30..
@@ -14,8 +15,13 @@ public class DialogUtil {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(context);
         }
-        mProgressDialog.dismiss();
-        mProgressDialog.show();
+
+        try {
+            mProgressDialog.show();
+        } catch (WindowManager.BadTokenException e) {
+            mProgressDialog = null;
+            e.printStackTrace();
+        }
     }
 
     public static void hideProgressDialog() {

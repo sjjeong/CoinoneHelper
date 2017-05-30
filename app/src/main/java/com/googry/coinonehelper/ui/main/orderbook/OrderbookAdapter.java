@@ -56,6 +56,15 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
         notifyDataSetChanged();
     }
 
+    public void setBook(CoinoneOrderbook.Book book,int position){
+        mBooks.set(position, book);
+        notifyItemChanged(position);
+    }
+
+    public CoinoneOrderbook.Book getBook(int position){
+        return mBooks.get(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         OrderbookItemBinding binding;
 
@@ -64,6 +73,7 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
             binding = DataBindingUtil.bind(itemView);
         }
         public void setData(CoinoneOrderbook.Book book){
+            binding.setBookType(mBookType);
             switch (mBookType){
                 case ASK:{
                     binding.setLeftValue(Double.toString(book.qty));
