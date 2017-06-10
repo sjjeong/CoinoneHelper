@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
@@ -67,10 +68,8 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
         mCoinType = getArguments().getString(COIN_TYPE);
 
-        mBinding.setTitle(mCoinType);
         mBinding.setPresenter(mPresenter);
         mPresenter.setCoinType(mCoinType);
-        mPresenter.start();
     }
 
     @Override
@@ -79,8 +78,14 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         mPresenter.stop();
     }
 

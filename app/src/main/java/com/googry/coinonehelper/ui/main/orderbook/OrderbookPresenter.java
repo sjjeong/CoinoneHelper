@@ -29,7 +29,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         }
     };
 
-    public OrderbookPresenter(OrderbookContract.View view){
+    public OrderbookPresenter(OrderbookContract.View view) {
         mView = view;
         mView.setPresenter(this);
     }
@@ -38,7 +38,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     public void start() {
         requestOrderbook(mCoinType);
         mTimer = new Timer();
-        mTimer.schedule(mTimerTask,1000,1000);
+        mTimer.schedule(mTimerTask, 1000, 1000);
 
     }
 
@@ -52,11 +52,12 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         mTimer.cancel();
     }
 
-    private void requestOrderbook(String coinType){
-        ApiManager.PublicApi api= ApiManager.getApiManager().create(ApiManager.PublicApi.class);
+    private void requestOrderbook(String coinType) {
+        ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
         Call<CoinoneOrderbook> call = api.orderbook(coinType);
         call.enqueue(callback);
     }
+
     private Callback<CoinoneOrderbook> callback = new Callback<CoinoneOrderbook>() {
         @Override
         public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {

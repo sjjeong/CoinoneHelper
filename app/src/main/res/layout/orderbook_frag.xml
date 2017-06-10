@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="title"
-            type="String" />
-
         <variable
             name="presenter"
             type="com.googry.coinonehelper.ui.main.orderbook.OrderbookContract.Presenter" />
@@ -18,14 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{title}"
-            android:textSize="20dp"
-            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"

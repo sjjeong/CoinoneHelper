@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CoinoneHelper</string>
+    <string name="btc">BTC</string>
+    <string name="eth">ETH</string>
+    <string name="etc">ETC</string>
+    <string name="xrp">XRP</string>
 </resources>

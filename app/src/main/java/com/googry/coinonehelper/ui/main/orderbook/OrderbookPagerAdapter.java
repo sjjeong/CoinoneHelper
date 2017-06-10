@@ -42,4 +42,9 @@ public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return COIN_CNT;
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return super.getPageTitle(position);
+    }
 }
