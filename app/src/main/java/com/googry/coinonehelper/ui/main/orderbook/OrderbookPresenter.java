@@ -22,12 +22,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     private String mCoinType;
 
     private Timer mTimer;
-    private TimerTask mTimerTask = new TimerTask() {
-        @Override
-        public void run() {
-            requestOrderbook(mCoinType);
-        }
-    };
+    private TimerTask mTimerTask;
 
     public OrderbookPresenter(OrderbookContract.View view) {
         mView = view;
@@ -38,6 +33,12 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     public void start() {
         requestOrderbook(mCoinType);
         mTimer = new Timer();
+        mTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                requestOrderbook(mCoinType);
+            }
+        };
         mTimer.schedule(mTimerTask, 1000, 1000);
 
     }
@@ -49,7 +50,14 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     @Override
     public void stop() {
-        mTimer.cancel();
+        if(mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
+        if(mTimerTask != null){
+            mTimerTask.cancel();
+            mTimerTask = null;
+        }
     }
 
     private void requestOrderbook(String coinType) {
