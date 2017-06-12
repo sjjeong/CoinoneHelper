@@ -2,16 +2,14 @@ package com.googry.coinonehelper.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.databinding.MainFragBinding;
 import com.googry.coinonehelper.ui.main.orderbook.OrderbookPagerAdapter;
-import com.viewpagerindicator.LinePageIndicator;
-import com.viewpagerindicator.TabPageIndicator;
-import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
 /**
@@ -52,30 +50,33 @@ public class MainFragment extends BaseFragment<MainFragBinding> implements MainC
         pageIndicator.setViewPager(mVpDashboard);
         pageIndicator.setFades(false);
 
+        setAddSetting();
+
         mPresenter.start();
     }
 
+    private void setAddSetting(){
+        MobileAds.initialize(getContext(), getString(R.string.admob_app_id));
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mBinding.adView.loadAd(adRequest);
+    }
+
     public void onClickChangeOrderbookType(View v){
-        Log.i("googry","onClickChangeOrderbookType");
         switch (v.getId()){
             case R.id.btn_btc:{
                 mVpDashboard.setCurrentItem(0);
-                Log.i("googry","onClickChangeOrderbookType 0");
             }
             break;
             case R.id.btn_eth:{
                 mVpDashboard.setCurrentItem(1);
-                Log.i("googry","onClickChangeOrderbookType 1");
             }
             break;
             case R.id.btn_etc:{
                 mVpDashboard.setCurrentItem(2);
-                Log.i("googry","onClickChangeOrderbookType 2");
             }
             break;
             case R.id.btn_xrp:{
                 mVpDashboard.setCurrentItem(3);
-                Log.i("googry","onClickChangeOrderbookType 3");
             }
             break;
         }

@@ -96,6 +96,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
                 mBidAdapter.getItemCount() == 0) {
             mAskAdapter.setBooks(askes);
             mBidAdapter.setBooks(bides);
+            mRvAskes.scrollToPosition(0);
         }
 
         int askSize = askes.size();
