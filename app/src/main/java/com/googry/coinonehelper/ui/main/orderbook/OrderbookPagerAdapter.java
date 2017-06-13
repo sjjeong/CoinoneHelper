@@ -10,32 +10,20 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     private static final int COIN_CNT = 4;
+    private OrderbookFragment[] mOrderbookFragments;
+    private String[] mCoinTypes = {"btc","eth","etc","xrp"};
 
     public OrderbookPagerAdapter(FragmentManager fm) {
         super(fm);
+        mOrderbookFragments = new OrderbookFragment[COIN_CNT];
+        for (int i = 0; i < COIN_CNT; i++) {
+            mOrderbookFragments[i] = OrderbookFragment.newInstance(mCoinTypes[i]);
+        }
     }
 
     @Override
     public Fragment getItem(int position) {
-        String coinType = null;
-        switch (position){
-            case 0:
-                coinType = "btc";
-                break;
-            case 1:
-                coinType = "eth";
-                break;
-            case 2:
-                coinType = "etc";
-                break;
-            case 3:
-                coinType = "xrp";
-                break;
-            default:
-                coinType = "btc";
-                break;
-        }
-        return OrderbookFragment.newInstance(coinType);
+        return mOrderbookFragments[position];
     }
 
     @Override
@@ -47,4 +35,7 @@ public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return super.getPageTitle(position);
     }
+
+
+
 }

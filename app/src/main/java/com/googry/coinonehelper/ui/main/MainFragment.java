@@ -43,9 +43,9 @@ public class MainFragment extends BaseFragment<MainFragBinding> implements MainC
     protected void initView() {
         mBinding.setFragment(this);
         mVpDashboard = mBinding.vpDashboard;
+        mVpDashboard.setOffscreenPageLimit(3);
         mOrderbookPagerAdapter = new OrderbookPagerAdapter(getChildFragmentManager());
         mVpDashboard.setAdapter(mOrderbookPagerAdapter);
-
         UnderlinePageIndicator pageIndicator = mBinding.indicator;
         pageIndicator.setViewPager(mVpDashboard);
         pageIndicator.setFades(false);
