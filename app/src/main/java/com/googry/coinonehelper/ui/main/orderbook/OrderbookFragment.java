@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
@@ -64,6 +65,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRvAskes.getLayoutManager();
         layoutManager.setReverseLayout(true);
+        layoutManager.setAutoMeasureEnabled(false);
         mRvAskes.setLayoutManager(layoutManager);
 
         mCoinType = getArguments().getString(COIN_TYPE);
@@ -119,6 +121,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
             }
             mBidAdapter.setBook(book, i);
         }
+
     }
 
     @Override
