@@ -8,6 +8,7 @@
     <color name="colorBidBg">#FBF1F6</color>
     <color name="colorBid">#C70000</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
 
 </resources>

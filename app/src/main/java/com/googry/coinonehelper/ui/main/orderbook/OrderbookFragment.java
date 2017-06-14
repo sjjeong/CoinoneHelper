@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinoneTrades;
 import com.googry.coinonehelper.databinding.OrderbookFragBinding;
 import com.googry.coinonehelper.util.DialogUtil;
 
@@ -25,8 +26,9 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     private static final String COIN_TYPE = "coinType";
 
     private OrderbookContract.Presenter mPresenter;
-    private RecyclerView mRvAskes, mRvBides;
+    private RecyclerView mRvAskes, mRvBides, mRvTrades;
     private OrderbookAdapter mAskAdapter, mBidAdapter;
+    private TradeAdapter mTradeAdapter;
 
     private String mCoinType;
 
@@ -51,17 +53,21 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
         mRvAskes = mBinding.rvAskes;
         mRvBides = mBinding.rvBides;
+        mRvTrades = mBinding.rvTrades;
 
         mAskAdapter = new OrderbookAdapter(getContext(), OrderbookAdapter.BookType.ASK);
         mBidAdapter = new OrderbookAdapter(getContext(), OrderbookAdapter.BookType.BID);
+        mTradeAdapter = new TradeAdapter(getContext());
 
         mRvAskes.setAdapter(mAskAdapter);
         mRvBides.setAdapter(mBidAdapter);
+        mRvTrades.setAdapter(mTradeAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
                 RecyclerView.VERTICAL);
         mRvAskes.addItemDecoration(dividerItemDecoration);
         mRvBides.addItemDecoration(dividerItemDecoration);
+        mRvTrades.addItemDecoration(dividerItemDecoration);
 
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRvAskes.getLayoutManager();
         layoutManager.setReverseLayout(true);
@@ -125,12 +131,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     }
 
     @Override
-    public void showProgressDialog() {
-        DialogUtil.showProgressDialog(getContext());
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        DialogUtil.hideProgressDialog();
+    public void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades) {
+        mTradeAdapter.setTrades(trades);
     }
 }

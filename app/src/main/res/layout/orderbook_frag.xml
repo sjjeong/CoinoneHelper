@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="presenter"
-            type="com.googry.coinonehelper.ui.main.orderbook.OrderbookContract.Presenter" />
+            type="com.googry.coinonehelper.ui.main.orderbook.OrderbookContract.Presenter"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:padding="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,16 +27,19 @@
                 android:id="@+id/rv_askes"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
                 android:layout_weight="2"
-                app:layoutManager="LinearLayoutManager" />
+                app:layoutManager="LinearLayoutManager"/>
+
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="10dp"
-                tools:background="#000000">
+                android:padding="10dp">
 
             </LinearLayout>
 
@@ -45,18 +51,23 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <LinearLayout
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_trades"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                tools:background="#000000" />
+                android:background="@color/white"
+                app:layoutManager="LinearLayoutManager"/>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_bides"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
                 android:layout_weight="2"
-                app:layoutManager="LinearLayoutManager" />
+                app:layoutManager="LinearLayoutManager"/>
 
         </LinearLayout>
 

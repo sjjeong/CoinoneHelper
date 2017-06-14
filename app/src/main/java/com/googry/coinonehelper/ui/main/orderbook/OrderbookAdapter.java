@@ -43,7 +43,7 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setData(mBooks.get(position));
+        holder.bind(mBooks.get(position));
     }
 
     @Override
@@ -66,13 +66,13 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        OrderbookItemBinding binding;
+        private OrderbookItemBinding binding;
 
         public ViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
         }
-        public void setData(CoinoneOrderbook.Book book){
+        public void bind(CoinoneOrderbook.Book book){
             binding.setBookType(mBookType);
             switch (mBookType){
                 case ASK:{

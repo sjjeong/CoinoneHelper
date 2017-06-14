@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.googry.coinonehelper.ui.main.orderbook.OrderbookAdapter.BookType"/>
+
+        <variable
+            name="price"
+            type="String"/>
+
+        <variable
+            name="qty"
+            type="String"/>
+
+        <variable
+            name="buy"
+            type="Boolean"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="left"
+                android:text="@{price}"
+                android:textColor="@color/black"
+                tools:text="leftValue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
+                android:text="@{qty}"
+                android:textColor="@color/black"
+                tools:text="rightValue"/>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>

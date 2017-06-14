@@ -3,6 +3,7 @@ package com.googry.coinonehelper.ui.main.orderbook;
 import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinoneTrades;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,7 @@ public class OrderbookContract {
     public interface View extends BaseView<Presenter>{
         void showOrderbookList(ArrayList<CoinoneOrderbook.Book> askes,
                                  ArrayList<CoinoneOrderbook.Book> bides);
-        void showProgressDialog();
-        void hideProgressDialog();
+        void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades);
     }
 
     public interface Presenter extends BasePresenter{
