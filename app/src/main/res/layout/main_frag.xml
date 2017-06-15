@@ -64,7 +64,7 @@
             <com.viewpagerindicator.UnderlinePageIndicator
                 android:id="@+id/indicator"
                 android:layout_width="fill_parent"
-                android:layout_height="2dp"
+                android:layout_height="4dp"
                 app:selectedColor="#FFCC0000"/>
 
             <android.support.v4.view.ViewPager
