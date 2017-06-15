@@ -134,4 +134,14 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     public void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades) {
         mTradeAdapter.setTrades(trades);
     }
+
+    @Override
+    public void showCoinoneServerDownProgressDialog() {
+        DialogUtil.showServerDownProgressDialog(getContext());
+    }
+
+    @Override
+    public void hideCoinoneServerDownProgressDialog() {
+        DialogUtil.hideProgressDialog();
+    }
 }

@@ -1,5 +1,7 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
+import android.util.Log;
+
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTrades;
 import com.googry.coinonehelper.data.remote.ApiManager;
@@ -73,6 +75,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     private Callback<CoinoneOrderbook> callbackOrderbook = new Callback<CoinoneOrderbook>() {
         @Override
         public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {
+            mView.hideCoinoneServerDownProgressDialog();
             CoinoneOrderbook coinoneOrderbook = response.body();
             mView.showOrderbookList(coinoneOrderbook.askes,
                     coinoneOrderbook.bides);
@@ -80,6 +83,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
         @Override
         public void onFailure(Call<CoinoneOrderbook> call, Throwable t) {
+            mView.showCoinoneServerDownProgressDialog();
 
         }
     };
@@ -87,6 +91,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     private Callback<CoinoneTrades> callbackTrades = new Callback<CoinoneTrades>() {
         @Override
         public void onResponse(Call<CoinoneTrades> call, Response<CoinoneTrades> response) {
+            mView.hideCoinoneServerDownProgressDialog();
             CoinoneTrades coinoneTrades = response.body();
             Collections.reverse(coinoneTrades.completeOrders);
             mView.showTradeList(new ArrayList<>(coinoneTrades.completeOrders.subList(0, TRADE_CNT)));
@@ -95,6 +100,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
         @Override
         public void onFailure(Call<CoinoneTrades> call, Throwable t) {
+            mView.showCoinoneServerDownProgressDialog();
 
         }
     };

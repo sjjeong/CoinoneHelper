@@ -16,6 +16,8 @@ public class OrderbookContract {
         void showOrderbookList(ArrayList<CoinoneOrderbook.Book> askes,
                                  ArrayList<CoinoneOrderbook.Book> bides);
         void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades);
+        void showCoinoneServerDownProgressDialog();
+        void hideCoinoneServerDownProgressDialog();
     }
 
     public interface Presenter extends BasePresenter{

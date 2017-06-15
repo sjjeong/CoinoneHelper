@@ -6,4 +6,5 @@
     <string name="eth">ETH</string>
     <string name="etc">ETC</string>
     <string name="xrp">XRP</string>
+    <string name="coinone_server_down">코인원 서버가 다운됐습니다. 잠시만 기다려주세요.</string>
 </resources>
