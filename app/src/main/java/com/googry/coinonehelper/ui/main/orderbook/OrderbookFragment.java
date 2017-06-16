@@ -95,6 +95,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.start();
     }
 
     @Override
