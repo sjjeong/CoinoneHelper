@@ -41,6 +41,8 @@ public class MainFragment extends BaseFragment<MainFragBinding> implements MainC
 
     @Override
     protected void initView() {
+        new MainPresenter(this);
+
         mBinding.setFragment(this);
         mVpDashboard = mBinding.vpDashboard;
         mVpDashboard.setOffscreenPageLimit(3);
