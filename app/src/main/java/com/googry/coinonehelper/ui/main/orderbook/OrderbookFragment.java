@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.google.gson.JsonObject;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
@@ -15,7 +14,6 @@ import com.googry.coinonehelper.databinding.OrderbookFragBinding;
 import com.googry.coinonehelper.util.DialogUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by seokjunjeong on 2017. 5. 28..
@@ -48,7 +46,6 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     protected void initView() {
-        new OrderbookPresenter(this);
 
 
         mRvAskes = mBinding.rvAskes;
@@ -81,6 +78,16 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     }
 
     @Override
+    protected void newPresenter() {
+        new OrderbookPresenter(this);
+    }
+
+    @Override
+    protected void startPresenter() {
+        mPresenter.start();
+    }
+
+    @Override
     public void setPresenter(OrderbookContract.Presenter presenter) {
         mPresenter = presenter;
     }
@@ -88,12 +95,12 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.i("googry",mCoinType + " fragment pause()");
         mPresenter.stop();
     }
 

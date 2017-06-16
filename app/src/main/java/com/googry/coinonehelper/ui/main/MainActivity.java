@@ -25,11 +25,6 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     @Override
-    protected void initPresenter() {
-
-    }
-
-    @Override
     protected MainFragment getFragment() {
         return MainFragment.newInstance();
     }

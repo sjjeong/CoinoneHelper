@@ -23,7 +23,6 @@ public abstract class BaseActivity<F extends Fragment> extends AppCompatActivity
         FragmentUtil.addFragment(this, getFragmentContentId(), mFragment);
         initView();
         initToolbar();
-        initPresenter();
     }
 
     protected abstract int getLayoutId();
@@ -33,8 +32,6 @@ public abstract class BaseActivity<F extends Fragment> extends AppCompatActivity
     protected abstract void initView();
 
     protected abstract void initToolbar();
-
-    protected abstract void initPresenter();
 
     protected abstract F getFragment();
 }
