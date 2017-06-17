@@ -4,12 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.googry.coinonehelper.data.CoinType;
+
 /**
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
 public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
-    private static final int COIN_CNT = 4;
+    private static final int COIN_CNT = CoinType.values().length;
     private OrderbookFragment[] mOrderbookFragments;
     private String[] mCoinTypes = {"btc", "eth", "etc", "xrp"};
 

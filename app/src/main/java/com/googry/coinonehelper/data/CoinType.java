@@ -9,4 +9,26 @@ public enum CoinType {
     ETH,
     ETC,
     XRP;
+
+    public static String getValue(CoinType coinType) {
+        String srtCoinType;
+        switch (coinType) {
+            case BTC:
+                srtCoinType = "btc";
+                break;
+            case ETH:
+                srtCoinType = "eth";
+                break;
+            case ETC:
+                srtCoinType = "etc";
+                break;
+            case XRP:
+                srtCoinType = "xrp";
+                break;
+            default:
+                srtCoinType = "unknown";
+                break;
+        }
+        return srtCoinType;
+    }
 }
