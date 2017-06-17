@@ -16,7 +16,7 @@ public class CoinoneTrades {
     @SerializedName("completeOrders")
     public ArrayList<CompleteOrder> completeOrders;
 
-    public class CompleteOrder{
+    public class CompleteOrder {
         @SerializedName("timestamp")
         public long timestamp;
         @SerializedName("price")

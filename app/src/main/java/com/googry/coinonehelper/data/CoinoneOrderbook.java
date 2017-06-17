@@ -19,7 +19,7 @@ public class CoinoneOrderbook {
     public ArrayList<Book> bides;
 
 
-    public class Book{
+    public class Book {
         @SerializedName("price")
         public long price;
         @SerializedName("qty")

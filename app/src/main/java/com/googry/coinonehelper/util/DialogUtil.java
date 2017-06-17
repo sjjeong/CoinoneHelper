@@ -13,7 +13,7 @@ import com.googry.coinonehelper.R;
 public class DialogUtil {
     private static ProgressDialog mServerDownProgressDialog;
 
-    private static void createServerDownProgressDialog(Context context){
+    private static void createServerDownProgressDialog(Context context) {
         mServerDownProgressDialog = new ProgressDialog(context);
         mServerDownProgressDialog.setMessage(context.getString(R.string.coinone_server_down));
     }
@@ -22,7 +22,7 @@ public class DialogUtil {
         if (mServerDownProgressDialog == null && context != null) {
             createServerDownProgressDialog(context);
         }
-        if(mServerDownProgressDialog.isShowing()) return;
+        if (mServerDownProgressDialog.isShowing()) return;
 
         try {
             mServerDownProgressDialog.show();

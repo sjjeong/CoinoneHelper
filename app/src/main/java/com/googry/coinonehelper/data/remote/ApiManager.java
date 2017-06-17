@@ -17,8 +17,8 @@ public class ApiManager {
     private static final String BASE_URL = "https://api.coinone.co.kr/";
     private static Retrofit mInstance;
 
-    public static Retrofit getApiManager(){
-        if(mInstance == null){
+    public static Retrofit getApiManager() {
+        if (mInstance == null) {
             mInstance = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -27,7 +27,7 @@ public class ApiManager {
         return mInstance;
     }
 
-    public interface PublicApi{
+    public interface PublicApi {
         @GET("orderbook/")
         Call<CoinoneOrderbook> orderbook(
                 @Query("currency") String currency

@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     private static final int COIN_CNT = 4;
     private OrderbookFragment[] mOrderbookFragments;
-    private String[] mCoinTypes = {"btc","eth","etc","xrp"};
+    private String[] mCoinTypes = {"btc", "eth", "etc", "xrp"};
 
     public OrderbookPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -35,7 +35,6 @@ public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return super.getPageTitle(position);
     }
-
 
 
 }

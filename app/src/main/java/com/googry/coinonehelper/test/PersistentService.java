@@ -20,12 +20,6 @@ public class PersistentService extends Service {
 
     private CountDownTimer countDownTimer;
 
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
     @Override
     public void onCreate() {
         unregisterRestartAlarm();
@@ -45,6 +39,11 @@ public class PersistentService extends Service {
          * 서비스 종료 시 알람 등록을 통해 서비스 재 실행
          */
         registerRestartAlarm();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     /**

@@ -49,7 +49,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> 
         return mTrades.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TradeItemBinding binding;
 
         public ViewHolder(View itemView) {
@@ -57,7 +57,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> 
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(CoinoneTrades.CompleteOrder trade){
+        public void bind(CoinoneTrades.CompleteOrder trade) {
             binding.setPrice(Long.toString(trade.price));
             binding.setQty(Double.toString(trade.qty));
             binding.setBuy(true);

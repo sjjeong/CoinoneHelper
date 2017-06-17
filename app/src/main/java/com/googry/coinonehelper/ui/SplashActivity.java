@@ -27,11 +27,12 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.i("googry","onDestroy");
+        Log.i("googry", "onDestroy");
         //브로드 캐스트 해제
         unregisterReceiver(restartReceiver);
     }
@@ -39,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
     /**
      * 데이터 초기화
      */
-    private void initData(){
+    private void initData() {
 
         //리스타트 서비스 생성
         restartReceiver = new RestartReceiver();
@@ -48,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
 
         IntentFilter intentFilter = new IntentFilter("com.googry.coinonehelper.test.PersistentService");
         //브로드 캐스트에 등록
-        registerReceiver(restartReceiver,intentFilter);
+        registerReceiver(restartReceiver, intentFilter);
         // 서비스 시작
         startService(intent);
 

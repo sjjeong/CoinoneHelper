@@ -20,11 +20,9 @@ import java.util.ArrayList;
 public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.ViewHolder> {
     private ArrayList<CoinoneOrderbook.Book> mBooks;
     private Context mContext;
-    public enum BookType{
-        ASK,BID
-    };
-
     private BookType mBookType;
+
+    ;
 
     public OrderbookAdapter(Context mContext,
                             BookType bookType) {
@@ -51,36 +49,41 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
         return mBooks.size();
     }
 
-    public void setBooks(ArrayList<CoinoneOrderbook.Book> books){
+    public void setBooks(ArrayList<CoinoneOrderbook.Book> books) {
         mBooks = books;
         notifyDataSetChanged();
     }
 
-    public void setBook(CoinoneOrderbook.Book book,int position){
+    public void setBook(CoinoneOrderbook.Book book, int position) {
         mBooks.set(position, book);
         notifyItemChanged(position);
     }
 
-    public CoinoneOrderbook.Book getBook(int position){
+    public CoinoneOrderbook.Book getBook(int position) {
         return mBooks.get(position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public enum BookType {
+        ASK, BID
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private OrderbookItemBinding binding;
 
         public ViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
         }
-        public void bind(CoinoneOrderbook.Book book){
+
+        public void bind(CoinoneOrderbook.Book book) {
             binding.setBookType(mBookType);
-            switch (mBookType){
-                case ASK:{
+            switch (mBookType) {
+                case ASK: {
                     binding.setLeftValue(Double.toString(book.qty));
                     binding.setRightValue(Long.toString(book.price));
                 }
                 break;
-                case BID:{
+                case BID: {
                     binding.setLeftValue(Long.toString(book.price));
                     binding.setRightValue(Double.toString(book.qty));
                 }
