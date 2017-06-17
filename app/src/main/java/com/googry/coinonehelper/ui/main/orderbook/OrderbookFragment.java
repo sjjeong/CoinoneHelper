@@ -9,7 +9,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
-import com.googry.coinonehelper.data.CoinoneTrades;
+import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.databinding.OrderbookFragBinding;
 import com.googry.coinonehelper.util.DialogUtil;
 import com.googry.coinonehelper.util.LogUtil;
@@ -75,7 +75,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     protected void newPresenter() {
-        new OrderbookPresenter(this);
+        new OrderbookPresenter(getContext(), this);
     }
 
     @Override
@@ -94,6 +94,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.load();
     }
 
     @Override
@@ -104,8 +105,14 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     }
 
     @Override
-    public void showOrderbookList(ArrayList<CoinoneOrderbook.Book> askes,
-                                  ArrayList<CoinoneOrderbook.Book> bides) {
+    public void showOrderbookList(CoinoneOrderbook coinoneOrderbook) {
+        if(coinoneOrderbook == null) return;
+        ArrayList<CoinoneOrderbook.Book> askes, bides;
+        askes = coinoneOrderbook.askes;
+        bides = coinoneOrderbook.bides;
+
+        if (askes == null || bides == null) return;
+
         if (mAskAdapter.getItemCount() == 0 &&
                 mBidAdapter.getItemCount() == 0) {
             mAskAdapter.setBooks(askes);
@@ -133,12 +140,14 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
             }
             mBidAdapter.setBook(book, i);
         }
-
     }
 
     @Override
-    public void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades) {
-        mTradeAdapter.setTrades(trades);
+    public void showTradeList(CoinoneTrade trade) {
+        if(trade == null) return;
+        if(trade.completeOrders == null) return;
+        mTradeAdapter.setTrades(trade.completeOrders);
+
     }
 
     @Override

@@ -4,9 +4,7 @@ import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
-import com.googry.coinonehelper.data.CoinoneTrades;
-
-import java.util.ArrayList;
+import com.googry.coinonehelper.data.CoinoneTrade;
 
 /**
  * Created by seokjunjeong on 2017. 5. 28..
@@ -14,10 +12,9 @@ import java.util.ArrayList;
 
 public class OrderbookContract {
     public interface View extends BaseView<Presenter> {
-        void showOrderbookList(ArrayList<CoinoneOrderbook.Book> askes,
-                               ArrayList<CoinoneOrderbook.Book> bides);
+        void showOrderbookList(CoinoneOrderbook coinoneOrderbook);
 
-        void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades);
+        void showTradeList(CoinoneTrade trade);
 
         void showCoinoneServerDownProgressDialog();
 
@@ -30,5 +27,9 @@ public class OrderbookContract {
         void stop();
 
         void load();
+
+        void loadCoinoneOrderbook();
+
+        void loadCoinoneTrade();
     }
 }

@@ -1,10 +1,13 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
-import com.googry.coinonehelper.data.CoinoneTrades;
+import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.remote.ApiManager;
-import com.googry.coinonehelper.util.LogUtil;
+import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,8 +23,10 @@ import retrofit2.Response;
  */
 
 public class OrderbookPresenter implements OrderbookContract.Presenter {
+    private static final int ORDERBOOK_CNT = 20;
     private static final int TRADE_CNT = 20;
-    private static final int REFRESH_PERIOD = 3000;
+    private static final int REFRESH_PERIOD = 5000;
+    private Context mContext;
     private OrderbookContract.View mView;
     private CoinType mCoinType;
 
@@ -31,9 +36,9 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         @Override
         public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {
             mView.hideCoinoneServerDownProgressDialog();
-            CoinoneOrderbook coinoneOrderbook = response.body();
-            mView.showOrderbookList(new ArrayList<>(coinoneOrderbook.askes.subList(0, 20)),
-                    new ArrayList<>(coinoneOrderbook.bides.subList(0, 20)));
+            if (response.body() == null) return;
+            saveCoinoneOrderbook(response.body());
+            loadCoinoneOrderbook();
         }
 
         @Override
@@ -42,31 +47,33 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
         }
     };
-    private Callback<CoinoneTrades> callbackTrades = new Callback<CoinoneTrades>() {
+    private Callback<CoinoneTrade> callbackTrades = new Callback<CoinoneTrade>() {
         @Override
-        public void onResponse(Call<CoinoneTrades> call, Response<CoinoneTrades> response) {
+        public void onResponse(Call<CoinoneTrade> call, Response<CoinoneTrade> response) {
             mView.hideCoinoneServerDownProgressDialog();
-            CoinoneTrades coinoneTrades = response.body();
-            Collections.reverse(coinoneTrades.completeOrders);
-            mView.showTradeList(new ArrayList<>(coinoneTrades.completeOrders.subList(0, TRADE_CNT)));
+            if (response.body() == null) return;
+            saveCoinoneTrade(response.body());
+            loadCoinoneTrade();
         }
 
 
         @Override
-        public void onFailure(Call<CoinoneTrades> call, Throwable t) {
+        public void onFailure(Call<CoinoneTrade> call, Throwable t) {
             mView.showCoinoneServerDownProgressDialog();
 
         }
     };
 
-    public OrderbookPresenter(OrderbookContract.View view) {
+    public OrderbookPresenter(Context context, OrderbookContract.View view) {
+        mContext = context;
         mView = view;
         mView.setPresenter(this);
     }
 
     @Override
     public void start() {
-        requestOrderbook(mCoinType);
+        loadCoinoneOrderbook();
+        loadCoinoneTrade();
     }
 
     @Override
@@ -89,6 +96,17 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     @Override
     public void load() {
         requestOrderbook(mCoinType);
+        makeTimer();
+    }
+
+    @Override
+    public void loadCoinoneOrderbook() {
+        mView.showOrderbookList(new Gson().fromJson(PrefUtil.loadOrderbook(mContext, mCoinType), CoinoneOrderbook.class));
+    }
+
+    @Override
+    public void loadCoinoneTrade() {
+        mView.showTradeList(new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), CoinoneTrade.class));
     }
 
     private void makeTimer() {
@@ -103,12 +121,23 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     private void requestOrderbook(CoinType coinType) {
-        LogUtil.i(mCoinType + " : request");
         ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
         Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType.name());
         callOrderbook.enqueue(callbackOrderbook);
-        Call<CoinoneTrades> callTrade = api.trades(coinType.name(), "hour");
+        Call<CoinoneTrade> callTrade = api.trades(coinType.name(), "hour");
         callTrade.enqueue(callbackTrades);
 
+    }
+
+    private void saveCoinoneOrderbook(CoinoneOrderbook coinoneOrderbook) {
+        coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, ORDERBOOK_CNT));
+        coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, ORDERBOOK_CNT));
+        PrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(coinoneOrderbook));
+    }
+
+    private void saveCoinoneTrade(CoinoneTrade coinoneTrade) {
+        Collections.reverse(coinoneTrade.completeOrders);
+        coinoneTrade.completeOrders = new ArrayList<>(coinoneTrade.completeOrders.subList(0, TRADE_CNT));
+        PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(coinoneTrade));
     }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by seokjunjeong on 2017. 6. 14..
  */
 
-public class CoinoneTrades {
+public class CoinoneTrade {
     @SerializedName("timestamp")
     public long timestamp;
     @SerializedName("currency")

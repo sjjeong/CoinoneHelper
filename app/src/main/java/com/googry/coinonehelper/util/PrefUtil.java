@@ -14,31 +14,20 @@ public class PrefUtil {
     private static final String EMPTY = "";
     private static final String PREF_TIME_STAMP = "pref_time_stamp";
     private static final String KEY_PREFIX = "key_";
-    private static final String KEY_SUFFIX_ASK = "_ask";
-    private static final String KEY_SUFFIX_BID = "_bid";
+    private static final String KEY_SUFFIX_ORDERBOOK = "_orderbook";
     private static final String KEY_SUFFIX_COMPLETE_ORDER = "_complete_order";
     private static final String KEY_SUFFIX_TICKER = "_ticker";
 
-    public static void saveAsk(Context context, CoinType coinType, String value) {
+
+    public static void saveOrderbook(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
-        editor.putString(getKey(coinType, KEY_SUFFIX_ASK), value);
+        editor.putString(getKey(coinType, KEY_SUFFIX_ORDERBOOK), value);
         apply(editor);
     }
 
 
-    public static String loadAsk(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_ASK), EMPTY);
-    }
-
-    public static void saveBid(Context context, CoinType coinType, String value) {
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putString(getKey(coinType, KEY_SUFFIX_BID), value);
-        apply(editor);
-    }
-
-
-    public static String loadBid(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_BID), EMPTY);
+    public static String loadOrderbook(Context context, CoinType coinType) {
+        return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_ORDERBOOK), EMPTY);
     }
 
     public static void saveCompleteOrder(Context context, CoinType coinType, String value) {
