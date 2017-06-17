@@ -31,8 +31,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        Log.i("googry", "onDestroy");
         //브로드 캐스트 해제
         unregisterReceiver(restartReceiver);
     }

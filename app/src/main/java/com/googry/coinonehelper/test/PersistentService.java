@@ -9,6 +9,8 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.googry.coinonehelper.util.LogUtil;
+
 /**
  * Created by seokjunjeong on 2017. 6. 1..
  */
@@ -31,8 +33,6 @@ public class PersistentService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        Log.i("googry", "onDestroy");
         countDownTimer.cancel();
 
         /**
@@ -60,11 +60,10 @@ public class PersistentService extends Service {
 
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             public void onTick(long millisUntilFinished) {
-                Log.i("googry", "onTick : " + millisUntilFinished);
+                // Todo : 동작부분 구현
             }
 
             public void onFinish() {
-                Log.i("googry", "onFinish");
                 countDownTimer();
                 countDownTimer.start();
             }
@@ -76,8 +75,7 @@ public class PersistentService extends Service {
      * 알람 매니져에 서비스 등록
      */
     private void registerRestartAlarm() {
-
-        Log.i("googry", "registerRestartAlarm");
+        LogUtil.i("registerRestartAlarm");
         Intent intent = new Intent(PersistentService.this, RestartReceiver.class);
         intent.setAction("ACTION.RESTART.PersistentService");
         PendingIntent sender = PendingIntent.getBroadcast(PersistentService.this, 0, intent, 0);
@@ -98,8 +96,7 @@ public class PersistentService extends Service {
      * 알람 매니져에 서비스 해제
      */
     private void unregisterRestartAlarm() {
-
-        Log.i("googry", "unregisterRestartAlarm");
+        LogUtil.i("unregisterRestartAlarm");
 
         Intent intent = new Intent(PersistentService.this, RestartReceiver.class);
         intent.setAction("ACTION.RESTART.PersistentService");

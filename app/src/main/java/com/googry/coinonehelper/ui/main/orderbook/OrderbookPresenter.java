@@ -5,6 +5,7 @@ import android.util.Log;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTrades;
 import com.googry.coinonehelper.data.remote.ApiManager;
+import com.googry.coinonehelper.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,7 +104,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     private void requestOrderbook(String coinType) {
-        Log.i("googry", mCoinType + " : request");
+        LogUtil.i(mCoinType + " : request");
         ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
         Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType);
         callOrderbook.enqueue(callbackOrderbook);

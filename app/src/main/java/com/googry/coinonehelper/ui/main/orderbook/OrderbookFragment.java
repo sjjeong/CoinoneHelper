@@ -12,6 +12,7 @@ import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTrades;
 import com.googry.coinonehelper.databinding.OrderbookFragBinding;
 import com.googry.coinonehelper.util.DialogUtil;
+import com.googry.coinonehelper.util.LogUtil;
 
 import java.util.ArrayList;
 
@@ -98,7 +99,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("googry", mCoinType + " fragment pause()");
+        LogUtil.i(mCoinType + " fragment pause()");
         mPresenter.stop();
     }
 
