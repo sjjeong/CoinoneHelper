@@ -46,8 +46,6 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     protected void initView() {
-
-
         mRvAskes = mBinding.rvAskes;
         mRvBides = mBinding.rvBides;
         mRvTrades = mBinding.rvTrades;
@@ -72,9 +70,6 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
         mRvAskes.setLayoutManager(layoutManager);
 
         mCoinType = getArguments().getString(COIN_TYPE);
-
-        mBinding.setPresenter(mPresenter);
-        mPresenter.setCoinType(mCoinType);
     }
 
     @Override
@@ -84,6 +79,9 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     protected void startPresenter() {
+        mBinding.setPresenter(mPresenter);
+        mPresenter.setCoinType(mCoinType);
+
         mPresenter.start();
     }
 
@@ -95,13 +93,12 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("googry",mCoinType + " fragment pause()");
+        Log.i("googry", mCoinType + " fragment pause()");
         mPresenter.stop();
     }
 

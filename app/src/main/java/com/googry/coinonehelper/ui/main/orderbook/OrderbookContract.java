@@ -12,16 +12,22 @@ import java.util.ArrayList;
  */
 
 public class OrderbookContract {
-    public interface View extends BaseView<Presenter>{
+    public interface View extends BaseView<Presenter> {
         void showOrderbookList(ArrayList<CoinoneOrderbook.Book> askes,
-                                 ArrayList<CoinoneOrderbook.Book> bides);
+                               ArrayList<CoinoneOrderbook.Book> bides);
+
         void showTradeList(ArrayList<CoinoneTrades.CompleteOrder> trades);
+
         void showCoinoneServerDownProgressDialog();
+
         void hideCoinoneServerDownProgressDialog();
     }
 
-    public interface Presenter extends BasePresenter{
+    public interface Presenter extends BasePresenter {
         void setCoinType(String coinType);
+
         void stop();
+
+        void load();
     }
 }

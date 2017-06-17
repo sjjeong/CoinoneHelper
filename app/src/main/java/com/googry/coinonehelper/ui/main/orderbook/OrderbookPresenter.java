@@ -27,6 +27,37 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     private Timer mTimer;
     private TimerTask mTimerTask;
+    private Callback<CoinoneOrderbook> callbackOrderbook = new Callback<CoinoneOrderbook>() {
+        @Override
+        public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {
+            mView.hideCoinoneServerDownProgressDialog();
+            CoinoneOrderbook coinoneOrderbook = response.body();
+            mView.showOrderbookList(new ArrayList<>(coinoneOrderbook.askes.subList(0, 20)),
+                    new ArrayList<>(coinoneOrderbook.bides.subList(0, 20)));
+        }
+
+        @Override
+        public void onFailure(Call<CoinoneOrderbook> call, Throwable t) {
+            mView.showCoinoneServerDownProgressDialog();
+
+        }
+    };
+    private Callback<CoinoneTrades> callbackTrades = new Callback<CoinoneTrades>() {
+        @Override
+        public void onResponse(Call<CoinoneTrades> call, Response<CoinoneTrades> response) {
+            mView.hideCoinoneServerDownProgressDialog();
+            CoinoneTrades coinoneTrades = response.body();
+            Collections.reverse(coinoneTrades.completeOrders);
+            mView.showTradeList(new ArrayList<>(coinoneTrades.completeOrders.subList(0, TRADE_CNT)));
+        }
+
+
+        @Override
+        public void onFailure(Call<CoinoneTrades> call, Throwable t) {
+            mView.showCoinoneServerDownProgressDialog();
+
+        }
+    };
 
     public OrderbookPresenter(OrderbookContract.View view) {
         mView = view;
@@ -36,15 +67,6 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     @Override
     public void start() {
         requestOrderbook(mCoinType);
-        mTimer = new Timer();
-        mTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                requestOrderbook(mCoinType);
-            }
-        };
-        mTimer.schedule(mTimerTask, 1000, REFRESH_PERIOD);
-
     }
 
     @Override
@@ -64,7 +86,24 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         }
     }
 
+    @Override
+    public void load() {
+        requestOrderbook(mCoinType);
+    }
+
+    private void makeTimer() {
+        mTimer = new Timer();
+        mTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                requestOrderbook(mCoinType);
+            }
+        };
+        mTimer.schedule(mTimerTask, 1000, REFRESH_PERIOD);
+    }
+
     private void requestOrderbook(String coinType) {
+        Log.i("googry", mCoinType + " : request");
         ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
         Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType);
         callOrderbook.enqueue(callbackOrderbook);
@@ -72,37 +111,4 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         callTrade.enqueue(callbackTrades);
 
     }
-
-    private Callback<CoinoneOrderbook> callbackOrderbook = new Callback<CoinoneOrderbook>() {
-        @Override
-        public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {
-            mView.hideCoinoneServerDownProgressDialog();
-            CoinoneOrderbook coinoneOrderbook = response.body();
-            mView.showOrderbookList(coinoneOrderbook.askes,
-                    coinoneOrderbook.bides);
-        }
-
-        @Override
-        public void onFailure(Call<CoinoneOrderbook> call, Throwable t) {
-            mView.showCoinoneServerDownProgressDialog();
-
-        }
-    };
-
-    private Callback<CoinoneTrades> callbackTrades = new Callback<CoinoneTrades>() {
-        @Override
-        public void onResponse(Call<CoinoneTrades> call, Response<CoinoneTrades> response) {
-            mView.hideCoinoneServerDownProgressDialog();
-            CoinoneTrades coinoneTrades = response.body();
-            Collections.reverse(coinoneTrades.completeOrders);
-            mView.showTradeList(new ArrayList<>(coinoneTrades.completeOrders.subList(0, TRADE_CNT)));
-        }
-
-
-        @Override
-        public void onFailure(Call<CoinoneTrades> call, Throwable t) {
-            mView.showCoinoneServerDownProgressDialog();
-
-        }
-    };
 }
