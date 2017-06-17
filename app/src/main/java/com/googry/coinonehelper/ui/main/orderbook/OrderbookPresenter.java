@@ -1,7 +1,6 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
-import android.util.Log;
-
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTrades;
 import com.googry.coinonehelper.data.remote.ApiManager;
@@ -24,7 +23,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     private static final int TRADE_CNT = 20;
     private static final int REFRESH_PERIOD = 3000;
     private OrderbookContract.View mView;
-    private String mCoinType;
+    private CoinType mCoinType;
 
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -71,7 +70,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     @Override
-    public void setCoinType(String coinType) {
+    public void setCoinType(CoinType coinType) {
         mCoinType = coinType;
     }
 
@@ -103,12 +102,12 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         mTimer.schedule(mTimerTask, 1000, REFRESH_PERIOD);
     }
 
-    private void requestOrderbook(String coinType) {
+    private void requestOrderbook(CoinType coinType) {
         LogUtil.i(mCoinType + " : request");
         ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
-        Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType);
+        Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType.name());
         callOrderbook.enqueue(callbackOrderbook);
-        Call<CoinoneTrades> callTrade = api.trades(coinType, "hour");
+        Call<CoinoneTrades> callTrade = api.trades(coinType.name(), "hour");
         callTrade.enqueue(callbackTrades);
 
     }

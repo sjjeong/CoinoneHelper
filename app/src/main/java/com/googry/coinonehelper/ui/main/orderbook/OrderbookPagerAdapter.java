@@ -13,13 +13,12 @@ import com.googry.coinonehelper.data.CoinType;
 public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     private static final int COIN_CNT = CoinType.values().length;
     private OrderbookFragment[] mOrderbookFragments;
-    private String[] mCoinTypes = {"btc", "eth", "etc", "xrp"};
 
     public OrderbookPagerAdapter(FragmentManager fm) {
         super(fm);
         mOrderbookFragments = new OrderbookFragment[COIN_CNT];
         for (int i = 0; i < COIN_CNT; i++) {
-            mOrderbookFragments[i] = OrderbookFragment.newInstance(mCoinTypes[i]);
+            mOrderbookFragments[i] = OrderbookFragment.newInstance(CoinType.values()[i]);
         }
     }
 

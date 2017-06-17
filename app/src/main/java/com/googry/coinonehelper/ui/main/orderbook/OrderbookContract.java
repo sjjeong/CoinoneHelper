@@ -2,6 +2,7 @@ package com.googry.coinonehelper.ui.main.orderbook;
 
 import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTrades;
 
@@ -24,7 +25,7 @@ public class OrderbookContract {
     }
 
     public interface Presenter extends BasePresenter {
-        void setCoinType(String coinType);
+        void setCoinType(CoinType coinType);
 
         void stop();
 

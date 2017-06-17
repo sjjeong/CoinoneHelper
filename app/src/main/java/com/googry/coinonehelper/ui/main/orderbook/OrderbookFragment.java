@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTrades;
 import com.googry.coinonehelper.databinding.OrderbookFragBinding;
@@ -22,20 +22,20 @@ import java.util.ArrayList;
 
 public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
         implements OrderbookContract.View {
-    private static final String COIN_TYPE = "coinType";
+    private static final String KEY_COIN_TYPE = "coinType";
 
     private OrderbookContract.Presenter mPresenter;
     private RecyclerView mRvAskes, mRvBides, mRvTrades;
     private OrderbookAdapter mAskAdapter, mBidAdapter;
     private TradeAdapter mTradeAdapter;
 
-    private String mCoinType;
+    private CoinType mCoinType;
 
 
-    public static OrderbookFragment newInstance(String coinType) {
+    public static OrderbookFragment newInstance(CoinType coinType) {
         OrderbookFragment orderbookFragment = new OrderbookFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(COIN_TYPE, coinType);
+        bundle.putSerializable(KEY_COIN_TYPE, coinType);
         orderbookFragment.setArguments(bundle);
         return orderbookFragment;
     }
@@ -70,7 +70,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
         layoutManager.setAutoMeasureEnabled(false);
         mRvAskes.setLayoutManager(layoutManager);
 
-        mCoinType = getArguments().getString(COIN_TYPE);
+        mCoinType = (CoinType) getArguments().getSerializable(KEY_COIN_TYPE);
     }
 
     @Override
