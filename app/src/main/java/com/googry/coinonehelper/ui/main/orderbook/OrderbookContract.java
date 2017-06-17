@@ -4,6 +4,7 @@ import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 
 /**
@@ -15,6 +16,8 @@ public class OrderbookContract {
         void showOrderbookList(CoinoneOrderbook coinoneOrderbook);
 
         void showTradeList(CoinoneTrade trade);
+
+        void showTicker(CoinoneTicker.Ticker ticker);
 
         void showCoinoneServerDownProgressDialog();
 
@@ -31,5 +34,7 @@ public class OrderbookContract {
         void loadCoinoneOrderbook();
 
         void loadCoinoneTrade();
+
+        void loadCoinoneTicker();
     }
 }

@@ -7,4 +7,11 @@
     <string name="etc">ETC</string>
     <string name="xrp">XRP</string>
     <string name="coinone_server_down">코인원 서버가 다운됐습니다. 잠시만 기다려주세요.</string>
+    <string name="last_price">현재가</string>
+    <string name="first_price">전일가</string>
+    <string name="high_price">고가</string>
+    <string name="low_price">저가</string>
+    <string name="volume">거래량</string>
+    <string name="rate_before_price">전일대비</string>
+
 </resources>

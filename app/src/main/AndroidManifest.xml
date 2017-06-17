@@ -30,12 +30,12 @@
             android:screenOrientation="portrait"/>
 
         <service
-            android:name="com.googry.coinonehelper.test.PersistentService"
+            android:name="com.googry.coinonehelper.background.PersistentService"
             android:enabled="true"
             android:process=":remote"></service>
 
         <receiver
-            android:name="com.googry.coinonehelper.test.RestartReceiver"
+            android:name="com.googry.coinonehelper.background.RestartReceiver"
             android:enabled="true"
             android:exported="false"
             android:label="RestartService"

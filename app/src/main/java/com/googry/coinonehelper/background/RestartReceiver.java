@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.test;
+package com.googry.coinonehelper.background;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

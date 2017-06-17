@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.googry.coinonehelper.test.PersistentService;
-import com.googry.coinonehelper.test.RestartReceiver;
+import com.googry.coinonehelper.background.PersistentService;
+import com.googry.coinonehelper.background.RestartReceiver;
 import com.googry.coinonehelper.ui.main.MainActivity;
 
 /**
@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         intent = new Intent(SplashActivity.this, PersistentService.class);
 
 
-        IntentFilter intentFilter = new IntentFilter("com.googry.coinonehelper.test.PersistentService");
+        IntentFilter intentFilter = new IntentFilter("com.googry.coinonehelper.background.PersistentService");
         //브로드 캐스트에 등록
         registerReceiver(restartReceiver, intentFilter);
         // 서비스 시작

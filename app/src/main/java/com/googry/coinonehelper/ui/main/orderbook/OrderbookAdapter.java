@@ -79,13 +79,13 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
             binding.setBookType(mBookType);
             switch (mBookType) {
                 case ASK: {
-                    binding.setLeftValue(Double.toString(book.qty));
-                    binding.setRightValue(Long.toString(book.price));
+                    binding.setLeftValue(String.format("%,.4f", book.qty));
+                    binding.setRightValue(String.format("%,d", book.price));
                 }
                 break;
                 case BID: {
-                    binding.setLeftValue(Long.toString(book.price));
-                    binding.setRightValue(Double.toString(book.qty));
+                    binding.setLeftValue(String.format("%,d", book.price));
+                    binding.setRightValue(String.format("%,.4f", book.qty));
                 }
                 break;
             }

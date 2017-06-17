@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.googry.coinonehelper.ui.main.orderbook.OrderbookAdapter.BookType" />
+        <import type="com.googry.coinonehelper.ui.main.orderbook.OrderbookAdapter.BookType"/>
 
         <variable
             name="leftValue"
-            type="String" />
+            type="String"/>
 
         <variable
             name="rightValue"
-            type="String" />
+            type="String"/>
 
         <variable
             name="bookType"
-            type="com.googry.coinonehelper.ui.main.orderbook.OrderbookAdapter.BookType" />
+            type="com.googry.coinonehelper.ui.main.orderbook.OrderbookAdapter.BookType"/>
     </data>
 
     <FrameLayout
@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:text="@{leftValue}"
                 android:textColor="@{bookType == BookType.ASK ? @color/colorAsk : @color/colorBid}"
-                tools:text="leftValue" />
+                tools:text="leftValue"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -45,7 +45,7 @@
                 android:gravity="center"
                 android:text="@{rightValue}"
                 android:textColor="@{bookType == BookType.ASK ? @color/colorAsk : @color/colorBid}"
-                tools:text="rightValue" />
+                tools:text="rightValue"/>
 
 
         </LinearLayout>

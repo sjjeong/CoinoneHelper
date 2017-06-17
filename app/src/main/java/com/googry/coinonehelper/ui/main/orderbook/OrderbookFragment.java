@@ -9,6 +9,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.databinding.OrderbookFragBinding;
 import com.googry.coinonehelper.util.DialogUtil;
@@ -94,6 +95,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
     @Override
     public void onResume() {
         super.onResume();
+        LogUtil.i(mCoinType + " fragment resume()");
         mPresenter.load();
     }
 
@@ -106,7 +108,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     public void showOrderbookList(CoinoneOrderbook coinoneOrderbook) {
-        if(coinoneOrderbook == null) return;
+        if (coinoneOrderbook == null) return;
         ArrayList<CoinoneOrderbook.Book> askes, bides;
         askes = coinoneOrderbook.askes;
         bides = coinoneOrderbook.bides;
@@ -144,10 +146,16 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     public void showTradeList(CoinoneTrade trade) {
-        if(trade == null) return;
-        if(trade.completeOrders == null) return;
+        if (trade == null) return;
+        if (trade.completeOrders == null) return;
         mTradeAdapter.setTrades(trade.completeOrders);
 
+    }
+
+    @Override
+    public void showTicker(CoinoneTicker.Ticker ticker) {
+        if (ticker == null) return;
+        mBinding.setTicker(ticker);
     }
 
     @Override

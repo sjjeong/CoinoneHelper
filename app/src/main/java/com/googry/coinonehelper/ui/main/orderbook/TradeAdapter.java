@@ -58,8 +58,8 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> 
         }
 
         public void bind(CoinoneTrade.CompleteOrder trade) {
-            binding.setPrice(Long.toString(trade.price));
-            binding.setQty(Double.toString(trade.qty));
+            binding.setPrice(String.format("%,d", trade.price));
+            binding.setQty(String.format("%,.4f", trade.qty));
             binding.setBuy(true);
         }
 

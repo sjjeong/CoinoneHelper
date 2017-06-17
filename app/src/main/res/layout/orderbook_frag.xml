@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="presenter"
             type="com.googry.coinonehelper.ui.main.orderbook.OrderbookContract.Presenter"/>
+
+        <variable
+            name="ticker"
+            type="com.googry.coinonehelper.data.CoinoneTicker.Ticker"/>
     </data>
 
     <LinearLayout
@@ -32,16 +35,91 @@
                 app:layoutManager="LinearLayoutManager"/>
 
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="2dp">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_price"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text='@{String.format("%,d",ticker.last)}'
+                        android:textColor="@{(ticker.last - ticker.first) >= 0 ? @color/colorBid : @color/colorAsk}"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/first_price"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text='@{String.format("%,d",ticker.first)}'/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rate_before_price"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text='@{String.format("%+,d \n %+.2f%%",(ticker.last - ticker.first),(Double.valueOf((ticker.last - ticker.first)) * 100 / ticker.first))}'
+                        android:textColor="@{(ticker.last - ticker.first) >= 0 ? @color/colorBid : @color/colorAsk}"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/high_price"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text='@{String.format("%,d",ticker.high)}'/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/low_price"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text='@{String.format("%,d",ticker.low)}'/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/volume"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text='@{String.format("%,.4f",ticker.volume)}'/>
+
+                </LinearLayout>
+
+
+            </ScrollView>
 
         </LinearLayout>
 

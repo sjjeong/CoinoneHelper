@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.remote.ApiManager;
 import com.googry.coinonehelper.util.PrefUtil;
@@ -32,7 +33,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     private Timer mTimer;
     private TimerTask mTimerTask;
-    private Callback<CoinoneOrderbook> callbackOrderbook = new Callback<CoinoneOrderbook>() {
+    private Callback<CoinoneOrderbook> mOrderbookCallback = new Callback<CoinoneOrderbook>() {
         @Override
         public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {
             mView.hideCoinoneServerDownProgressDialog();
@@ -47,7 +48,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
         }
     };
-    private Callback<CoinoneTrade> callbackTrades = new Callback<CoinoneTrade>() {
+    private Callback<CoinoneTrade> mTradeCallback = new Callback<CoinoneTrade>() {
         @Override
         public void onResponse(Call<CoinoneTrade> call, Response<CoinoneTrade> response) {
             mView.hideCoinoneServerDownProgressDialog();
@@ -64,6 +65,22 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         }
     };
 
+    private Callback<CoinoneTicker.Ticker> mTickerCallback = new Callback<CoinoneTicker.Ticker>() {
+        @Override
+        public void onResponse(Call<CoinoneTicker.Ticker> call, Response<CoinoneTicker.Ticker> response) {
+            mView.hideCoinoneServerDownProgressDialog();
+            if (response.body() == null) return;
+            saveCoinoneTicker(response.body());
+            loadCoinoneTicker();
+        }
+
+        @Override
+        public void onFailure(Call<CoinoneTicker.Ticker> call, Throwable t) {
+            mView.showCoinoneServerDownProgressDialog();
+
+        }
+    };
+
     public OrderbookPresenter(Context context, OrderbookContract.View view) {
         mContext = context;
         mView = view;
@@ -74,6 +91,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     public void start() {
         loadCoinoneOrderbook();
         loadCoinoneTrade();
+        loadCoinoneTicker();
     }
 
     @Override
@@ -109,6 +127,11 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         mView.showTradeList(new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), CoinoneTrade.class));
     }
 
+    @Override
+    public void loadCoinoneTicker() {
+        mView.showTicker(new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class));
+    }
+
     private void makeTimer() {
         mTimer = new Timer();
         mTimerTask = new TimerTask() {
@@ -123,9 +146,11 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     private void requestOrderbook(CoinType coinType) {
         ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
         Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType.name());
-        callOrderbook.enqueue(callbackOrderbook);
+        callOrderbook.enqueue(mOrderbookCallback);
         Call<CoinoneTrade> callTrade = api.trades(coinType.name(), "hour");
-        callTrade.enqueue(callbackTrades);
+        callTrade.enqueue(mTradeCallback);
+        Call<CoinoneTicker.Ticker> callTicker = api.ticker(coinType.name());
+        callTicker.enqueue(mTickerCallback);
 
     }
 
@@ -139,5 +164,9 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         Collections.reverse(coinoneTrade.completeOrders);
         coinoneTrade.completeOrders = new ArrayList<>(coinoneTrade.completeOrders.subList(0, TRADE_CNT));
         PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(coinoneTrade));
+    }
+
+    private void saveCoinoneTicker(CoinoneTicker.Ticker ticker) {
+        PrefUtil.saveTicker(mContext, mCoinType, new Gson().toJson(ticker));
     }
 }

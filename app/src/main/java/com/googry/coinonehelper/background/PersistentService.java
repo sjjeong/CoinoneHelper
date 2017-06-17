@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.test;
+package com.googry.coinonehelper.background;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,7 +8,16 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.SystemClock;
 
+import com.google.gson.Gson;
+import com.googry.coinonehelper.data.CoinType;
+import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.remote.ApiManager;
 import com.googry.coinonehelper.util.LogUtil;
+import com.googry.coinonehelper.util.PrefUtil;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by seokjunjeong on 2017. 6. 1..
@@ -59,7 +68,41 @@ public class PersistentService extends Service {
 
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             public void onTick(long millisUntilFinished) {
-                // Todo : 동작부분 구현
+                ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
+                Call<CoinoneTicker> call = api.allTicker();
+                call.enqueue(new Callback<CoinoneTicker>() {
+                    @Override
+                    public void onResponse(Call<CoinoneTicker> call, Response<CoinoneTicker> response) {
+                        if (response.body() == null) return;
+                        CoinoneTicker coinoneTicker = response.body();
+                        Gson gson = new Gson();
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.BTC,
+                                gson.toJson(coinoneTicker.btc, CoinoneTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.ETH,
+                                gson.toJson(coinoneTicker.eth, CoinoneTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.ETC,
+                                gson.toJson(coinoneTicker.etc, CoinoneTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.XRP,
+                                gson.toJson(coinoneTicker.xrp, CoinoneTicker.Ticker.class)
+                        );
+                    }
+
+                    @Override
+                    public void onFailure(Call<CoinoneTicker> call, Throwable t) {
+
+                    }
+                });
             }
 
             public void onFinish() {

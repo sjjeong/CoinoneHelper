@@ -1,6 +1,7 @@
 package com.googry.coinonehelper.data.remote;
 
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 
 import retrofit2.Call;
@@ -38,6 +39,15 @@ public class ApiManager {
                 @Query("currency") String currency,
                 @Query("period") String period
         );
+
+        @GET("ticker/?currency=all")
+        Call<CoinoneTicker> allTicker();
+
+        @GET("ticker")
+        Call<CoinoneTicker.Ticker> ticker(
+                @Query("currency") String currency
+        );
+
     }
 
 
