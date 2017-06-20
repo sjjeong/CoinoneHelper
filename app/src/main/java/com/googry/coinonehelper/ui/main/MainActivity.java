@@ -2,6 +2,7 @@ package com.googry.coinonehelper.ui.main;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
+import com.googry.coinonehelper.ui.widget.ExitAdDialog;
 
 public class MainActivity extends BaseActivity<MainFragment> {
     @Override
@@ -27,5 +28,14 @@ public class MainActivity extends BaseActivity<MainFragment> {
     @Override
     protected MainFragment getFragment() {
         return MainFragment.newInstance();
+    }
+
+    @Override
+    public void onBackPressed() {
+        ExitAdDialog exitAdDialog = new ExitAdDialog();
+        exitAdDialog.setCancelable(false);
+        exitAdDialog.show(getSupportFragmentManager(),exitAdDialog.getTag());
+
+        //super.onBackPressed();
     }
 }
