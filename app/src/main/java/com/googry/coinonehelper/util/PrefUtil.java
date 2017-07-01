@@ -22,7 +22,7 @@ public class PrefUtil {
     public static void saveOrderbook(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putString(getKey(coinType, KEY_SUFFIX_ORDERBOOK), value);
-        apply(editor);
+        commit(editor);
     }
 
 
@@ -33,7 +33,7 @@ public class PrefUtil {
     public static void saveCompleteOrder(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putString(getKey(coinType, KEY_SUFFIX_COMPLETE_ORDER), value);
-        apply(editor);
+        commit(editor);
     }
 
 
@@ -44,7 +44,7 @@ public class PrefUtil {
     public static void saveTicker(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putString(getKey(coinType, KEY_SUFFIX_TICKER), value);
-        apply(editor);
+        commit(editor);
     }
 
 

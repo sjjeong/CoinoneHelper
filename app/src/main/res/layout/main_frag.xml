@@ -23,40 +23,48 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
                     android:id="@+id/btn_btc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:gravity="center"
                     android:onClick="@{fragment::onClickChangeOrderbookType}"
+                    android:padding="10dp"
                     android:text="@string/btc"/>
 
-                <Button
+                <TextView
                     android:id="@+id/btn_eth"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:gravity="center"
                     android:onClick="@{fragment::onClickChangeOrderbookType}"
+                    android:padding="10dp"
                     android:text="@string/eth"/>
 
-                <Button
+                <TextView
                     android:id="@+id/btn_etc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:gravity="center"
                     android:onClick="@{fragment::onClickChangeOrderbookType}"
+                    android:padding="10dp"
                     android:text="@string/etc"/>
 
-                <Button
+                <TextView
                     android:id="@+id/btn_xrp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:gravity="center"
                     android:onClick="@{fragment::onClickChangeOrderbookType}"
+                    android:padding="10dp"
                     android:text="@string/xrp"/>
 
             </LinearLayout>

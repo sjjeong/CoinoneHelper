@@ -22,6 +22,7 @@ public class DialogUtil {
         if (mServerDownProgressDialog == null && context != null) {
             createServerDownProgressDialog(context);
         }
+        if (mServerDownProgressDialog == null) return;
         if (mServerDownProgressDialog.isShowing()) return;
 
         try {
