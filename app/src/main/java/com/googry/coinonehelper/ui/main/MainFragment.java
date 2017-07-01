@@ -9,7 +9,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
-import com.googry.coinonehelper.databinding.MainFragBinding;
+import com.googry.coinonehelper.databinding.MainFragmentBinding;
 import com.googry.coinonehelper.ui.main.orderbook.OrderbookPagerAdapter;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
@@ -17,7 +17,7 @@ import com.viewpagerindicator.UnderlinePageIndicator;
  * Created by seokjunjeong on 2017. 5. 27..
  */
 
-public class MainFragment extends BaseFragment<MainFragBinding> implements MainContract.View {
+public class MainFragment extends BaseFragment<MainFragmentBinding> implements MainContract.View {
     private MainContract.Presenter mPresenter;
     private ViewPager mVpDashboard;
     private OrderbookPagerAdapter mOrderbookPagerAdapter;

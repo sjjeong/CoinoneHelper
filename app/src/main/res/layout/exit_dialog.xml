@@ -55,9 +55,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:onClick="@{(v) -> dialog.onCancelClick(v)}"
                     android:text="@string/cancel"
                     android:textColor="@color/black"
-                    android:onClick="@{(v) -> dialog.onCancelClick(v)}"
                     android:textSize="18dp"/>
 
                 <Button
@@ -65,8 +65,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="@string/exit"
                     android:onClick="@{(v) -> dialog.onExitClick(v)}"
+                    android:text="@string/exit"
                     android:textColor="@color/black"
                     android:textSize="18dp"/>
 

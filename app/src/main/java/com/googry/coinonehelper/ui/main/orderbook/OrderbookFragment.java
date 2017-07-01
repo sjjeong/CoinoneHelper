@@ -11,7 +11,7 @@ import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
-import com.googry.coinonehelper.databinding.OrderbookFragBinding;
+import com.googry.coinonehelper.databinding.OrderbookFragmentBinding;
 import com.googry.coinonehelper.util.DialogUtil;
 import com.googry.coinonehelper.util.LogUtil;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
-public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
+public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
         implements OrderbookContract.View {
     private static final String KEY_COIN_TYPE = "coinType";
 

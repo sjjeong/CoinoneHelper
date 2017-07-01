@@ -11,7 +11,7 @@ import android.os.SystemClock;
 import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneTicker;
-import com.googry.coinonehelper.data.remote.ApiManager;
+import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 
@@ -68,7 +68,7 @@ public class PersistentService extends Service {
 
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             public void onTick(long millisUntilFinished) {
-                ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
+                CoinoneApiManager.CoinonePublicApi api = CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePublicApi.class);
                 Call<CoinoneTicker> call = api.allTicker();
                 call.enqueue(new Callback<CoinoneTicker>() {
                     @Override

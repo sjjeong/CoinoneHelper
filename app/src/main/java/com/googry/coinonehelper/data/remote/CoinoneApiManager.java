@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * Created by seokjunjeong on 2017. 5. 27..
  */
 
-public class ApiManager {
+public class CoinoneApiManager {
     private static final String BASE_URL = "https://api.coinone.co.kr/";
     private static Retrofit mInstance;
 
@@ -28,7 +28,7 @@ public class ApiManager {
         return mInstance;
     }
 
-    public interface PublicApi {
+    public interface CoinonePublicApi {
         @GET("orderbook/")
         Call<CoinoneOrderbook> orderbook(
                 @Query("currency") String currency
@@ -49,6 +49,5 @@ public class ApiManager {
         );
 
     }
-
 
 }

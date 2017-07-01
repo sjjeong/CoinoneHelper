@@ -7,7 +7,7 @@ import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
-import com.googry.coinonehelper.data.remote.ApiManager;
+import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.ArrayList;
@@ -144,7 +144,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     private void requestOrderbook(CoinType coinType) {
-        ApiManager.PublicApi api = ApiManager.getApiManager().create(ApiManager.PublicApi.class);
+        CoinoneApiManager.CoinonePublicApi api = CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePublicApi.class);
         Call<CoinoneOrderbook> callOrderbook = api.orderbook(coinType.name());
         callOrderbook.enqueue(mOrderbookCallback);
         Call<CoinoneTrade> callTrade = api.trades(coinType.name(), "hour");
