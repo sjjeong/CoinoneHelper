@@ -19,5 +19,6 @@
     <string name="cancel">취소</string>
     <string name="exit">종료</string>
     <string name="developing">개발 중입니다...</string>
+    <string name="compare_another_exchange">거래소 별 가격</string>
 
 </resources>

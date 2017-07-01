@@ -43,7 +43,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragBinding>
 
     @Override
     protected int getLayoutId() {
-        return R.layout.orderbook_frag;
+        return R.layout.orderbook_fragment;
     }
 
     @Override

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.googry.coinonehelper.ui.main.MainActivity"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.googry.coinonehelper.ui.main.MainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+            <!--<include-->
+            <!--layout="@layout/main_toolbar"/>-->
+
+            <!--</android.support.design.widget.AppBarLayout>-->
+
+            <android.support.v4.widget.DrawerLayout
+                android:id="@+id/navigation_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/content_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <include
+                    layout="@layout/main_navigation_drawer"
+                    bind:activity="@{activity}"/>
+
+            </android.support.v4.widget.DrawerLayout>
+        </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

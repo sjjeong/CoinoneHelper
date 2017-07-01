@@ -38,7 +38,7 @@ public class MainFragment extends BaseFragment<MainFragBinding> implements MainC
 
     @Override
     protected int getLayoutId() {
-        return R.layout.main_frag;
+        return R.layout.main_fragment;
     }
 
     @Override

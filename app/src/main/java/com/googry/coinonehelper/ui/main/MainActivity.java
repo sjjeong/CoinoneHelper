@@ -2,8 +2,8 @@ package com.googry.coinonehelper.ui.main;
 
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 
-import com.google.firebase.crash.FirebaseCrash;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
@@ -13,7 +13,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.main_act;
+        return R.layout.main_activity;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     protected void initView() {
-//        FirebaseCrash.report(new Exception("My first Android non-fatal error"));
+
     }
 
     @Override
@@ -50,5 +50,10 @@ public class MainActivity extends BaseActivity<MainFragment> {
         exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
 
         //super.onBackPressed();
+    }
+
+    // databinding
+    public void onCompareAnotherExchangeClick(View v) {
+//        startActivity(new Intent(getApplicationContext(),));
     }
 }
