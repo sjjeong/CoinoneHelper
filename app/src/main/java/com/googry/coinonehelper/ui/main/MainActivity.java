@@ -1,15 +1,21 @@
 package com.googry.coinonehelper.ui.main;
 
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
+import com.googry.coinonehelper.databinding.MainActivityBinding;
+import com.googry.coinonehelper.ui.compare_another_exchange.CompareAnotherExchangeActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
 
 public class MainActivity extends BaseActivity<MainFragment> {
     private DrawerLayout mDrawerLayout;
+    private MainActivityBinding mBinding;
 
     @Override
     protected int getLayoutId() {
@@ -23,7 +29,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     protected void initView() {
-
+        mBinding = DataBindingUtil.bind(findViewById(R.id.root));
+        mBinding.setActivity(this);
     }
 
     @Override
@@ -49,11 +56,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
         exitAdDialog.setCancelable(false);
         exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
 
-        //super.onBackPressed();
     }
 
     // databinding
     public void onCompareAnotherExchangeClick(View v) {
-//        startActivity(new Intent(getApplicationContext(),));
+        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
     }
+
 }

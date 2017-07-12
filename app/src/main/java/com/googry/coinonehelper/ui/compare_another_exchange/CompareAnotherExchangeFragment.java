@@ -1,7 +1,11 @@
 package com.googry.coinonehelper.ui.compare_another_exchange;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
+import com.googry.coinonehelper.data.BithumbTicker;
+import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.databinding.CompareAnotherExchangeFragmentBinding;
 
 /**
@@ -10,6 +14,7 @@ import com.googry.coinonehelper.databinding.CompareAnotherExchangeFragmentBindin
 
 public class CompareAnotherExchangeFragment extends BaseFragment<CompareAnotherExchangeFragmentBinding> implements CompareAnotherExchangeContract.View {
     private CompareAnotherExchangeContract.Presenter mPresenter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public static CompareAnotherExchangeFragment newInstance() {
         CompareAnotherExchangeFragment fragment = new CompareAnotherExchangeFragment();
@@ -28,6 +33,14 @@ public class CompareAnotherExchangeFragment extends BaseFragment<CompareAnotherE
 
     @Override
     protected void initView() {
+        mSwipeRefreshLayout = mBinding.swipeRefreshLayout;
+        mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.loadTicker();
+            }
+        });
 
     }
 
@@ -39,5 +52,20 @@ public class CompareAnotherExchangeFragment extends BaseFragment<CompareAnotherE
     @Override
     protected void startPresenter() {
         mPresenter.start();
+    }
+
+    @Override
+    public void showCoinoneTicker(CoinoneTicker coinoneTicker) {
+        mBinding.setCoinoneTicker(coinoneTicker);
+    }
+
+    @Override
+    public void showBithumbTicker(BithumbTicker bithumbTicker) {
+        mBinding.setBithumbTicker(bithumbTicker);
+    }
+
+    @Override
+    public void hideProgress() {
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

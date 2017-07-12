@@ -34,8 +34,12 @@ public class DialogUtil {
     }
 
     public static void hideProgressDialog() {
-        if (mServerDownProgressDialog != null) {
-            mServerDownProgressDialog.dismiss();
+        if (mServerDownProgressDialog != null && mServerDownProgressDialog.isShowing()) {
+            try {
+                mServerDownProgressDialog.dismiss();
+            }catch (Exception e){
+
+            }
         }
     }
 }
