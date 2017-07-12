@@ -3,6 +3,6 @@
     <dimen name="compare_cardview_cardCornerRadius">5dp</dimen>
     <dimen name="compare_cardview_cardElevation">4dp</dimen>
     <dimen name="compare_cardview_contentPadding">10dp</dimen>
-    <dimen name="compare_cardview_marginBottom">10dp</dimen>
+    <dimen name="compare_cardview_margin">15dp</dimen>
 
 </resources>
