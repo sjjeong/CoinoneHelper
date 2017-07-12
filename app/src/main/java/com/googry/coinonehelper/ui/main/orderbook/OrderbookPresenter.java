@@ -155,8 +155,8 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     private void saveCoinoneOrderbook(CoinoneOrderbook coinoneOrderbook) {
-        coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, ORDERBOOK_CNT));
-        coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, ORDERBOOK_CNT));
+        coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, coinoneOrderbook.askes.size() < ORDERBOOK_CNT ? coinoneOrderbook.askes.size() : ORDERBOOK_CNT));
+        coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, coinoneOrderbook.bides.size() < ORDERBOOK_CNT ? coinoneOrderbook.bides.size() : ORDERBOOK_CNT));
         PrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(coinoneOrderbook));
     }
 
