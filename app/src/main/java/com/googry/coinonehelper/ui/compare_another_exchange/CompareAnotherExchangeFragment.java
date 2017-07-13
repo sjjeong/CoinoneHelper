@@ -1,11 +1,13 @@
 package com.googry.coinonehelper.ui.compare_another_exchange;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.widget.Toast;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.BithumbTicker;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.databinding.CompareAnotherExchangeFragmentBinding;
 
 /**
@@ -65,7 +67,17 @@ public class CompareAnotherExchangeFragment extends BaseFragment<CompareAnotherE
     }
 
     @Override
+    public void showKorbitTicker(KorbitTicker korbitTicker) {
+        mBinding.setKorbitTicker(korbitTicker);
+    }
+
+    @Override
     public void hideProgress() {
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 }

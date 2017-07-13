@@ -2,9 +2,11 @@ package com.googry.coinonehelper.ui.compare_another_exchange;
 
 import com.googry.coinonehelper.data.BithumbTicker;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.data.TradeSite;
 import com.googry.coinonehelper.data.remote.BithumbApiManager;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
+import com.googry.coinonehelper.data.remote.KorbitApiManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,8 +19,11 @@ import retrofit2.Response;
 public class CompareAnotherExchangePresenter implements CompareAnotherExchangeContract.Presenter {
     private static final int COINONE = 0;
     private static final int BITHUMB = 1;
+    private static final int KORBIT = 2;
     private CompareAnotherExchangeContract.View mView;
     private boolean mAllLoad[] = new boolean[TradeSite.values().length];
+
+    private KorbitTicker mKorbitTicker;
 
 
     public CompareAnotherExchangePresenter(CompareAnotherExchangeContract.View view) {
@@ -35,6 +40,7 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
     public void loadTicker() {
         loadCoinoneTicker();
         loadBithumbTicker();
+        loadKorbitTicker();
     }
 
     private void loadCoinoneTicker() {
@@ -45,6 +51,10 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
         call.enqueue(new Callback<CoinoneTicker>() {
             @Override
             public void onResponse(Call<CoinoneTicker> call, Response<CoinoneTicker> response) {
+                if (response.body() == null) {
+                    loadCoinoneTicker();
+                    return;
+                }
                 mView.showCoinoneTicker(response.body());
                 mAllLoad[COINONE] = true;
                 isAllLoad();
@@ -52,13 +62,13 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
 
             @Override
             public void onFailure(Call<CoinoneTicker> call, Throwable t) {
-
+                mView.showToast("코인원 서버가 불안정하여 데이터를 가져오지 못했습니다.");
             }
         });
 
     }
 
-    private void loadBithumbTicker(){
+    private void loadBithumbTicker() {
         mAllLoad[BITHUMB] = false;
         BithumbApiManager.BithumbPublicApi api = BithumbApiManager.getApiManager()
                 .create(BithumbApiManager.BithumbPublicApi.class);
@@ -66,6 +76,10 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
         call.enqueue(new Callback<BithumbTicker>() {
             @Override
             public void onResponse(Call<BithumbTicker> call, Response<BithumbTicker> response) {
+                if (response.body() == null) {
+                    loadBithumbTicker();
+                    return;
+                }
                 mView.showBithumbTicker(response.body());
                 mAllLoad[BITHUMB] = true;
                 isAllLoad();
@@ -73,14 +87,96 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
 
             @Override
             public void onFailure(Call<BithumbTicker> call, Throwable t) {
-
+                mView.showToast("빗썸 서버가 불안정하여 데이터를 가져오지 못했습니다.");
             }
         });
     }
 
+    private void loadKorbitTicker() {
+        mKorbitTicker = new KorbitTicker();
+        KorbitApiManager.KorbitPublicApi api = KorbitApiManager.getApiManager()
+                .create(KorbitApiManager.KorbitPublicApi.class);
+        Call<KorbitTicker.Ticker> btcCall = api.btcTicker();
+        Call<KorbitTicker.Ticker> ethCall = api.ethTicker();
+        Call<KorbitTicker.Ticker> etcCall = api.etcTicker();
+        Call<KorbitTicker.Ticker> xrpCall = api.xrpTicker();
+        btcCall.enqueue(new Callback<KorbitTicker.Ticker>() {
+            @Override
+            public void onResponse(Call<KorbitTicker.Ticker> call, Response<KorbitTicker.Ticker> response) {
+                if (response.body() == null) {
+                    return;
+                }
+                mKorbitTicker.btc = response.body();
+                isReadyShowKorbitTicker();
+            }
+
+            @Override
+            public void onFailure(Call<KorbitTicker.Ticker> call, Throwable t) {
+                mView.showToast("코빗 서버가 불안정하여 데이터를 가져오지 못했습니다.");
+            }
+        });
+        ethCall.enqueue(new Callback<KorbitTicker.Ticker>() {
+            @Override
+            public void onResponse(Call<KorbitTicker.Ticker> call, Response<KorbitTicker.Ticker> response) {
+                if (response.body() == null) {
+                    return;
+                }
+                mKorbitTicker.eth = response.body();
+                isReadyShowKorbitTicker();
+            }
+
+            @Override
+            public void onFailure(Call<KorbitTicker.Ticker> call, Throwable t) {
+                mView.showToast("코빗 서버가 불안정하여 데이터를 가져오지 못했습니다.");
+            }
+        });
+        etcCall.enqueue(new Callback<KorbitTicker.Ticker>() {
+            @Override
+            public void onResponse(Call<KorbitTicker.Ticker> call, Response<KorbitTicker.Ticker> response) {
+                if (response.body() == null) {
+                    return;
+                }
+                mKorbitTicker.etc = response.body();
+                isReadyShowKorbitTicker();
+            }
+
+            @Override
+            public void onFailure(Call<KorbitTicker.Ticker> call, Throwable t) {
+                mView.showToast("코빗 서버가 불안정하여 데이터를 가져오지 못했습니다.");
+            }
+        });
+        xrpCall.enqueue(new Callback<KorbitTicker.Ticker>() {
+            @Override
+            public void onResponse(Call<KorbitTicker.Ticker> call, Response<KorbitTicker.Ticker> response) {
+                if (response.body() == null) {
+                    return;
+                }
+                mKorbitTicker.xrp = response.body();
+                isReadyShowKorbitTicker();
+            }
+
+            @Override
+            public void onFailure(Call<KorbitTicker.Ticker> call, Throwable t) {
+                mView.showToast("코빗 서버가 불안정하여 데이터를 가져오지 못했습니다.");
+            }
+        });
+
+    }
+
+    private void isReadyShowKorbitTicker() {
+        if (mKorbitTicker.btc != null &&
+                mKorbitTicker.eth != null &&
+                mKorbitTicker.etc != null &&
+                mKorbitTicker.xrp != null) {
+            mView.showKorbitTicker(mKorbitTicker);
+            mAllLoad[KORBIT] = true;
+            isAllLoad();
+        }
+    }
+
     private void isAllLoad() {
-        for(boolean bool:mAllLoad){
-            if(!bool)
+        for (boolean bool : mAllLoad) {
+            if (!bool)
                 return;
         }
         mView.hideProgress();

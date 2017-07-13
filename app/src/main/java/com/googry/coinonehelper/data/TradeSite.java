@@ -6,5 +6,6 @@ package com.googry.coinonehelper.data;
 
 public enum TradeSite {
     COINONE,
-    BITHUMB
+    BITHUMB,
+    KORBIT
 }

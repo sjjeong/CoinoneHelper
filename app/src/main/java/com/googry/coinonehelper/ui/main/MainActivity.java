@@ -52,12 +52,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 public void onRewardedVideoAdClosed() {
                     //5
                     LogUtil.i("onRewardedVideoAdClosed");
-                    LogUtil.i("adClosed : " + PrefUtil.loadCompareTradeSite(getApplicationContext()));
                     if (PrefUtil.loadCompareTradeSite(getApplicationContext())) {
                         startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
-                    }else{
+                    } else {
                         mCompareAnotherExchangeRewardedVideoAd
-                            .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
+                                .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
                     }
                 }
 
@@ -160,8 +159,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
                         public void onClick(DialogInterface dialog, int which) {
                             if (mCompareAnotherExchangeRewardedVideoAd.isLoaded()) {
                                 mCompareAnotherExchangeRewardedVideoAd.show();
-                            }else{
-                                Toast.makeText(getApplicationContext(),"잠시 후에 다시 시도해주세요.",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "잠시 후에 다시 시도해 주세요.", Toast.LENGTH_LONG).show();
                             }
                         }
                     })
@@ -176,7 +175,6 @@ public class MainActivity extends BaseActivity<MainFragment> {
         } else {
             startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
         }
-//        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
     }
 
 }
