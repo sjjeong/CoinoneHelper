@@ -1,21 +1,85 @@
 package com.googry.coinonehelper.ui.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.databinding.MainActivityBinding;
 import com.googry.coinonehelper.ui.compare_another_exchange.CompareAnotherExchangeActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
+import com.googry.coinonehelper.util.LogUtil;
+import com.googry.coinonehelper.util.PrefUtil;
 
 public class MainActivity extends BaseActivity<MainFragment> {
     private DrawerLayout mDrawerLayout;
     private MainActivityBinding mBinding;
+    private RewardedVideoAd mCompareAnotherExchangeRewardedVideoAd;
+    private RewardedVideoAdListener mCompareAnotherExchangeRewardedVideoAdListener =
+            new RewardedVideoAdListener() {
+                @Override
+                public void onRewardedVideoAdLoaded() {
+                    //1
+                    LogUtil.i("onRewardedVideoAdLoaded");
+                }
+
+                @Override
+                public void onRewardedVideoAdOpened() {
+                    //2
+                    LogUtil.i("onRewardedVideoAdOpened");
+
+                }
+
+                @Override
+                public void onRewardedVideoStarted() {
+                    //3
+                    LogUtil.i("onRewardedVideoStarted");
+
+                }
+
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    //5
+                    LogUtil.i("onRewardedVideoAdClosed");
+                    LogUtil.i("adClosed : " + PrefUtil.loadCompareTradeSite(getApplicationContext()));
+                    if (PrefUtil.loadCompareTradeSite(getApplicationContext())) {
+                        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
+                    }else{
+                        mCompareAnotherExchangeRewardedVideoAd
+                            .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
+                    }
+                }
+
+                @Override
+                public void onRewarded(RewardItem rewardItem) {
+                    //4
+                    LogUtil.i("onRewarded");
+                    PrefUtil.saveCompareTradeSite(getApplicationContext(), true);
+                }
+
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
+                    LogUtil.i("onRewardedVideoAdLeftApplication");
+
+                }
+
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int i) {
+                    LogUtil.i("onRewardedVideoAdFailedToLoad");
+
+                }
+            };
 
     @Override
     protected int getLayoutId() {
@@ -31,6 +95,13 @@ public class MainActivity extends BaseActivity<MainFragment> {
     protected void initView() {
         mBinding = DataBindingUtil.bind(findViewById(R.id.root));
         mBinding.setActivity(this);
+        mCompareAnotherExchangeRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mCompareAnotherExchangeRewardedVideoAd.setRewardedVideoAdListener(mCompareAnotherExchangeRewardedVideoAdListener);
+        if (!mCompareAnotherExchangeRewardedVideoAd.isLoaded()) {
+            mCompareAnotherExchangeRewardedVideoAd
+                    .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
+        }
+
     }
 
     @Override
@@ -58,9 +129,54 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     }
 
+    @Override
+    protected void onPause() {
+        mCompareAnotherExchangeRewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        mCompareAnotherExchangeRewardedVideoAd.resume(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mCompareAnotherExchangeRewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
+
     // databinding
     public void onCompareAnotherExchangeClick(View v) {
-        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
+        LogUtil.i("call : " + PrefUtil.loadCompareTradeSite(getApplicationContext()));
+
+        if (!PrefUtil.loadCompareTradeSite(getApplicationContext())) {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("광고 시청이 필요합니다.")
+                    .setMessage("거래소 별 가격 화면을 보기 위해서 광고 시청이 필요합니다.")
+                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (mCompareAnotherExchangeRewardedVideoAd.isLoaded()) {
+                                mCompareAnotherExchangeRewardedVideoAd.show();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"잠시 후에 다시 시도해주세요.",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    })
+                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create()
+                    .show();
+        } else {
+            startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
+        }
+//        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
     }
 
 }

@@ -17,7 +17,7 @@ public class PrefUtil {
     private static final String KEY_SUFFIX_ORDERBOOK = "_orderbook";
     private static final String KEY_SUFFIX_COMPLETE_ORDER = "_complete_order";
     private static final String KEY_SUFFIX_TICKER = "_ticker";
-
+    private static final String KEY_COMPARE_TRADE_SITE = "compare_trade_site";
 
     public static void saveOrderbook(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
@@ -50,6 +50,16 @@ public class PrefUtil {
 
     public static String loadTicker(Context context, CoinType coinType) {
         return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_TICKER), EMPTY);
+    }
+
+    public static void saveCompareTradeSite(Context context, boolean isView) {
+        SharedPreferences.Editor editor = getEditor(context);
+        editor.putBoolean(KEY_COMPARE_TRADE_SITE, isView);
+        commit(editor);
+    }
+
+    public static Boolean loadCompareTradeSite(Context context) {
+        return getSharedPrefs(context).getBoolean(KEY_COMPARE_TRADE_SITE, false);
     }
 
     private static SharedPreferences getSharedPrefs(Context context) {

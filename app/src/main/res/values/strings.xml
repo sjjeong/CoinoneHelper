@@ -3,6 +3,7 @@
     <string name="admob_app_id">ca-app-pub-3455486566753347~3951777717</string>
     <string name="admob_banner_id">ca-app-pub-3455486566753347/9858710514</string>
     <string name="admob_exit_banner_id">ca-app-pub-3455486566753347/9881743310</string>
+    <string name="admob_compare_trade_site">ca-app-pub-3455486566753347/9153276114</string>
 
     <string name="btc">BTC</string>
     <string name="eth">ETH</string>
