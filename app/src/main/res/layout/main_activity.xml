@@ -9,6 +9,9 @@
         <variable
             name="activity"
             type="com.googry.coinonehelper.ui.main.MainActivity"/>
+        <variable
+            name="isSeeAd"
+            type="Boolean"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -44,7 +47,8 @@
 
                 <include
                     layout="@layout/main_navigation_drawer"
-                    bind:activity="@{activity}"/>
+                    bind:activity="@{activity}"
+                    bind:isSeeAd="@{isSeeAd}"/>
 
             </android.support.v4.widget.DrawerLayout>
         </LinearLayout>

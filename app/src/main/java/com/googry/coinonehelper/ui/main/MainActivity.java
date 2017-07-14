@@ -38,20 +38,19 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 public void onRewardedVideoAdOpened() {
                     //2
                     LogUtil.i("onRewardedVideoAdOpened");
-
                 }
 
                 @Override
                 public void onRewardedVideoStarted() {
                     //3
                     LogUtil.i("onRewardedVideoStarted");
-
                 }
 
                 @Override
                 public void onRewardedVideoAdClosed() {
                     //5
                     LogUtil.i("onRewardedVideoAdClosed");
+                    mBinding.setIsSeeAd(PrefUtil.loadCompareTradeSite(getApplicationContext()));
                     if (PrefUtil.loadCompareTradeSite(getApplicationContext())) {
                         startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
                     } else {
@@ -70,13 +69,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 @Override
                 public void onRewardedVideoAdLeftApplication() {
                     LogUtil.i("onRewardedVideoAdLeftApplication");
-
                 }
 
                 @Override
                 public void onRewardedVideoAdFailedToLoad(int i) {
                     LogUtil.i("onRewardedVideoAdFailedToLoad");
-
                 }
             };
 
@@ -94,6 +91,10 @@ public class MainActivity extends BaseActivity<MainFragment> {
     protected void initView() {
         mBinding = DataBindingUtil.bind(findViewById(R.id.root));
         mBinding.setActivity(this);
+
+        mBinding.setIsSeeAd(PrefUtil.loadCompareTradeSite(getApplicationContext()));
+
+        // load rewarded ad
         mCompareAnotherExchangeRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mCompareAnotherExchangeRewardedVideoAd.setRewardedVideoAdListener(mCompareAnotherExchangeRewardedVideoAdListener);
         if (!mCompareAnotherExchangeRewardedVideoAd.isLoaded()) {
@@ -148,12 +149,10 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     // databinding
     public void onCompareAnotherExchangeClick(View v) {
-        LogUtil.i("call : " + PrefUtil.loadCompareTradeSite(getApplicationContext()));
-
         if (!PrefUtil.loadCompareTradeSite(getApplicationContext())) {
             new AlertDialog.Builder(MainActivity.this)
                     .setTitle("광고 시청이 필요합니다.")
-                    .setMessage("거래소 별 가격 화면을 보기 위해서 광고 시청이 필요합니다.")
+                    .setMessage("거래소 별 가격 화면을 보기 위해서 최초 1회 광고 시청이 필요합니다.")
                     .setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

@@ -3,10 +3,12 @@ package com.googry.coinonehelper.ui.compare_another_exchange;
 import com.googry.coinonehelper.data.BithumbTicker;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.KorbitTicker;
+import com.googry.coinonehelper.data.PoloniexTicker;
 import com.googry.coinonehelper.data.TradeSite;
 import com.googry.coinonehelper.data.remote.BithumbApiManager;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.data.remote.KorbitApiManager;
+import com.googry.coinonehelper.data.remote.PoloniexApiManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +22,7 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
     private static final int COINONE = 0;
     private static final int BITHUMB = 1;
     private static final int KORBIT = 2;
+    private static final int POLONIEX = 3;
     private CompareAnotherExchangeContract.View mView;
     private boolean mAllLoad[] = new boolean[TradeSite.values().length];
 
@@ -41,6 +44,7 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
         loadCoinoneTicker();
         loadBithumbTicker();
         loadKorbitTicker();
+        loadPoloniexTicker();
     }
 
     private void loadCoinoneTicker() {
@@ -158,6 +162,34 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
             @Override
             public void onFailure(Call<KorbitTicker.Ticker> call, Throwable t) {
                 mView.showToast("코빗 서버가 불안정하여 데이터를 가져오지 못했습니다.");
+            }
+        });
+
+    }
+
+    private void loadPoloniexTicker(){
+        mAllLoad[POLONIEX] = true;
+
+        PoloniexApiManager.PoloniexPublicApi api =
+                PoloniexApiManager.getApiManager().create(PoloniexApiManager.PoloniexPublicApi.class);
+        Call<PoloniexTicker> call = api.allTicker();
+        call.enqueue(new Callback<PoloniexTicker>() {
+            @Override
+            public void onResponse(Call<PoloniexTicker> call, Response<PoloniexTicker> response) {
+                if (response.body() == null) {
+                    loadPoloniexTicker();
+                    return;
+                }
+                mView.showPoloniexTicker(response.body());
+                mAllLoad[POLONIEX] = true;
+                isAllLoad();
+            }
+
+            @Override
+            public void onFailure(Call<PoloniexTicker> call, Throwable t) {
+                t.printStackTrace();
+
+                mView.showToast("폴로닉스 서버가 불안정하여 데이터를 가져오지 못했습니다.");
             }
         });
 

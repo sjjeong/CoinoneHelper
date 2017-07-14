@@ -8,6 +8,7 @@ import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.BithumbTicker;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.KorbitTicker;
+import com.googry.coinonehelper.data.PoloniexTicker;
 import com.googry.coinonehelper.databinding.CompareAnotherExchangeFragmentBinding;
 
 /**
@@ -69,6 +70,11 @@ public class CompareAnotherExchangeFragment extends BaseFragment<CompareAnotherE
     @Override
     public void showKorbitTicker(KorbitTicker korbitTicker) {
         mBinding.setKorbitTicker(korbitTicker);
+    }
+
+    @Override
+    public void showPoloniexTicker(PoloniexTicker poloniexTicker) {
+        mBinding.setPoloniexTicker(poloniexTicker);
     }
 
     @Override

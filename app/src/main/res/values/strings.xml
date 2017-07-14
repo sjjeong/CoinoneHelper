@@ -26,5 +26,8 @@
     <string name="coinone">코인원</string>
     <string name="bithumb">빗썸</string>
     <string name="korbit">코빗</string>
+    <string name="poloniex">폴로닉스</string>
+    <string name="poloniex_to_coinone_btc">폴로닉스-코인원BTC</string>
+
 
 </resources>
