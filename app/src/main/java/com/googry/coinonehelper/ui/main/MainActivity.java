@@ -17,6 +17,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.databinding.MainActivityBinding;
+import com.googry.coinonehelper.ui.coin_notification.CoinNotificationActivity;
 import com.googry.coinonehelper.ui.compare_another_exchange.CompareAnotherExchangeActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
 import com.googry.coinonehelper.util.LogUtil;
@@ -174,6 +175,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
         } else {
             startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
         }
+    }
+
+    // databindng
+    public void onCoinNotificationClick(View v){
+        startActivity(new Intent(getApplicationContext(), CoinNotificationActivity.class));
     }
 
 }
