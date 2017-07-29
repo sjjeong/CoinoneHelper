@@ -84,6 +84,7 @@ public class CompareAnotherExchangeFragment extends BaseFragment<CompareAnotherE
 
     @Override
     public void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+        if (getContext() != null)
+            Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 }

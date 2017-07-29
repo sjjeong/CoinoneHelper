@@ -155,15 +155,20 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     private void saveCoinoneOrderbook(CoinoneOrderbook coinoneOrderbook) {
-        coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, coinoneOrderbook.askes.size() < ORDERBOOK_CNT ? coinoneOrderbook.askes.size() : ORDERBOOK_CNT));
-        coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, coinoneOrderbook.bides.size() < ORDERBOOK_CNT ? coinoneOrderbook.bides.size() : ORDERBOOK_CNT));
+        if (coinoneOrderbook.askes != null)
+            coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, coinoneOrderbook.askes.size() < ORDERBOOK_CNT ? coinoneOrderbook.askes.size() : ORDERBOOK_CNT));
+        if (coinoneOrderbook.bides != null)
+            coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, coinoneOrderbook.bides.size() < ORDERBOOK_CNT ? coinoneOrderbook.bides.size() : ORDERBOOK_CNT));
         PrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(coinoneOrderbook));
     }
 
     private void saveCoinoneTrade(CoinoneTrade coinoneTrade) {
-        Collections.reverse(coinoneTrade.completeOrders);
-        coinoneTrade.completeOrders = new ArrayList<>(coinoneTrade.completeOrders.subList(0, TRADE_CNT));
+        if (coinoneTrade.completeOrders != null) {
+            Collections.reverse(coinoneTrade.completeOrders);
+            coinoneTrade.completeOrders = new ArrayList<>(coinoneTrade.completeOrders.subList(0, coinoneTrade.completeOrders.size() < TRADE_CNT ? coinoneTrade.completeOrders.size() : TRADE_CNT));
+        }
         PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(coinoneTrade));
+
     }
 
     private void saveCoinoneTicker(CoinoneTicker.Ticker ticker) {
