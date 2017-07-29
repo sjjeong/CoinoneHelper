@@ -51,12 +51,12 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 public void onRewardedVideoAdClosed() {
                     //5
                     LogUtil.i("onRewardedVideoAdClosed");
-                    mBinding.setIsSeeAd(PrefUtil.loadCompareTradeSite(getApplicationContext()));
-                    if (PrefUtil.loadCompareTradeSite(getApplicationContext())) {
-                        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
-                    } else {
+                    mBinding.setIsSeeAd(PrefUtil.isShowCompareTradeSite(getApplicationContext()));
+                    if (shouldLoadRewardAd()) {
                         mCompareAnotherExchangeRewardedVideoAd
                                 .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), CompareAnotherExchangeActivity.class));
                     }
                 }
 
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 public void onRewarded(RewardItem rewardItem) {
                     //4
                     LogUtil.i("onRewarded");
-                    PrefUtil.saveCompareTradeSite(getApplicationContext(), true);
+                    PrefUtil.saveShowCompareTradeSite(getApplicationContext(), true);
                 }
 
                 @Override
@@ -93,14 +93,23 @@ public class MainActivity extends BaseActivity<MainFragment> {
         mBinding = DataBindingUtil.bind(findViewById(R.id.root));
         mBinding.setActivity(this);
 
-        mBinding.setIsSeeAd(PrefUtil.loadCompareTradeSite(getApplicationContext()));
+        mBinding.setIsSeeAd(PrefUtil.isShowCompareTradeSite(getApplicationContext()));
+
+
+        if (!PrefUtil.isShowCompareTradeSite(getApplicationContext()))
+            LogUtil.i("no show reward ad");
+        else {
+            LogUtil.i("show reward ad");
+        }
 
         // load rewarded ad
-        mCompareAnotherExchangeRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mCompareAnotherExchangeRewardedVideoAd.setRewardedVideoAdListener(mCompareAnotherExchangeRewardedVideoAdListener);
-        if (!mCompareAnotherExchangeRewardedVideoAd.isLoaded()) {
-            mCompareAnotherExchangeRewardedVideoAd
-                    .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
+        if (shouldLoadRewardAd()) {
+            mCompareAnotherExchangeRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+            mCompareAnotherExchangeRewardedVideoAd.setRewardedVideoAdListener(mCompareAnotherExchangeRewardedVideoAdListener);
+            if (!mCompareAnotherExchangeRewardedVideoAd.isLoaded()) {
+                mCompareAnotherExchangeRewardedVideoAd
+                        .loadAd(getString(R.string.admob_compare_trade_site), new AdRequest.Builder().build());
+            }
         }
 
     }
@@ -132,25 +141,35 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     protected void onPause() {
-        mCompareAnotherExchangeRewardedVideoAd.pause(this);
+        if (shouldLoadRewardAd())
+            mCompareAnotherExchangeRewardedVideoAd.pause(this);
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        mCompareAnotherExchangeRewardedVideoAd.resume(this);
+        if (shouldLoadRewardAd())
+            mCompareAnotherExchangeRewardedVideoAd.resume(this);
         super.onResume();
+    }
+
+    /*
+     * 리워드 광고를 불러야 하는지 결정하는 함수
+     */
+    private boolean shouldLoadRewardAd() {
+        return !PrefUtil.isShowCompareTradeSite(getApplicationContext());
     }
 
     @Override
     protected void onDestroy() {
-        mCompareAnotherExchangeRewardedVideoAd.destroy(this);
+        if (shouldLoadRewardAd())
+            mCompareAnotherExchangeRewardedVideoAd.destroy(this);
         super.onDestroy();
     }
 
     // databinding
     public void onCompareAnotherExchangeClick(View v) {
-        if (!PrefUtil.loadCompareTradeSite(getApplicationContext())) {
+        if (!PrefUtil.isShowCompareTradeSite(getApplicationContext())) {
             new AlertDialog.Builder(MainActivity.this)
                     .setTitle("광고 시청이 필요합니다.")
                     .setMessage("거래소 별 가격 화면을 보기 위해서 최초 1회 광고 시청이 필요합니다.")
@@ -178,7 +197,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     // databindng
-    public void onCoinNotificationClick(View v){
+    public void onCoinNotificationClick(View v) {
         startActivity(new Intent(getApplicationContext(), CoinNotificationActivity.class));
     }
 
