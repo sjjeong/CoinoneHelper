@@ -7,10 +7,6 @@
         <variable
             name="activity"
             type="com.googry.coinonehelper.ui.main.MainActivity"/>
-
-        <variable
-            name="isSeeAd"
-            type="Boolean"/>
     </data>
 
     <LinearLayout
@@ -29,16 +25,15 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@{isSeeAd ? null :@drawable/ic_lock}"
                 android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
                 android:text="@string/compare_another_exchange"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@{isSeeAd ? null :@drawable/ic_lock}"
                 android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
-                android:text="@string/coin_notification"/>
+                android:text="@string/coin_notification"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -52,16 +52,6 @@ public class PrefUtil {
         return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_TICKER), EMPTY);
     }
 
-    public static void saveShowCompareTradeSite(Context context, boolean isView) {
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putBoolean(KEY_COMPARE_TRADE_SITE, isView);
-        commit(editor);
-    }
-
-    public static Boolean isShowCompareTradeSite(Context context) {
-        return getSharedPrefs(context).getBoolean(KEY_COMPARE_TRADE_SITE, false);
-    }
-
     private static SharedPreferences getSharedPrefs(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
