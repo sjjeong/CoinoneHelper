@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.ui.coin_notification;
+package com.googry.coinonehelper.ui.coin_notification_add_alarm;
 
 import android.support.v4.app.Fragment;
 
@@ -9,10 +9,10 @@ import com.googry.coinonehelper.base.ui.BaseActivity;
  * Created by seokjunjeong on 2017. 7. 15..
  */
 
-public class CoinNotificationActivity extends BaseActivity {
+public class CoinNotificationAddAlarmActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
-        return R.layout.coin_notification_activity;
+        return R.layout.coin_notification_add_alarmactivity;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class CoinNotificationActivity extends BaseActivity {
 
     @Override
     protected Fragment getFragment() {
-        return CoinNotificationFragment.newInstance();
+        return CoinNotificationAddAlarmFragment.newInstance();
     }
 }

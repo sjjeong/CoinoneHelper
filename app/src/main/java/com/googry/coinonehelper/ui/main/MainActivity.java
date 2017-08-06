@@ -9,7 +9,7 @@ import android.view.View;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.databinding.MainActivityBinding;
-import com.googry.coinonehelper.ui.coin_notification.CoinNotificationActivity;
+import com.googry.coinonehelper.ui.coin_notification_add_alarm.CoinNotificationAddAlarmActivity;
 import com.googry.coinonehelper.ui.compare_another_exchange.CompareAnotherExchangeActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
 
@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     // databindng
     public void onCoinNotificationClick(View v) {
-        startActivity(new Intent(getApplicationContext(), CoinNotificationActivity.class));
+        startActivity(new Intent(getApplicationContext(), CoinNotificationAddAlarmActivity.class));
     }
 
 }

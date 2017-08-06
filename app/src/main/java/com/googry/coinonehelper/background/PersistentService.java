@@ -96,6 +96,10 @@ public class PersistentService extends Service {
                                 CoinType.XRP,
                                 gson.toJson(coinoneTicker.xrp, CoinoneTicker.Ticker.class)
                         );
+
+                        // TODO: 코인 가격 설정 조건 체크
+
+                        // TODO: 조건 만족시 노티 + 팝업 노출
                     }
 
                     @Override

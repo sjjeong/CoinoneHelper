@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
                 android:text="@string/coin_notification"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
         </LinearLayout>
 
