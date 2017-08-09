@@ -77,10 +77,9 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:gravity="right"
-                    android:text="@{String.valueOf(price)}"
+                    android:text='@{String.format("%,d",price)}'
                     android:inputType="numberDecimal"/>
 
                 <Button

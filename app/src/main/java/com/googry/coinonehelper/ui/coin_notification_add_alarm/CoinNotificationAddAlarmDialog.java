@@ -181,7 +181,7 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     break;
                 }
 
-                long targetPrice = Long.parseLong(mBinding.etPrice.getText().toString());
+                long targetPrice = Long.parseLong(mBinding.etPrice.getText().toString().replace(",",""));
                 long divider = 1;
                 switch (coinType) {
                     case BTC: {
