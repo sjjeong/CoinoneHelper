@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".CoinoneHelperApplication"
@@ -35,6 +36,15 @@
         <activity
             android:name=".ui.coin_notification_add_alarm.CoinNotificationAddAlarmActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.PopupActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
+            android:theme="@style/AppTheme.Dialog"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
             android:name="com.googry.coinonehelper.background.PersistentService"
