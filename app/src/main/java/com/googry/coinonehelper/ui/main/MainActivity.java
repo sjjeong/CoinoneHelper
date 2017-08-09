@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     protected void initView() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mBinding = DataBindingUtil.bind(findViewById(R.id.root));
         mBinding.setActivity(this);
 
