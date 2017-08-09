@@ -32,6 +32,10 @@
     <string name="coin_type">코인종류</string>
     <string name="price">가격</string>
     <string name="confirm">확인</string>
+    <string name="save">저장</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+
 
 
 </resources>

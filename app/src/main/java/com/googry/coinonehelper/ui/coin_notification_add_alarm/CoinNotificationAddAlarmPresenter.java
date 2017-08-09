@@ -24,7 +24,7 @@ public class CoinNotificationAddAlarmPresenter implements CoinNotificationAddAla
 
     @Override
     public void requestAddAlarm() {
-        mView.showAddAlarmPopup();
+        mView.showAddAlarmPopup(null);
     }
 
     @Override

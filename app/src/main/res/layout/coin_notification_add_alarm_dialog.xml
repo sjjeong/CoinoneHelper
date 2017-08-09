@@ -7,16 +7,20 @@
         <variable
             name="dialog"
             type="com.googry.coinonehelper.ui.coin_notification_add_alarm.CoinNotificationAddAlarmDialog"/>
+        <variable
+            name="price"
+            type="Long"/>
     </data>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="200dp"
+            android:padding="10dp"
+            android:background="@drawable/btn_bg_default"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -29,8 +33,9 @@
                 android:id="@+id/rg_coin_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
+                android:onCheckedChanged="@{(group, id) -> dialog.onCheckedChanged(group, id)}"
                 android:orientation="vertical">
 
                 <RadioButton
@@ -63,14 +68,41 @@
                 android:layout_height="wrap_content"
                 android:text="@string/price"/>
 
-            <EditText
-                android:id="@+id/et_price"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:inputType="numberDecimal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"/>
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:text="@{String.valueOf(price)}"
+                    android:inputType="numberDecimal"/>
+
+                <Button
+                    android:id="@+id/btn_minus"
+                    style="@style/NegativeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:onClick="@{(v) -> dialog.onPlusMinusButtonClick(v, false)}"
+                    android:text="@string/minus"/>
+
+                <Button
+                    android:id="@+id/btn_plus"
+                    style="@style/PositiveButton"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:onClick="@{(v) -> dialog.onPlusMinusButtonClick(v, true)}"
+                    android:text="@string/plus"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,18 +110,22 @@
                 android:orientation="horizontal">
 
                 <Button
+                    style="@style/NegativeButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:onClick="@{(v) -> dialog.onNegativeButtonClick(v)}"
                     android:text="@string/cancel"/>
 
                 <Button
+                    style="@style/PositiveButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:onClick="@{(v) -> dialog.onPositiveButtonClick(v)}"
-                    android:text="@string/confirm"/>
+                    android:text="@string/save"/>
             </LinearLayout>
         </LinearLayout>
 

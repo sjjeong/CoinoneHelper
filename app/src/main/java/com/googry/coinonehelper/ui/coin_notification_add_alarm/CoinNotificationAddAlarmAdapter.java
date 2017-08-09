@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.databinding.CoinNotificationAddAlarmListItemBinding;
+import com.googry.coinonehelper.ui.OnItemClickListener;
 
 import io.realm.RealmResults;
 
@@ -18,15 +19,19 @@ import io.realm.RealmResults;
 
 public class CoinNotificationAddAlarmAdapter extends RecyclerView.Adapter<CoinNotificationAddAlarmAdapter.ViewHolder> {
     private RealmResults<CoinNotification> mData;
+    private OnItemClickListener mDeleteListener, mModifyListener;
 
-    public void setData(RealmResults<CoinNotification> data) {
-        mData = data;
+    public CoinNotificationAddAlarmAdapter(OnItemClickListener deleteListener, OnItemClickListener modifyListener) {
+        mDeleteListener = deleteListener;
+        mModifyListener = modifyListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.coin_notification_add_alarm_list_item, parent, false);
+        view.findViewById(R.id.btn_modify).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.btn_delete).setVisibility(View.INVISIBLE);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -41,12 +46,22 @@ public class CoinNotificationAddAlarmAdapter extends RecyclerView.Adapter<CoinNo
         return mData == null ? 0 : mData.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public RealmResults<CoinNotification> getData() {
+        return mData;
+    }
+
+    public void setData(RealmResults<CoinNotification> data) {
+        mData = data;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private CoinNotificationAddAlarmListItemBinding mBinding;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
+            mBinding.setViewholder(this);
+            mBinding.setChecked(false);
         }
 
         public void bind(CoinNotification coinNotification) {
@@ -54,5 +69,18 @@ public class CoinNotificationAddAlarmAdapter extends RecyclerView.Adapter<CoinNo
             mBinding.setPrice(coinNotification.getTargetPrice());
         }
 
+        public void onViewClick(View v) {
+            mBinding.setChecked(!mBinding.getChecked());
+        }
+
+        public void onDeleteClick(View v) {
+            mBinding.setChecked(false);
+            mDeleteListener.onItemClick(getAdapterPosition());
+        }
+
+        public void onModifyClick(View v) {
+            mModifyListener.onItemClick(getAdapterPosition());
+        }
     }
+
 }

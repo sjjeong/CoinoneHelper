@@ -10,6 +10,10 @@
         <import type="android.view.View"/>
 
         <variable
+            name="viewholder"
+            type="com.googry.coinonehelper.ui.coin_notification_add_alarm.CoinNotificationAddAlarmAdapter.ViewHolder"/>
+
+        <variable
             name="cointype"
             type="String"/>
 
@@ -27,6 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{(v) -> viewholder.onViewClick(v)}"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
@@ -54,14 +59,20 @@
                     tools:text="1,000"/>
 
                 <Button
-                    android:layout_width="70dp"
+                    android:id="@+id/btn_modify"
+                    style="@style/NegativeButton"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:onClick="@{(v) -> viewholder.onModifyClick(v)}"
                     android:text="수정"
                     android:visibility="@{checked ? View.VISIBLE : View.INVISIBLE}"/>
 
                 <Button
-                    android:layout_width="70dp"
+                    android:id="@+id/btn_delete"
+                    style="@style/PositiveButton"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:onClick="@{(v) -> viewholder.onDeleteClick(v)}"
                     android:text="삭제"
                     android:visibility="@{checked ? View.VISIBLE : View.INVISIBLE}"/>
 

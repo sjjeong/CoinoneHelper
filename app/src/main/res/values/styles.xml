@@ -15,14 +15,10 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
+    <style name="CustomDialog" parent="@android:style/Theme.Translucent">
+    </style>
+
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="CoinTickerCardView" parent="CardView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginLeft">15dp</item>
-        <item name="android:layout_marginRight">15dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-    </style>
 </resources>

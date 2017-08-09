@@ -10,7 +10,7 @@
     </data>
 
     <LinearLayout
-        android:layout_width="240dp"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white">
@@ -23,12 +23,14 @@
             android:padding="10dp">
 
             <Button
+                style="@style/PositiveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
                 android:text="@string/compare_another_exchange"/>
 
             <Button
+                style="@style/PositiveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"

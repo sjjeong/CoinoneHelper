@@ -18,7 +18,7 @@ public interface CoinNotificationAddAlarmContract {
     }
 
     interface View extends BaseView<Presenter> {
-        void showAddAlarmPopup();
+        void showAddAlarmPopup(CoinNotification coinNotification);
 
         void showCoinNotificationList(RealmResults<CoinNotification> realmResults);
     }
