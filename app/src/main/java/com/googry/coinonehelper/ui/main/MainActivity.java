@@ -55,9 +55,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
         mSlidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(mToolbar)
-                .withMenuOpened(true)
                 .withRootViewScale(0.8f)
-                .withRootViewElevation(10)
+                .withMenuOpened(true)
                 .withMenuLayout(R.layout.main_navigation_drawer)
                 .inject();
 

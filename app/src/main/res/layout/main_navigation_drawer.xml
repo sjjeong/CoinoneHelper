@@ -14,107 +14,141 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white">
+        android:background="@color/mainBg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="200dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_bg_default"
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="주문표"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="주문표"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"/>
 
-                    <TableRow>
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                        <Button
-                            android:id="@+id/btn_btc"
-                            style="@style/PositiveButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                            android:text="@string/btc"/>
+                        <TableRow>
 
-                        <Button
-                            android:id="@+id/btn_bch"
-                            style="@style/NegativeButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                            android:text="@string/bch"/>
-                    </TableRow>
+                            <Button
+                                android:id="@+id/btn_btc"
+                                style="@style/PositiveButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                                android:text="@string/btc"/>
 
-                    <TableRow>
+                            <Button
+                                android:id="@+id/btn_bch"
+                                style="@style/NegativeButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                                android:text="@string/bch"/>
+                        </TableRow>
 
-                        <Button
-                            android:id="@+id/btn_eth"
-                            style="@style/PositiveButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                            android:text="@string/eth"/>
+                        <TableRow>
 
-                        <Button
-                            android:id="@+id/btn_etc"
-                            style="@style/PositiveButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                            android:text="@string/etc"/>
-                    </TableRow>
+                            <Button
+                                android:id="@+id/btn_eth"
+                                style="@style/PositiveButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                                android:text="@string/eth"/>
 
-                    <TableRow>
+                            <Button
+                                android:id="@+id/btn_etc"
+                                style="@style/PositiveButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                                android:text="@string/etc"/>
+                        </TableRow>
 
-                        <Button
-                            android:id="@+id/btn_xrp"
-                            style="@style/PositiveButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                            android:text="@string/xrp"/>
+                        <TableRow>
+
+                            <Button
+                                android:id="@+id/btn_xrp"
+                                style="@style/PositiveButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                                android:text="@string/xrp"/>
 
 
-                    </TableRow>
+                        </TableRow>
 
-                </TableLayout>
+                    </TableLayout>
 
-                <View
-                    style="@style/DashDot"/>
+                    <View
+                        style="@style/DashDot"/>
 
-                <Button
-                    style="@style/PositiveButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
-                    android:text="@string/compare_another_exchange"/>
+                    <Button
+                        style="@style/PositiveButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
+                        android:text="@string/compare_another_exchange"/>
 
-                <Button
-                    style="@style/PositiveButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
-                    android:text="@string/coin_notification_alarm"
-                    android:visibility="visible"/>
+                    <Button
+                        style="@style/PositiveButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
+                        android:text="@string/coin_notification_alarm"
+                        android:visibility="visible"/>
 
+                </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
