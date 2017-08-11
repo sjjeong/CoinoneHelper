@@ -31,12 +31,6 @@
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.compare_another_exchange.CompareAnotherExchangeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.coin_notification_add_alarm.CoinNotificationAddAlarmActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.PopupActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTop"

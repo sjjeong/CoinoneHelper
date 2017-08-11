@@ -10,34 +10,113 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="match_parent">
 
-            <Button
-                style="@style/PositiveButton"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
-                android:text="@string/compare_another_exchange"/>
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <Button
-                style="@style/PositiveButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
-                android:text="@string/coin_notification"
-                android:visibility="visible"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="주문표"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"/>
 
-        </LinearLayout>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/btn_btc"
+                            style="@style/PositiveButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/btc"/>
+
+                        <Button
+                            android:id="@+id/btn_bch"
+                            style="@style/NegativeButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/bch"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/btn_eth"
+                            style="@style/PositiveButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/eth"/>
+
+                        <Button
+                            android:id="@+id/btn_etc"
+                            style="@style/PositiveButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/etc"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <Button
+                            android:id="@+id/btn_xrp"
+                            style="@style/PositiveButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/xrp"/>
+
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <View
+                    style="@style/DashDot"/>
+
+                <Button
+                    style="@style/PositiveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
+                    android:text="@string/compare_another_exchange"/>
+
+                <Button
+                    style="@style/PositiveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
+                    android:text="@string/coin_notification_alarm"
+                    android:visibility="visible"/>
+
+            </LinearLayout>
+
+        </ScrollView>
     </LinearLayout>
 </layout>

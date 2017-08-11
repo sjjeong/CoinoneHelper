@@ -6,6 +6,7 @@
     <string name="admob_compare_trade_site">ca-app-pub-3455486566753347/9153276114</string>
 
     <string name="btc">BTC</string>
+    <string name="bch">BCH</string>
     <string name="eth">ETH</string>
     <string name="etc">ETC</string>
     <string name="xrp">XRP</string>
@@ -28,7 +29,7 @@
     <string name="korbit">코빗</string>
     <string name="poloniex">폴로닉스</string>
     <string name="poloniex_to_coinone_btc">폴로닉스-코인원BTC</string>
-    <string name="coin_notification">가격 알림</string>
+    <string name="coin_notification_alarm">가격 알람</string>
     <string name="coin_type">코인종류</string>
     <string name="price">가격</string>
     <string name="confirm">확인</string>

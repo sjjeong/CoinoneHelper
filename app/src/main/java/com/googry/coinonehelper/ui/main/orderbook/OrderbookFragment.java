@@ -1,9 +1,13 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
@@ -167,4 +171,30 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     public void hideCoinoneServerDownProgressDialog() {
         DialogUtil.hideProgressDialog();
     }
+
+    @Override
+    public void onDestroy() {
+        LogUtil.i(" orderbook destroy");
+        super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogUtil.i(" orderbook createView");
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onStop() {
+        LogUtil.i(" orderbook stop");
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LogUtil.i(" orderbook start");
+    }
+
 }
