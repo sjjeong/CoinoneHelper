@@ -126,10 +126,10 @@ public class MainActivity extends BaseActivity<MainFragment> {
         if (FragmentUtil.getFragment(this, getFragmentContentId()) != mFragment) {
             mFragment = MainFragment.newInstance(coinType);
             FragmentUtil.replaceFragment(this, getFragmentContentId(), mFragment);
-            mSlidingRootNav.closeMenu();
         } else {
             mFragment.setCoinTypeUi(coinType);
         }
+        mSlidingRootNav.closeMenu();
         getSupportActionBar().setTitle(((TextView) v).getText().toString());
     }
 

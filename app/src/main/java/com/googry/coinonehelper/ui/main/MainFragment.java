@@ -62,7 +62,6 @@ public class MainFragment extends BaseFragment<MainFragmentBinding> implements M
         mCoinType = (CoinType) getArguments().getSerializable(EXTRA_COIN_TYPE);
         mVpDashboard = mBinding.vpDashboard;
         mVpDashboard.setOffscreenPageLimit(CoinType.values().length - 1);
-        mVpDashboard.setCurrentItem(mCoinType == null ? 0 : mCoinType.ordinal());
         mVpDashboard.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -82,8 +81,7 @@ public class MainFragment extends BaseFragment<MainFragmentBinding> implements M
         });
         mOrderbookPagerAdapter = new OrderbookPagerAdapter(getChildFragmentManager());
         mVpDashboard.setAdapter(mOrderbookPagerAdapter);
-
-
+        mVpDashboard.setCurrentItem(mCoinType == null ? 0 : mCoinType.ordinal());
     }
 
     @Override
@@ -99,42 +97,5 @@ public class MainFragment extends BaseFragment<MainFragmentBinding> implements M
 
     public void setCoinTypeUi(CoinType coinType) {
         mVpDashboard.setCurrentItem(coinType.ordinal());
-    }
-
-    @Override
-    public void onDestroy() {
-        LogUtil.i("destroy");
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtil.i("createView");
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onStop() {
-        LogUtil.i("stop");
-        super.onStop();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        LogUtil.i("start");
-    }
-
-    @Override
-    public void onPause() {
-        LogUtil.i("pause");
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogUtil.i("resume");
     }
 }

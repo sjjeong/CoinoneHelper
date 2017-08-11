@@ -99,14 +99,12 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.i(mCoinType + " fragment resume()");
         mPresenter.load();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.i(mCoinType + " fragment pause()");
         mPresenter.stop();
     }
 
@@ -170,31 +168,6 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     @Override
     public void hideCoinoneServerDownProgressDialog() {
         DialogUtil.hideProgressDialog();
-    }
-
-    @Override
-    public void onDestroy() {
-        LogUtil.i(" orderbook destroy");
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtil.i(" orderbook createView");
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onStop() {
-        LogUtil.i(" orderbook stop");
-        super.onStop();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        LogUtil.i(" orderbook start");
     }
 
 }
