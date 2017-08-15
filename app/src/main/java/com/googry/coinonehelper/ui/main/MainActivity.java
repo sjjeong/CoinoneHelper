@@ -1,6 +1,9 @@
 package com.googry.coinonehelper.ui.main;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,6 +17,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
+import com.googry.coinonehelper.ui.chatting.ChattingFragment;
 import com.googry.coinonehelper.ui.coin_notification_add_alarm.CoinNotificationAddAlarmFragment;
 import com.googry.coinonehelper.ui.compare_another_exchange.CompareAnotherExchangeFragment;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
@@ -29,6 +33,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     private CoinNotificationAddAlarmFragment mCoinNotificationAddAlarmFragment;
     private CompareAnotherExchangeFragment mCompareAnotherExchangeFragment;
+    private ChattingFragment mChattingFragment;
 
     @Override
     protected int getLayoutId() {
@@ -67,34 +72,6 @@ public class MainActivity extends BaseActivity<MainFragment> {
     @Override
     protected MainFragment getFragment() {
         return MainFragment.newInstance();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!mSlidingRootNav.isMenuHidden()) {
-            mSlidingRootNav.closeMenu();
-            return;
-        }
-        ExitAdDialog exitAdDialog = new ExitAdDialog();
-        exitAdDialog.setCancelable(false);
-        exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
-
-    }
-
-    @Override
-    public void onPause() {
-        // Pause the AdView.
-        mAdView.pause();
-
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Resume the AdView.
-        mAdView.resume();
     }
 
     // databinding
@@ -137,9 +114,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
         if (mCompareAnotherExchangeFragment == null) {
             mCompareAnotherExchangeFragment = CompareAnotherExchangeFragment.newInstance();
         }
-        FragmentUtil.replaceFragment(this, getFragmentContentId(), mCompareAnotherExchangeFragment);
-        getSupportActionBar().setTitle(R.string.compare_another_exchange);
-        mSlidingRootNav.closeMenu();
+        replaceFragment(mCompareAnotherExchangeFragment, R.string.compare_another_exchange);
     }
 
     // databindng
@@ -147,8 +122,20 @@ public class MainActivity extends BaseActivity<MainFragment> {
         if (mCoinNotificationAddAlarmFragment == null) {
             mCoinNotificationAddAlarmFragment = CoinNotificationAddAlarmFragment.newInstance();
         }
-        FragmentUtil.replaceFragment(this, getFragmentContentId(), mCoinNotificationAddAlarmFragment);
-        getSupportActionBar().setTitle(R.string.coin_notification_alarm);
+        replaceFragment(mCoinNotificationAddAlarmFragment, R.string.coin_notification_alarm);
+    }
+
+    public void onChattingClick(View v) {
+//        startActivity(new Intent(getApplicationContext(), TestActivity.class));
+        if (mChattingFragment == null) {
+            mChattingFragment = ChattingFragment.newInstance();
+        }
+        replaceFragment(mChattingFragment, R.string.chatting);
+    }
+
+    private void replaceFragment(Fragment fragment, @StringRes int titleRes) {
+        FragmentUtil.replaceFragment(this, getFragmentContentId(), fragment);
+        getSupportActionBar().setTitle(titleRes);
         mSlidingRootNav.closeMenu();
     }
 
@@ -166,4 +153,39 @@ public class MainActivity extends BaseActivity<MainFragment> {
         mAdView.loadAd(adRequest);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mChattingFragment != null) {
+            mChattingFragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mSlidingRootNav.isMenuHidden()) {
+            mSlidingRootNav.closeMenu();
+            return;
+        }
+        ExitAdDialog exitAdDialog = new ExitAdDialog();
+        exitAdDialog.setCancelable(false);
+        exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
+
+    }
+
+    @Override
+    public void onPause() {
+        // Pause the AdView.
+        mAdView.pause();
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Resume the AdView.
+        mAdView.resume();
+    }
 }

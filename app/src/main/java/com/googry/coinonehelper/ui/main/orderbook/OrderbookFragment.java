@@ -1,13 +1,9 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
@@ -17,7 +13,6 @@ import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.databinding.OrderbookFragmentBinding;
 import com.googry.coinonehelper.util.DialogUtil;
-import com.googry.coinonehelper.util.LogUtil;
 
 import java.util.ArrayList;
 

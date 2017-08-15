@@ -19,10 +19,15 @@ public interface CompareAnotherExchangeContract {
 
     interface View extends BaseView<Presenter> {
         void showCoinoneTicker(CoinoneTicker coinoneTicker);
+
         void showBithumbTicker(BithumbTicker bithumbTicker);
+
         void showKorbitTicker(KorbitTicker korbitTicker);
+
         void showPoloniexTicker(PoloniexTicker poloniexTicker);
+
         void hideProgress();
+
         void showToast(String msg);
     }
 }

@@ -65,7 +65,7 @@ public class PopupActivity extends AppCompatActivity {
         mDialog = new AlertDialog.Builder(this)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle(R.string.app_name)
-                .setMessage(String.format("%s %,d원 도달",coinNotification.getCoinType().name(),
+                .setMessage(String.format("%s %,d원 도달", coinNotification.getCoinType().name(),
                         coinNotification.getTargetPrice()))
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -87,6 +87,7 @@ public class PopupActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 })

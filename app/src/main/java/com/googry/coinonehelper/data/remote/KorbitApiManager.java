@@ -1,8 +1,6 @@
 package com.googry.coinonehelper.data.remote;
 
 import com.googry.coinonehelper.data.KorbitTicker;
-import com.googry.coinonehelper.util.LogUtil;
-
 
 import java.io.IOException;
 
@@ -10,7 +8,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,10 +51,13 @@ public class KorbitApiManager {
     public interface KorbitPublicApi {
         @GET("v1/ticker/detailed?currency_pair=btc_krw")
         Call<KorbitTicker.Ticker> btcTicker();
+
         @GET("v1/ticker?currency_pair=eth_krw")
         Call<KorbitTicker.Ticker> ethTicker();
+
         @GET("v1/ticker?currency_pair=etc_krw")
         Call<KorbitTicker.Ticker> etcTicker();
+
         @GET("v1/ticker?currency_pair=xrp_krw")
         Call<KorbitTicker.Ticker> xrpTicker();
     }

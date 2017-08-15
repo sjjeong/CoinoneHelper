@@ -184,7 +184,7 @@ public class PersistentService extends Service {
                             // 팝업 띄우기
                             mContext.startActivity(new Intent(mContext, PopupActivity.class)
                                     .putExtra(PopupActivity.EXTRA_ALARM_ID, coinNotification.getCreatedTs())
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                     }
 

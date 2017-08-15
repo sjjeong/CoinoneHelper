@@ -167,7 +167,7 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
 
     }
 
-    private void loadPoloniexTicker(){
+    private void loadPoloniexTicker() {
         mAllLoad[POLONIEX] = true;
 
         PoloniexApiManager.PoloniexPublicApi api =

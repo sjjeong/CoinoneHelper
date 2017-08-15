@@ -35,12 +35,6 @@ public class CoinNotificationAddAlarmFragment
             });
         }
     };
-    private OnItemClickListener mModifyListener = new OnItemClickListener() {
-        @Override
-        public void onItemClick(final int position) {
-            showAddAlarmPopup(mAdapter.getData().get(position));
-        }
-    };
     private CoinNotificationAddAlarmDialog.OnSaveButtonClick mOnSaveButtonClick =
             new CoinNotificationAddAlarmDialog.OnSaveButtonClick() {
                 @Override
@@ -49,6 +43,12 @@ public class CoinNotificationAddAlarmFragment
                     mAdapter.notifyDataSetChanged();
                 }
             };
+    private OnItemClickListener mModifyListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(final int position) {
+            showAddAlarmPopup(mAdapter.getData().get(position));
+        }
+    };
 
     public static CoinNotificationAddAlarmFragment newInstance() {
         CoinNotificationAddAlarmFragment coinNotificationAddAlarmFragment

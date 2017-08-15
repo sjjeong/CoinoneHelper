@@ -37,7 +37,7 @@ public class DialogUtil {
         if (mServerDownProgressDialog != null && mServerDownProgressDialog.isShowing()) {
             try {
                 mServerDownProgressDialog.dismiss();
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }

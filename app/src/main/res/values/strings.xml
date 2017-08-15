@@ -4,6 +4,7 @@
     <string name="admob_banner_id">ca-app-pub-3455486566753347/9858710514</string>
     <string name="admob_exit_banner_id">ca-app-pub-3455486566753347/9881743310</string>
     <string name="admob_compare_trade_site">ca-app-pub-3455486566753347/9153276114</string>
+    <string name="auth_google_web_client_id">934192085579-qsk08cm75ea0mon73qthnglf3j6fpg9p.apps.googleusercontent.com</string>
 
     <string name="btc">BTC</string>
     <string name="bch">BCH</string>
@@ -36,7 +37,8 @@
     <string name="save">저장</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
-
+    <string name="chatting">채팅</string>
+    <string name="send">전송</string>
 
 
 </resources>

@@ -30,7 +30,7 @@ public class PoloniexTicker {
     @SerializedName("BTC_DASH")
     public Ticker btcDash;
 
-    public class Ticker{
+    public class Ticker {
         @SerializedName("last")
         public double last;
     }

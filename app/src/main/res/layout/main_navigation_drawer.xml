@@ -148,6 +148,14 @@
                         android:text="@string/coin_notification_alarm"
                         android:visibility="visible"/>
 
+                    <Button
+                        style="@style/PositiveButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(v) -> activity.onChattingClick(v)}"
+                        android:text="@string/chatting"
+                        android:visibility="visible"/>
+
                 </LinearLayout>
             </LinearLayout>
 

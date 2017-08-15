@@ -1,6 +1,5 @@
 package com.googry.coinonehelper.data.remote;
 
-import com.googry.coinonehelper.data.BithumbTicker;
 import com.googry.coinonehelper.data.PoloniexTicker;
 
 import java.io.IOException;

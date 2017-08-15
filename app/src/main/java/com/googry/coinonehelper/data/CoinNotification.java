@@ -30,7 +30,8 @@ public class CoinNotification extends RealmObject implements Parcelable {
     private long targetPrice;
     private int coinType;
 
-    public CoinNotification(){}
+    public CoinNotification() {
+    }
 
     protected CoinNotification(Parcel in) {
         createdTs = in.readLong();

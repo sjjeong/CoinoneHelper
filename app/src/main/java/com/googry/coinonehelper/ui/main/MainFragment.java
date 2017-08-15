@@ -1,23 +1,14 @@
 package com.googry.coinonehelper.ui.main;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.databinding.MainFragmentBinding;
 import com.googry.coinonehelper.ui.main.orderbook.OrderbookPagerAdapter;
-import com.googry.coinonehelper.util.LogUtil;
 
 /**
  * Created by seokjunjeong on 2017. 5. 27..
