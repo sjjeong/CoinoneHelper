@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.googry.coinonehelper.data.ChatMessage;
 import com.googry.coinonehelper.util.LogUtil;
 
@@ -23,6 +24,7 @@ public class ChattingPresenter implements ChattingContract.Presenter {
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private Query mQuery;
     private FirebaseAuth.AuthStateListener mAuthStateListener = new FirebaseAuth.AuthStateListener() {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -77,8 +79,11 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
-
+        mDatabaseReference = FirebaseDatabase
+                .getInstance()
+                .getReference();
+        mQuery = mDatabaseReference.child(MESSAGES_CHILD)
+                .limitToFirst(50);
     }
 
     private boolean checkUserSignin() {
@@ -108,12 +113,8 @@ public class ChattingPresenter implements ChattingContract.Presenter {
     @Override
     public void setFragmentStart() {
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-        FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(MESSAGES_CHILD)
-                .limitToFirst(50)
-                .addChildEventListener(mChlidEventListener);
+        mQuery.addChildEventListener(mChlidEventListener);
+
     }
 
     @Override
@@ -121,5 +122,6 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
+        mQuery.removeEventListener(mChlidEventListener);
     }
 }
