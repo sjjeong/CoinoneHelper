@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ChattingAdapter extends RecyclerView.Adapter<ChattingViewHolder> {
 
-    private String mUid;
+    private String mEmail;
     @NonNull
     private ArrayList<ChatMessage> mData;
 
@@ -30,20 +30,20 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingViewHolder> {
         mData = new ArrayList<>();
     }
 
-    public ChattingAdapter(String uid) {
-        mUid = uid;
+    public ChattingAdapter(String email) {
+        mEmail = email;
         mData = new ArrayList<>();
     }
 
-    public void setUid(String uid) {
-        mUid = uid;
+    public void setEmail(String email) {
+        mEmail = email;
     }
 
     @Override
     public ChattingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chatting_message_item, parent, false);
-        return new ChattingViewHolder(view, mUid);
+        return new ChattingViewHolder(view, mEmail);
     }
 
     @Override

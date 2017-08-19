@@ -17,12 +17,6 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hello world"/>
-        r
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_chatting"
             android:layout_width="match_parent"
@@ -42,12 +36,18 @@
                 android:layout_weight="1"
                 android:lines="2"/>
 
-            <Button
-                style="@style/PositiveButton"
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:onClick="@{() -> presenter.sendMessage()}"
-                android:text="@string/send"/>
+                android:layout_height="match_parent">
+
+                <Button
+                    style="@style/PositiveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:onClick="@{() -> presenter.sendMessage()}"
+                    android:text="@string/send"/>
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

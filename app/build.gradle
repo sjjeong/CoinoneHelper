@@ -64,12 +64,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:10.2.1'
     compile 'com.google.firebase:firebase-database:10.2.1'
     compile 'com.google.firebase:firebase-storage:10.2.1'
-    
-    // Firebase UI
-    compile 'com.firebaseui:firebase-ui-database:1.2.0'
 
+    // Sliding Root Nav
     compile 'com.yarolegovich:sliding-root-nav:1.0.2'
-
 }
 
 

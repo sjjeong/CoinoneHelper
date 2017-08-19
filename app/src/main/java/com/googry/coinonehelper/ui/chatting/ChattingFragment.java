@@ -107,7 +107,7 @@ public class ChattingFragment extends BaseFragment<ChattingFragmentBinding> impl
 
     @Override
     public void setFirebaseUser(FirebaseUser firebaseUser) {
-        mChattingAdapter.setUid(firebaseUser.getUid());
+        mChattingAdapter.setEmail(firebaseUser.getEmail());
     }
 
     @Override

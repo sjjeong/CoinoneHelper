@@ -5,10 +5,10 @@ package com.googry.coinonehelper.data;
  */
 
 public class ChatMessage {
-    public String userName;
-    public String message;
-    public String uid;
+    public String email;
     public long date;
+    public String name;
+    public String message;
 
 }
 

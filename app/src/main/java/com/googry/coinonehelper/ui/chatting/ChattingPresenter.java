@@ -3,6 +3,7 @@ package com.googry.coinonehelper.ui.chatting;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -61,7 +62,6 @@ public class ChattingPresenter implements ChattingContract.Presenter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
-                LogUtil.i(message.userName + " " + message.message);
                 mView.addMessage(message);
             }
 
@@ -101,10 +101,13 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         if (!checkUserSignin()) {
             return;
         }
+        if (TextUtils.isEmpty(mView.getMessage())) {
+            return;
+        }
         ChatMessage chatMessage = new ChatMessage();
+        chatMessage.email = mFirebaseUser.getEmail();
+        chatMessage.name = mFirebaseUser.getEmail();
         chatMessage.message = mView.getMessage();
-        chatMessage.userName = mFirebaseUser.getEmail();
-        chatMessage.uid = mFirebaseUser.getUid();
         chatMessage.date = System.currentTimeMillis();
 
         mDatabaseReference.child(MESSAGES_CHILD)
