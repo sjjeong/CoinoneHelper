@@ -97,6 +97,11 @@ public class PersistentService extends Service {
                         );
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
+                                CoinType.BCH,
+                                gson.toJson(coinoneTicker.bch, CoinoneTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
                                 CoinType.ETH,
                                 gson.toJson(coinoneTicker.eth, CoinoneTicker.Ticker.class)
                         );
@@ -121,6 +126,10 @@ public class PersistentService extends Service {
                             switch (coinNotification.getCoinType()) {
                                 case BTC: {
                                     targetPrice = coinoneTicker.btc.last;
+                                }
+                                break;
+                                case BCH: {
+                                    targetPrice = coinoneTicker.bch.last;
                                 }
                                 break;
                                 case ETH: {

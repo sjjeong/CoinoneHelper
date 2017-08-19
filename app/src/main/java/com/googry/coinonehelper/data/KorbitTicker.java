@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class KorbitTicker {
     public Ticker btc;
+    public Ticker bch;
     public Ticker eth;
     public Ticker etc;
     public Ticker xrp;

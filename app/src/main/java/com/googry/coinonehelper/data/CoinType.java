@@ -10,6 +10,7 @@ import com.googry.coinonehelper.R;
 
 public enum CoinType {
     BTC,
+    BCH,
     ETH,
     ETC,
     XRP;
@@ -19,6 +20,8 @@ public enum CoinType {
         switch (coinType) {
             case BTC:
                 return R.string.btc;
+            case BCH:
+                return R.string.bch;
             case ETH:
                 return R.string.eth;
             case ETC:

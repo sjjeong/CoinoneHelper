@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName;
 public class PoloniexTicker {
     @SerializedName("USDT_BTC")
     public Ticker usdtBtc;
+    @SerializedName("USDT_BCH")
+    public Ticker usdtBch;
     @SerializedName("USDT_ETH")
     public Ticker usdtEth;
     @SerializedName("USDT_ETC")
@@ -19,6 +21,8 @@ public class PoloniexTicker {
     public Ticker usdtLtc;
     @SerializedName("USDT_DASH")
     public Ticker usdtDash;
+    @SerializedName("BTC_BCH")
+    public Ticker btcBch;
     @SerializedName("BTC_ETH")
     public Ticker btcEth;
     @SerializedName("BTC_ETC")

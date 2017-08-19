@@ -43,6 +43,7 @@
 
             <FrameLayout
                 android:layout_width="0dp"
+                android:visibility="gone"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
@@ -98,7 +99,7 @@
 
                             <Button
                                 android:id="@+id/btn_bch"
-                                style="@style/NegativeButton"
+                                style="@style/PositiveButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -158,8 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
-                        android:text="@string/coin_notification_alarm"
-                        android:visibility="visible"/>
+                        android:text="@string/coin_notification_alarm"/>
 
                     <Button
                         style="@style/PositiveButton"
@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{(v) -> activity.onChattingClick(v)}"
                         android:text="@string/chatting"
-                        android:visibility="visible"/>
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </LinearLayout>

@@ -11,6 +11,8 @@ public class CoinoneTicker {
     public long timestamp;
     @SerializedName("btc")
     public Ticker btc;
+    @SerializedName("bch")
+    public Ticker bch;
     @SerializedName("eth")
     public Ticker eth;
     @SerializedName("etc")

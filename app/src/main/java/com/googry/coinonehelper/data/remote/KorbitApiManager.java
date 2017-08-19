@@ -49,8 +49,11 @@ public class KorbitApiManager {
     }
 
     public interface KorbitPublicApi {
-        @GET("v1/ticker/detailed?currency_pair=btc_krw")
+        @GET("v1/ticker?currency_pair=btc_krw")
         Call<KorbitTicker.Ticker> btcTicker();
+
+        @GET("v1/ticker?currency_pair=bch_krw")
+        Call<KorbitTicker.Ticker> bchTicker();
 
         @GET("v1/ticker?currency_pair=eth_krw")
         Call<KorbitTicker.Ticker> ethTicker();

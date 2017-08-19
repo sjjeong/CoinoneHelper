@@ -86,8 +86,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 break;
             }
             case R.id.btn_bch: {
-                Toast.makeText(getApplicationContext(), "아직 지원을 하지 않습니다.", Toast.LENGTH_LONG).show();
-                return;
+                coinType = CoinType.BCH;
+                break;
             }
             case R.id.btn_eth: {
                 coinType = CoinType.ETH;

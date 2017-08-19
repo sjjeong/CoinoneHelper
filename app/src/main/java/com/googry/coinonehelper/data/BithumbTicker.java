@@ -13,6 +13,8 @@ public class BithumbTicker {
     public class Data {
         @SerializedName("BTC")
         public Ticker btc;
+        @SerializedName("BCH")
+        public Ticker bch;
         @SerializedName("ETH")
         public Ticker eth;
         @SerializedName("DASH")

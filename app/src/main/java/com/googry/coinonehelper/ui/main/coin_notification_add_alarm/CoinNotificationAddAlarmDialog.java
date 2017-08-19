@@ -31,6 +31,7 @@ import io.realm.Realm;
 public class CoinNotificationAddAlarmDialog extends DialogFragment {
     private static final String EXTRA_COIN_NOTIFICATION = "EXTRA_COIN_NOTIFICATION";
     private static final long DIVIDER_BTC = 500;
+    private static final long DIVIDER_BCH = 100;
     private static final long DIVIDER_ETH = 50;
     private static final long DIVIDER_ETC = 10;
     private static final long DIVIDER_XRP = 1;
@@ -82,6 +83,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mBinding.rbBtc.setChecked(true);
                     mCoinType = CoinType.BTC;
                 }
+                case BCH: {
+                    mBinding.rbBch.setChecked(true);
+                    mCoinType = CoinType.BCH;
+                }
                 break;
                 case ETH: {
                     mBinding.rbEth.setChecked(true);
@@ -110,6 +115,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                 mCoinType = CoinType.BTC;
             }
             break;
+            case R.id.rb_bch: {
+                mCoinType = CoinType.BCH;
+            }
+            break;
             case R.id.rb_eth: {
                 mCoinType = CoinType.ETH;
             }
@@ -133,6 +142,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
         switch (mCoinType) {
             case BTC: {
                 price += plus ? DIVIDER_BTC : -DIVIDER_BTC;
+            }
+            break;
+            case BCH: {
+                price += plus ? DIVIDER_BCH : -DIVIDER_BCH;
             }
             break;
             case ETH: {
@@ -167,6 +180,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                         coinType = CoinType.BTC;
                     }
                     break;
+                    case R.id.rb_bch: {
+                        coinType = CoinType.BCH;
+                    }
+                    break;
                     case R.id.rb_eth: {
                         coinType = CoinType.ETH;
                     }
@@ -186,6 +203,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                 switch (coinType) {
                     case BTC: {
                         divider = DIVIDER_BTC;
+                    }
+                    break;
+                    case BCH: {
+                        divider = DIVIDER_BCH;
                     }
                     break;
                     case ETH: {

@@ -101,6 +101,7 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
         KorbitApiManager.KorbitPublicApi api = KorbitApiManager.getApiManager()
                 .create(KorbitApiManager.KorbitPublicApi.class);
         Call<KorbitTicker.Ticker> btcCall = api.btcTicker();
+        Call<KorbitTicker.Ticker> bchCall = api.bchTicker();
         Call<KorbitTicker.Ticker> ethCall = api.ethTicker();
         Call<KorbitTicker.Ticker> etcCall = api.etcTicker();
         Call<KorbitTicker.Ticker> xrpCall = api.xrpTicker();
@@ -111,6 +112,21 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
                     return;
                 }
                 mKorbitTicker.btc = response.body();
+                isReadyShowKorbitTicker();
+            }
+
+            @Override
+            public void onFailure(Call<KorbitTicker.Ticker> call, Throwable t) {
+                mView.showToast("코빗 서버가 불안정하여 데이터를 가져오지 못했습니다.");
+            }
+        });
+        bchCall.enqueue(new Callback<KorbitTicker.Ticker>() {
+            @Override
+            public void onResponse(Call<KorbitTicker.Ticker> call, Response<KorbitTicker.Ticker> response) {
+                if (response.body() == null) {
+                    return;
+                }
+                mKorbitTicker.bch = response.body();
                 isReadyShowKorbitTicker();
             }
 
@@ -197,6 +213,7 @@ public class CompareAnotherExchangePresenter implements CompareAnotherExchangeCo
 
     private void isReadyShowKorbitTicker() {
         if (mKorbitTicker.btc != null &&
+                mKorbitTicker.bch != null &&
                 mKorbitTicker.eth != null &&
                 mKorbitTicker.etc != null &&
                 mKorbitTicker.xrp != null) {
