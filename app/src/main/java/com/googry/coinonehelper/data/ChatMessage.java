@@ -6,7 +6,6 @@ package com.googry.coinonehelper.data;
 
 public class ChatMessage {
     public String email;
-    public long date;
     public String name;
     public String message;
 

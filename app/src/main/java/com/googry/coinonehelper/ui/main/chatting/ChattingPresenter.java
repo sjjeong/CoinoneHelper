@@ -10,7 +10,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.googry.coinonehelper.data.ChatMessage;
 import com.googry.coinonehelper.util.LogUtil;
 
@@ -37,6 +36,34 @@ public class ChattingPresenter implements ChattingContract.Presenter {
                 // User is signed out
                 mView.showSettingUi();
             }
+        }
+    };
+    private ChildEventListener mChlidEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
+            LogUtil.i(message.name + ": " + message.message);
+            mView.addMessage(message);
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
         }
     };
 
@@ -71,7 +98,6 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         chatMessage.email = mFirebaseUser.getEmail();
         chatMessage.name = mFirebaseUser.getDisplayName();
         chatMessage.message = mView.getMessage();
-        chatMessage.date = System.currentTimeMillis();
 
         mDatabaseReference.child(MESSAGES_CHILD)
                 .push().setValue(chatMessage);
@@ -82,36 +108,12 @@ public class ChattingPresenter implements ChattingContract.Presenter {
     @Override
     public void setFragmentStart() {
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabaseReference.child(MESSAGES_CHILD).limitToFirst(50);
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
-                LogUtil.i(message.name + ": " + message.message);
-                mView.addMessage(message);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(MESSAGES_CHILD)
+                .limitToFirst(50)
+                .addChildEventListener(mChlidEventListener);
     }
 
     @Override
