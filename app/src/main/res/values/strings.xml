@@ -40,6 +40,15 @@
     <string name="chatting">채팅</string>
     <string name="send">전송</string>
     <string name="setting">설정</string>
+    <string name="account">계정</string>
+    <string name="sign_in_for_google">구글 아이디로 로그인</string>
+    <string name="sign_out">로그아웃</string>
+    <string name="nickname_changing">별명을 변경 중입니다.</string>
+    <string name="nickname_change_success">별명 변경에 성공했습니다.</string>
+    <string name="nickname_change_failed">별명 변경에 실패했습니다.</string>
+    <string name="google_sign_in_failed">구글 로그인 실패</string>
+    <string name="id">아이디</string>
+    <string name="nickname">별명</string>
 
 
 </resources>
