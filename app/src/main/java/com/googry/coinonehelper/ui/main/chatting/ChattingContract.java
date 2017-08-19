@@ -1,9 +1,5 @@
 package com.googry.coinonehelper.ui.main.chatting;
 
-import android.app.Activity;
-import android.content.Intent;
-
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
@@ -17,8 +13,9 @@ public interface ChattingContract {
     interface Presenter extends BasePresenter {
         void sendMessage();
 
-        void setGoogleSigninResult(Intent data, Activity activity);
+        void setFragmentStart();
 
+        void setFragmentStop();
     }
 
     interface View extends BaseView<Presenter> {
@@ -26,11 +23,9 @@ public interface ChattingContract {
 
         void clearEditText();
 
-        void showGoogleLogin(GoogleApiClient googleApiClient);
-
-        void showFailedGoogleSignin();
-
         void addMessage(ChatMessage chatMessage);
+
+        void showSettingUi();
 
         void setFirebaseUser(FirebaseUser firebaseUser);
     }

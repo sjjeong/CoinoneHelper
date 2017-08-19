@@ -1,21 +1,10 @@
 package com.googry.coinonehelper.ui.main.chatting;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.googry.coinonehelper.data.ChatMessage;
+import com.googry.coinonehelper.util.LogUtil;
 
 /**
  * Created by seokjunjeong on 2017. 8. 15..
@@ -34,13 +24,25 @@ public class ChattingPresenter implements ChattingContract.Presenter {
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth.AuthStateListener mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            mFirebaseUser = firebaseAuth.getCurrentUser();
+            if (mFirebaseUser != null) {
+                // User is signed in
+                LogUtil.i("user email: " + mFirebaseUser.getEmail());
+                mView.setFirebaseUser(mFirebaseUser);
 
-    public ChattingPresenter(ChattingContract.View view,
-                             GoogleApiClient googleApiClient) {
+            } else {
+                // User is signed out
+                mView.showSettingUi();
+            }
+        }
+    };
+
+    public ChattingPresenter(ChattingContract.View view) {
         mView = view;
         mView.setPresenter(this);
-        mGoogleApiClient = googleApiClient;
     }
 
     @Override
@@ -49,17 +51,44 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
+
+    }
+
+    private boolean checkUserSignin() {
+        return mFirebaseUser == null ? false : true;
+    }
+
+    @Override
+    public void sendMessage() {
         if (!checkUserSignin()) {
+            mView.showSettingUi();
             return;
         }
-        mView.setFirebaseUser(mFirebaseUser);
+        if (TextUtils.isEmpty(mView.getMessage())) {
+            return;
+        }
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.email = mFirebaseUser.getEmail();
+        chatMessage.name = mFirebaseUser.getDisplayName();
+        chatMessage.message = mView.getMessage();
+        chatMessage.date = System.currentTimeMillis();
 
+        mDatabaseReference.child(MESSAGES_CHILD)
+                .push().setValue(chatMessage);
+        mView.clearEditText();
+
+    }
+
+    @Override
+    public void setFragmentStart() {
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = mDatabaseReference.child(MESSAGES_CHILD).limitToFirst(100);
+        Query query = mDatabaseReference.child(MESSAGES_CHILD).limitToFirst(50);
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
+                LogUtil.i(message.name + ": " + message.message);
                 mView.addMessage(message);
             }
 
@@ -85,59 +114,10 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         });
     }
 
-    private boolean checkUserSignin() {
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-            mView.showGoogleLogin(mGoogleApiClient);
-            return false;
-        }
-        return true;
-    }
-
     @Override
-    public void sendMessage() {
-        if (!checkUserSignin()) {
-            return;
-        }
-        if (TextUtils.isEmpty(mView.getMessage())) {
-            return;
-        }
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.email = mFirebaseUser.getEmail();
-        chatMessage.name = mFirebaseUser.getEmail();
-        chatMessage.message = mView.getMessage();
-        chatMessage.date = System.currentTimeMillis();
-
-        mDatabaseReference.child(MESSAGES_CHILD)
-                .push().setValue(chatMessage);
-        mView.clearEditText();
-
-    }
-
-    @Override
-    public void setGoogleSigninResult(Intent data, Activity activity) {
-        GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-        if (result.isSuccess()) {
-            // Google Sign-In was successful, authenticate with Firebase
-            GoogleSignInAccount account = result.getSignInAccount();
-            AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-            mFirebaseAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-                                mView.showFailedGoogleSignin();
-                            } else {
-                                start();
-                            }
-                        }
-                    });
-        } else {
-            // Google Sign-In failed
-            mView.showFailedGoogleSignin();
+    public void setFragmentStop() {
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
 }

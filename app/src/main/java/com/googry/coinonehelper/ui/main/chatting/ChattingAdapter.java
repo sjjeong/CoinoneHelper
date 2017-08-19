@@ -16,23 +16,12 @@ import java.util.ArrayList;
  */
 
 public class ChattingAdapter extends RecyclerView.Adapter<ChattingViewHolder> {
-
-    private String mEmail;
+    private String mEmail = "";
     @NonNull
     private ArrayList<ChatMessage> mData;
 
-    public void addData(ChatMessage chatMessage) {
-        mData.add(0,chatMessage);
-    }
-
-    public ChattingAdapter() {
-
-        mData = new ArrayList<>();
-    }
-
-    public ChattingAdapter(String email) {
-        mEmail = email;
-        mData = new ArrayList<>();
+    public ChattingAdapter(@NonNull ArrayList<ChatMessage> data) {
+        mData = data;
     }
 
     public void setEmail(String email) {
