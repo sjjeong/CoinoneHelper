@@ -41,6 +41,19 @@
                 android:textSize="25dp"
                 android:textStyle="bold"/>
 
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:onClick="@{(v) -> activity.onSettingClick(v)}"
+                    android:src="@drawable/ic_setting"/>
+            </FrameLayout>
+
         </LinearLayout>
 
         <ScrollView

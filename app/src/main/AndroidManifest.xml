@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".CoinoneHelperApplication"
@@ -38,7 +38,12 @@
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:theme="@style/AppTheme.Dialog"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.setting.SettingActivity"
+            android:label="@string/setting"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.googry.coinonehelper.background.PersistentService"

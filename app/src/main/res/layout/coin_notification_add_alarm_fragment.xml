@@ -8,7 +8,7 @@
 
         <variable
             name="presenter"
-            type="com.googry.coinonehelper.ui.coin_notification_add_alarm.CoinNotificationAddAlarmContract.Presenter"/>
+            type="com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmContract.Presenter"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout

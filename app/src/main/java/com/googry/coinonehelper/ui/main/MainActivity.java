@@ -2,6 +2,7 @@ package com.googry.coinonehelper.ui.main;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
 import com.googry.coinonehelper.ui.main.chatting.ChattingFragment;
 import com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmFragment;
 import com.googry.coinonehelper.ui.main.compare_another_exchange.CompareAnotherExchangeFragment;
+import com.googry.coinonehelper.ui.setting.SettingActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
 import com.googry.coinonehelper.util.ui.FragmentUtil;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -55,6 +57,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     @Override
     protected void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         setTitle(R.string.btc);
 
@@ -125,12 +128,17 @@ public class MainActivity extends BaseActivity<MainFragment> {
         replaceFragment(mCoinNotificationAddAlarmFragment, R.string.coin_notification_alarm);
     }
 
+    // databinding
     public void onChattingClick(View v) {
-//        startActivity(new Intent(getApplicationContext(), TestActivity.class));
         if (mChattingFragment == null) {
             mChattingFragment = ChattingFragment.newInstance();
         }
         replaceFragment(mChattingFragment, R.string.chatting);
+    }
+
+    // databinding
+    public void onSettingClick(View v){
+        startActivity(new Intent(getApplicationContext(), SettingActivity.class));
     }
 
     private void replaceFragment(Fragment fragment, @StringRes int titleRes) {

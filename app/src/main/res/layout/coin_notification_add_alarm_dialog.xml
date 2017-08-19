@@ -6,7 +6,7 @@
 
         <variable
             name="dialog"
-            type="com.googry.coinonehelper.ui.coin_notification_add_alarm.CoinNotificationAddAlarmDialog"/>
+            type="com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmDialog"/>
 
         <variable
             name="price"
