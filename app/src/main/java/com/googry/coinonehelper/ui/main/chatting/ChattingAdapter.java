@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.ui.chatting;
+package com.googry.coinonehelper.ui.main.chatting;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

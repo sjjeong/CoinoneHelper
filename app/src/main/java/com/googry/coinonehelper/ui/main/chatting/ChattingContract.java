@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.ui.chatting;
+package com.googry.coinonehelper.ui.main.chatting;
 
 import android.app.Activity;
 import android.content.Intent;

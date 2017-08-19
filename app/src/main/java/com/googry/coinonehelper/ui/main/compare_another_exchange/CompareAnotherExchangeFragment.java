@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.ui.compare_another_exchange;
+package com.googry.coinonehelper.ui.main.compare_another_exchange;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;

@@ -39,6 +39,7 @@
     <string name="minus">-</string>
     <string name="chatting">채팅</string>
     <string name="send">전송</string>
+    <string name="setting">설정</string>
 
 
 </resources>

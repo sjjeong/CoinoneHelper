@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.ui.coin_notification_add_alarm;
+package com.googry.coinonehelper.ui.main.coin_notification_add_alarm;
 
 import com.googry.coinonehelper.data.CoinNotification;
 
