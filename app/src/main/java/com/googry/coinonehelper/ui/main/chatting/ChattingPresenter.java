@@ -14,6 +14,8 @@ import com.google.firebase.database.Query;
 import com.googry.coinonehelper.data.ChatMessage;
 import com.googry.coinonehelper.util.LogUtil;
 
+import java.util.Date;
+
 /**
  * Created by seokjunjeong on 2017. 8. 15..
  */
@@ -103,6 +105,7 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         chatMessage.email = mFirebaseUser.getEmail();
         chatMessage.name = mFirebaseUser.getDisplayName();
         chatMessage.message = mView.getMessage();
+        chatMessage.time = new Date(System.currentTimeMillis()).toString();
 
         mDatabaseReference.child(MESSAGES_CHILD)
                 .push().setValue(chatMessage);

@@ -8,6 +8,6 @@ public class ChatMessage {
     public String email;
     public String name;
     public String message;
-
+    public String time;
 }
 

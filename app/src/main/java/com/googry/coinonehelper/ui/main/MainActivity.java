@@ -3,6 +3,8 @@ package com.googry.coinonehelper.ui.main;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -51,11 +53,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
     protected void initView() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mAdView = (AdView) findViewById(R.id.ad_view);
-        setAddSetting();
+        setAdSetting();
     }
 
     @Override
-    protected void initToolbar() {
+    protected void initToolbar(@Nullable Bundle savedInstanceState) {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
@@ -65,6 +67,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 .withToolbarMenuToggle(mToolbar)
                 .withRootViewScale(0.8f)
                 .withMenuOpened(true)
+                .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.main_navigation_drawer)
                 .inject();
 
@@ -133,7 +136,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
         if (mChattingFragment == null) {
             mChattingFragment = ChattingFragment.newInstance();
         }
-        replaceFragment(mChattingFragment, R.string.chatting);
+        replaceFragment(mChattingFragment, R.string.chatting_test);
+        Toast.makeText(getApplicationContext(),"현재 개발중인 서비스입니다.\n서비스 이용이 제한적 일 수 있습니다.",Toast.LENGTH_LONG).show();
     }
 
     // databinding
@@ -155,7 +159,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
         super.onDestroy();
     }
 
-    private void setAddSetting() {
+    private void setAdSetting() {
         MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
