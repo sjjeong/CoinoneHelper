@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "934192085579-0skv7vmt3n8f1nkkkuodl95uio81l5j5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.googry.coinonehelper",
+            "certificate_hash": "6d6bad28e78fbc8d14315e28e93f4d309f5f6f53"
+          }
+        },
+        {
           "client_id": "934192085579-vtn7rlgrgbiq63sik2u81r3nilnq842u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
