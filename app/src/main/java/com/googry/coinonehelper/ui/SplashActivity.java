@@ -14,6 +14,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.background.PersistentService;
 import com.googry.coinonehelper.background.RestartReceiver;
 import com.googry.coinonehelper.ui.main.MainActivity;
+import com.googry.coinonehelper.util.LogUtil;
 
 /**
  * Created by seokjunjeong on 2017. 5. 31..
@@ -36,30 +37,34 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
+                LogUtil.i("onAdLoaded");
                 mInterstitialAd.show();
             }
 
             @Override
             public void onAdClosed() {
                 super.onAdClosed();
+                LogUtil.i("onAdClosed");
                 startApp();
             }
 
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
+                LogUtil.i("onAdFailedToLoad");
                 startApp();
             }
 
             @Override
             public void onAdLeftApplication() {
                 super.onAdLeftApplication();
-                startApp();
+                LogUtil.i("onAdLeftApplication");
             }
 
             @Override
             public void onAdOpened() {
                 super.onAdOpened();
+                LogUtil.i("onAdOpened");
             }
         });
 
