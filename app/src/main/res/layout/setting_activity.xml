@@ -140,8 +140,19 @@
                 android:onClick="@{(v) -> activity.onGoogleBtnClick(v)}"
                 android:text="@string/sign_in_for_google"/>
 
+            <include
+                layout="@layout/divider"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg_selector"
+                android:onClick="@{(v) -> activity.onDeveloperPageClick(v)}"
+                android:padding="10dp"
+                android:text="@string/developer_page"
+                android:textColor="@drawable/text_selector"/>
         </LinearLayout>
+
 
     </LinearLayout>
 </layout>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.googry.coinonehelper.ui.setting.DeveloperActivity"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/say_developer"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/thanks_to"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send_email_to_developer"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/developer_email_address"/>
+
+
+                        <Button
+                            android:id="@+id/btn_send_email_to_developer"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onSendEmailClick(v)}"
+                            android:text="@string/send_email"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/help_developer"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_btc_donate"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/donate_btc"/>
+
+
+                        <Button
+                            android:id="@+id/btn_btc_copy"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onDonateClick(v)}"
+                            android:text="@string/copy"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_bch_donate"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/donate_bch"/>
+
+
+                        <Button
+                            android:id="@+id/btn_bch_copy"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onDonateClick(v)}"
+                            android:text="@string/copy"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_eth_donate"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/donate_eth"/>
+
+
+                        <Button
+                            android:id="@+id/btn_eth_copy"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onDonateClick(v)}"
+                            android:text="@string/copy"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_etc_donate"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/donate_etc"/>
+
+
+                        <Button
+                            android:id="@+id/btn_etc_copy"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onDonateClick(v)}"
+                            android:text="@string/copy"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/CoinTickerCardView"
+                app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                app:cardElevation="@dimen/compare_cardview_cardElevation"
+                app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_xrp_donate"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/donate_xrp"/>
+
+
+                        <Button
+                            android:id="@+id/btn_xrp_copy"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onDonateClick(v)}"
+                            android:text="@string/copy"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="@string/destination_tag"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/donate_xrp_destination"/>
+
+                        </LinearLayout>
+
+
+                        <Button
+                            android:id="@+id/btn_xrp_destination_copy"
+                            style="@style/PositiveButton"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> activity.onDonateClick(v)}"
+                            android:text="@string/copy"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

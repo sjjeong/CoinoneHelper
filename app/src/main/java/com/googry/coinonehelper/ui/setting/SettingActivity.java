@@ -219,4 +219,8 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    public void onDeveloperPageClick(View v){
+        startActivity(new Intent(getApplicationContext(), DeveloperActivity.class));
+    }
+
 }
