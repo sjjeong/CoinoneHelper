@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.korbit.ui.main.orderbook;
+package com.googry.coinonehelper.ui.main.orderbook;
 
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -7,13 +7,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
-import com.googry.coinonehelper.data.CoinoneTicker;
-import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.KorbitOrderbook;
+import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.data.KorbitTrade;
-import com.googry.coinonehelper.databinding.KorbitOrderbookFragmentBinding;
-import com.googry.coinonehelper.korbit.data.KorbitCoinType;
+import com.googry.coinonehelper.databinding.OrderbookFragmentBinding;
 import com.googry.coinonehelper.util.DialogUtil;
 
 import java.util.ArrayList;
@@ -23,20 +22,20 @@ import java.util.List;
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
-public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmentBinding>
-        implements KorbitOrderbookContract.View {
+public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
+        implements OrderbookContract.View {
     private static final String KEY_COIN_TYPE = "coinType";
 
-    private KorbitOrderbookContract.Presenter mPresenter;
+    private OrderbookContract.Presenter mPresenter;
     private RecyclerView mRvAskes, mRvBides, mRvTrades;
-    private KorbitOrderbookAdapter mAskAdapter, mBidAdapter;
-    private KorbitTradeAdapter mKorbitTradeAdapter;
+    private OrderbookAdapter mAskAdapter, mBidAdapter;
+    private TradeAdapter mKorbitTradeAdapter;
 
-    private KorbitCoinType mKorbitCoinType;
+    private CoinType mKorbitCoinType;
 
 
-    public static KorbitOrderbookFragment newInstance(KorbitCoinType coinType) {
-        KorbitOrderbookFragment korbitOrderbookFragment = new KorbitOrderbookFragment();
+    public static OrderbookFragment newInstance(CoinType coinType) {
+        OrderbookFragment korbitOrderbookFragment = new OrderbookFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_COIN_TYPE, coinType);
         korbitOrderbookFragment.setArguments(bundle);
@@ -45,7 +44,7 @@ public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmen
 
     @Override
     protected int getLayoutId() {
-        return R.layout.korbit_orderbook_fragment;
+        return R.layout.orderbook_fragment;
     }
 
     @Override
@@ -54,9 +53,9 @@ public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmen
         mRvBides = mBinding.rvBides;
         mRvTrades = mBinding.rvTrades;
 
-        mAskAdapter = new KorbitOrderbookAdapter(getContext(), KorbitOrderbookAdapter.BookType.ASK);
-        mBidAdapter = new KorbitOrderbookAdapter(getContext(), KorbitOrderbookAdapter.BookType.BID);
-        mKorbitTradeAdapter = new KorbitTradeAdapter(getContext());
+        mAskAdapter = new OrderbookAdapter(getContext(), OrderbookAdapter.BookType.ASK);
+        mBidAdapter = new OrderbookAdapter(getContext(), OrderbookAdapter.BookType.BID);
+        mKorbitTradeAdapter = new TradeAdapter(getContext());
 
         mRvAskes.setAdapter(mAskAdapter);
         mRvBides.setAdapter(mBidAdapter);
@@ -73,12 +72,12 @@ public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmen
         layoutManager.setAutoMeasureEnabled(false);
         mRvAskes.setLayoutManager(layoutManager);
 
-        mKorbitCoinType = (KorbitCoinType) getArguments().getSerializable(KEY_COIN_TYPE);
+        mKorbitCoinType = (CoinType) getArguments().getSerializable(KEY_COIN_TYPE);
     }
 
     @Override
     protected void newPresenter() {
-        new KorbitOrderbookPresenter(getContext(), this);
+        new OrderbookPresenter(getContext(), this);
     }
 
     @Override
@@ -90,7 +89,7 @@ public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmen
     }
 
     @Override
-    public void setPresenter(KorbitOrderbookContract.Presenter presenter) {
+    public void setPresenter(OrderbookContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -114,11 +113,11 @@ public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmen
 
         ArrayList<CoinoneOrderbook.Book> askes, bides;
         askes = new ArrayList<>();
-        for(List<String> strings : korbitOrderbook.asks){
+        for (List<String> strings : korbitOrderbook.asks) {
             askes.add(new CoinoneOrderbook.Book(Long.valueOf(strings.get(0)), Double.valueOf(strings.get(1))));
         }
         bides = new ArrayList<>();
-        for(List<String> strings : korbitOrderbook.bids){
+        for (List<String> strings : korbitOrderbook.bids) {
             bides.add(new CoinoneOrderbook.Book(Long.valueOf(strings.get(0)), Double.valueOf(strings.get(1))));
         }
 
@@ -159,7 +158,7 @@ public class KorbitOrderbookFragment extends BaseFragment<KorbitOrderbookFragmen
     }
 
     @Override
-    public void showTicker(CoinoneTicker.Ticker ticker) {
+    public void showTicker(KorbitTicker.TickerDetailed ticker) {
         if (ticker == null) return;
         mBinding.setTicker(ticker);
     }

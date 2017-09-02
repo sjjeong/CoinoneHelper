@@ -1,12 +1,11 @@
-package com.googry.coinonehelper.korbit.ui.main.orderbook;
+package com.googry.coinonehelper.ui.main.orderbook;
 
 import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
-import com.googry.coinonehelper.data.CoinoneTicker;
-import com.googry.coinonehelper.data.CoinoneTrade;
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.KorbitOrderbook;
+import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.data.KorbitTrade;
-import com.googry.coinonehelper.korbit.data.KorbitCoinType;
 
 import java.util.List;
 
@@ -14,13 +13,13 @@ import java.util.List;
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
-public class KorbitOrderbookContract {
+public class OrderbookContract {
     public interface View extends BaseView<Presenter> {
         void showOrderbookList(KorbitOrderbook korbitOrderbook);
 
         void showTradeList(List<KorbitTrade> trade);
 
-        void showTicker(CoinoneTicker.Ticker ticker);
+        void showTicker(KorbitTicker.TickerDetailed ticker);
 
         void showCoinoneServerDownProgressDialog();
 
@@ -28,7 +27,7 @@ public class KorbitOrderbookContract {
     }
 
     public interface Presenter extends BasePresenter {
-        void setCoinType(KorbitCoinType coinType);
+        void setCoinType(CoinType coinType);
 
         void stop();
 

@@ -6,11 +6,11 @@
 
         <variable
             name="presenter"
-            type="com.googry.coinonehelper.korbit.ui.main.orderbook.KorbitOrderbookContract.Presenter"/>
+            type="com.googry.coinonehelper.ui.main.orderbook.OrderbookContract.Presenter"/>
 
         <variable
             name="ticker"
-            type="com.googry.coinonehelper.data.CoinoneTicker.Ticker"/>
+            type="com.googry.coinonehelper.data.KorbitTicker.TickerDetailed"/>
     </data>
 
     <LinearLayout
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text='@{String.format("%,d",ticker.last)}'
-                        android:textColor="@{(ticker.last - ticker.first) >= 0 ? @color/colorBid : @color/colorAsk}"/>
+                        android:textColor="@{ticker.change >= 0 ? @color/colorBid : @color/colorAsk}"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%,d",ticker.first)}'/>
+                        android:text='@{String.format("%,d",ticker.last - ticker.change)}'/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -80,8 +80,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%+,d \n %+.2f%%",(ticker.last - ticker.first),(Double.valueOf((ticker.last - ticker.first)) * 100 / ticker.first))}'
-                        android:textColor="@{(ticker.last - ticker.first) >= 0 ? @color/colorBid : @color/colorAsk}"/>
+                        android:text='@{String.format("%+,d \n %+.2f%%",ticker.change,ticker.changePercent)}'
+                        android:textColor="@{ticker.change >= 0 ? @color/colorBid : @color/colorAsk}"/>
 
                     <TextView
                         android:layout_width="match_parent"

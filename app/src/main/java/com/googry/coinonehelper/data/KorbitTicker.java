@@ -17,4 +17,19 @@ public class KorbitTicker {
         @SerializedName("last")
         public long last;
     }
+
+    public class TickerDetailed {
+        @SerializedName("volume")
+        public double volume;
+        @SerializedName("last")
+        public long last;
+        @SerializedName("high")
+        public long high;
+        @SerializedName("low")
+        public long low;
+        @SerializedName("change")
+        public long change;
+        @SerializedName("changePercent")
+        public double changePercent;
+    }
 }

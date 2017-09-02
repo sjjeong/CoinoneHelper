@@ -72,6 +72,11 @@ public class KorbitApiManager {
                 @Query("time") String period
         );
 
+        @GET("ticker/detailed")
+        Call<KorbitTicker.TickerDetailed> ticker(
+                @Query("currency_pair") String currency
+        );
+
         @GET("ticker?currency_pair=btc_krw")
         Call<KorbitTicker.Ticker> btcTicker();
 

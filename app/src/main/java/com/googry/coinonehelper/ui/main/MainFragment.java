@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.databinding.MainFragmentBinding;
-import com.googry.coinonehelper.korbit.ui.main.orderbook.KorbitOrderbookPagerAdapter;
 import com.googry.coinonehelper.ui.main.orderbook.OrderbookPagerAdapter;
 
 /**
@@ -72,12 +70,8 @@ public class MainFragment extends BaseFragment<MainFragmentBinding> implements M
 
             }
         });
-        if (BuildConfig.FLAVOR.equals("korbit")) {
-            mVpDashboard.setAdapter(new KorbitOrderbookPagerAdapter(getChildFragmentManager()));
-        }else{
-            mOrderbookPagerAdapter = new OrderbookPagerAdapter(getChildFragmentManager());
-            mVpDashboard.setAdapter(mOrderbookPagerAdapter);
-        }
+        mOrderbookPagerAdapter = new OrderbookPagerAdapter(getChildFragmentManager());
+        mVpDashboard.setAdapter(mOrderbookPagerAdapter);
         mVpDashboard.setCurrentItem(mCoinType == null ? 0 : mCoinType.ordinal());
     }
 

@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.korbit.ui.main.orderbook;
+package com.googry.coinonehelper.ui.main.orderbook;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
-import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.KorbitTrade;
 import com.googry.coinonehelper.databinding.TradeItemBinding;
 
@@ -19,11 +18,11 @@ import java.util.List;
  * Created by seokjunjeong on 2017. 6. 14..
  */
 
-public class KorbitTradeAdapter extends RecyclerView.Adapter<KorbitTradeAdapter.ViewHolder> {
+public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> {
     private List<KorbitTrade> mTrades;
     private Context mContext;
 
-    public KorbitTradeAdapter(Context context) {
+    public TradeAdapter(Context context) {
         mContext = context;
         mTrades = new ArrayList<>();
     }

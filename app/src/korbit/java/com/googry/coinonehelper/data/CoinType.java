@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.korbit.data;
+package com.googry.coinonehelper.data;
 
 import android.support.annotation.StringRes;
 
@@ -8,7 +8,7 @@ import com.googry.coinonehelper.R;
  * Created by seokjunjeong on 2017. 6. 17..
  */
 
-public enum KorbitCoinType {
+public enum CoinType {
     BTC,
     BCH,
     ETH,
@@ -16,7 +16,7 @@ public enum KorbitCoinType {
     XRP;
 
     @StringRes
-    public static int getCoinTitleRes(KorbitCoinType coinType) {
+    public static int getCoinTitleRes(CoinType coinType) {
         switch (coinType) {
             case BTC:
                 return R.string.btc;

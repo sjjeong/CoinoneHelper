@@ -1,24 +1,24 @@
-package com.googry.coinonehelper.korbit.ui.main.orderbook;
+package com.googry.coinonehelper.ui.main.orderbook;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.googry.coinonehelper.korbit.data.KorbitCoinType;
+import com.googry.coinonehelper.data.CoinType;
 
 /**
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
-public class KorbitOrderbookPagerAdapter extends FragmentStatePagerAdapter {
-    private static final int COIN_CNT = KorbitCoinType.values().length;
-    private KorbitOrderbookFragment[] mKorbitOrderbookFragments;
+public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
+    private static final int COIN_CNT = CoinType.values().length;
+    private OrderbookFragment[] mKorbitOrderbookFragments;
 
-    public KorbitOrderbookPagerAdapter(FragmentManager fm) {
+    public OrderbookPagerAdapter(FragmentManager fm) {
         super(fm);
-        mKorbitOrderbookFragments = new KorbitOrderbookFragment[COIN_CNT];
+        mKorbitOrderbookFragments = new OrderbookFragment[COIN_CNT];
         for (int i = 0; i < COIN_CNT; i++) {
-            mKorbitOrderbookFragments[i] = KorbitOrderbookFragment.newInstance(KorbitCoinType.values()[i]);
+            mKorbitOrderbookFragments[i] = OrderbookFragment.newInstance(CoinType.values()[i]);
         }
     }
 

@@ -1,20 +1,17 @@
-package com.googry.coinonehelper.korbit.ui.main.orderbook;
+package com.googry.coinonehelper.ui.main.orderbook;
 
 import android.content.Context;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.KorbitOrderbook;
+import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.data.KorbitTrade;
-import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.data.remote.KorbitApiManager;
-import com.googry.coinonehelper.korbit.data.KorbitCoinType;
-import com.googry.coinonehelper.korbit.util.KorbitPrefUtil;
+import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,13 +24,13 @@ import retrofit2.Response;
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
-public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Presenter {
+public class OrderbookPresenter implements OrderbookContract.Presenter {
     private static final int ORDERBOOK_CNT = 20;
     private static final int TRADE_CNT = 20;
     private static final int REFRESH_PERIOD = 5000;
     private Context mContext;
-    private KorbitOrderbookContract.View mView;
-    private KorbitCoinType mCoinType;
+    private OrderbookContract.View mView;
+    private CoinType mCoinType;
 
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -69,9 +66,9 @@ public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Present
         }
     };
 
-    private Callback<CoinoneTicker.Ticker> mTickerCallback = new Callback<CoinoneTicker.Ticker>() {
+    private Callback<KorbitTicker.TickerDetailed> mTickerCallback = new Callback<KorbitTicker.TickerDetailed>() {
         @Override
-        public void onResponse(Call<CoinoneTicker.Ticker> call, Response<CoinoneTicker.Ticker> response) {
+        public void onResponse(Call<KorbitTicker.TickerDetailed> call, Response<KorbitTicker.TickerDetailed> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
             saveCoinoneTicker(response.body());
@@ -79,13 +76,13 @@ public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Present
         }
 
         @Override
-        public void onFailure(Call<CoinoneTicker.Ticker> call, Throwable t) {
+        public void onFailure(Call<KorbitTicker.TickerDetailed> call, Throwable t) {
             mView.showCoinoneServerDownProgressDialog();
 
         }
     };
 
-    public KorbitOrderbookPresenter(Context context, KorbitOrderbookContract.View view) {
+    public OrderbookPresenter(Context context, OrderbookContract.View view) {
         mContext = context;
         mView = view;
         mView.setPresenter(this);
@@ -99,7 +96,7 @@ public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Present
     }
 
     @Override
-    public void setCoinType(KorbitCoinType coinType) {
+    public void setCoinType(CoinType coinType) {
         mCoinType = coinType;
     }
 
@@ -123,18 +120,18 @@ public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Present
 
     @Override
     public void loadCoinoneOrderbook() {
-        mView.showOrderbookList(new Gson().fromJson(KorbitPrefUtil.loadOrderbook(mContext, mCoinType), KorbitOrderbook.class));
+        mView.showOrderbookList(new Gson().fromJson(PrefUtil.loadOrderbook(mContext, mCoinType), KorbitOrderbook.class));
     }
 
     @Override
     public void loadCoinoneTrade() {
-        mView.showTradeList((List<KorbitTrade>) new Gson().fromJson(KorbitPrefUtil.loadCompleteOrder(mContext, mCoinType), new TypeToken<List<KorbitTrade>>() {
+        mView.showTradeList((List<KorbitTrade>) new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), new TypeToken<List<KorbitTrade>>() {
         }.getType()));
     }
 
     @Override
     public void loadCoinoneTicker() {
-        mView.showTicker(new Gson().fromJson(KorbitPrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class));
+        mView.showTicker(new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), KorbitTicker.TickerDetailed.class));
     }
 
     private void makeTimer() {
@@ -148,15 +145,14 @@ public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Present
         mTimer.schedule(mTimerTask, 1000, REFRESH_PERIOD);
     }
 
-    private void requestOrderbook(KorbitCoinType coinType) {
-        CoinoneApiManager.CoinonePublicApi api = CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePublicApi.class);
+    private void requestOrderbook(CoinType coinType) {
         KorbitApiManager.KorbitPublicApi korbiApi = KorbitApiManager.getApiManager().create(KorbitApiManager.KorbitPublicApi.class);
         Call<KorbitOrderbook> callOrderbook = korbiApi.orderbook(coinType.name().toLowerCase() + "_krw");
         callOrderbook.enqueue(mOrderbookCallback);
         Call<List<KorbitTrade>> callTrade = korbiApi.trades(coinType.name().toLowerCase() + "_krw", "hour");
         callTrade.enqueue(mTradeCallback);
-//        Call<CoinoneTicker.Ticker> callTicker = api.ticker(coinType.name().toLowerCase()+"_krw");
-//        callTicker.enqueue(mTickerCallback);
+        Call<KorbitTicker.TickerDetailed> callTicker = korbiApi.ticker(coinType.name().toLowerCase() + "_krw");
+        callTicker.enqueue(mTickerCallback);
 
     }
 
@@ -167,19 +163,18 @@ public class KorbitOrderbookPresenter implements KorbitOrderbookContract.Present
         if (korbitOrderbook.bids != null) {
             korbitOrderbook.bids = new ArrayList<>(korbitOrderbook.bids.subList(0, korbitOrderbook.bids.size() < ORDERBOOK_CNT ? korbitOrderbook.bids.size() : ORDERBOOK_CNT));
         }
-        KorbitPrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(korbitOrderbook));
+        PrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(korbitOrderbook));
     }
 
     private void saveCoinoneTrade(List<KorbitTrade> korbitTrade) {
         if (korbitTrade != null) {
-            Collections.reverse(korbitTrade);
             korbitTrade = new ArrayList<>(korbitTrade.subList(0, korbitTrade.size() < TRADE_CNT ? korbitTrade.size() : TRADE_CNT));
         }
-        KorbitPrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(korbitTrade));
+        PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(korbitTrade));
 
     }
 
-    private void saveCoinoneTicker(CoinoneTicker.Ticker ticker) {
-        KorbitPrefUtil.saveTicker(mContext, mCoinType, new Gson().toJson(ticker));
+    private void saveCoinoneTicker(KorbitTicker.TickerDetailed ticker) {
+        PrefUtil.saveTicker(mContext, mCoinType, new Gson().toJson(ticker));
     }
 }
