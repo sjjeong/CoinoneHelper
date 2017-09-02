@@ -45,6 +45,21 @@ android {
     dataBinding {
         enabled = true
     }
+    productFlavors {
+        coinone {
+
+        }
+        bithumb {
+            applicationId 'com.googry.coinonehelper.bithumb'
+            versionCode 2
+            versionName '1.0.1'
+        }
+        korbit {
+            applicationId 'com.googry.coinonehelper.korbit'
+            versionCode 2
+            versionName '1.0.1'
+        }
+    }
 }
 
 dependencies {
@@ -54,10 +69,12 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
+    // Firebase
     compile 'com.google.firebase:firebase-ads:10.2.1'
     compile 'com.google.firebase:firebase-crash:10.2.1'
     compile 'com.google.firebase:firebase-auth:10.2.1'

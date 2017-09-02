@@ -1,36 +1,35 @@
 package com.googry.coinonehelper.data;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by seokjunjeong on 2017. 5. 27..
  */
 
-public class CoinoneOrderbook {
+public class KorbitOrderbook {
     @SerializedName("timestamp")
     public long timestamp;
     @SerializedName("currency")
     public String currency;
-    @SerializedName("ask")
-    public ArrayList<Book> askes;
-    @SerializedName("bid")
-    public ArrayList<Book> bides;
+    @SerializedName("bids")
+    @Expose
+    public List<List<String>> bids = null;
+    @SerializedName("asks")
+    @Expose
+    public List<List<String>> asks = null;
 
 
-    public static class Book {
+    public class Book {
         @SerializedName("price")
         public long price;
         @SerializedName("qty")
         public double qty;
 
-        public Book(long price, double qty) {
-            this.price = price;
-            this.qty = qty;
-        }
-
-        public Book() {
-        }
     }
 }

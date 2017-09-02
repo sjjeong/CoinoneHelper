@@ -1,4 +1,4 @@
-package com.googry.coinonehelper.ui.main.orderbook;
+package com.googry.coinonehelper.korbit.ui.main.orderbook;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.databinding.KorbitOrderbookItemBinding;
 import com.googry.coinonehelper.databinding.OrderbookItemBinding;
 
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ import java.util.ArrayList;
  * Created by seokjunjeong on 2017. 5. 28..
  */
 
-public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.ViewHolder> {
+public class KorbitOrderbookAdapter extends RecyclerView.Adapter<KorbitOrderbookAdapter.ViewHolder> {
     private ArrayList<CoinoneOrderbook.Book> mBooks;
     private Context mContext;
     private BookType mBookType;
 
-    public OrderbookAdapter(Context mContext,
-                            BookType bookType) {
+    public KorbitOrderbookAdapter(Context mContext,
+                                  BookType bookType) {
         this.mContext = mContext;
         mBookType = bookType;
         mBooks = new ArrayList<>();
@@ -32,7 +33,7 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.orderbook_item, parent, false);
+                inflate(R.layout.korbit_orderbook_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -66,7 +67,7 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private OrderbookItemBinding binding;
+        private KorbitOrderbookItemBinding binding;
 
         public ViewHolder(View itemView) {
             super(itemView);
