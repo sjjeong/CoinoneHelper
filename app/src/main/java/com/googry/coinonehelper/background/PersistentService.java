@@ -117,6 +117,11 @@ public class PersistentService extends Service {
                                 CoinType.XRP,
                                 gson.toJson(coinoneTicker.xrp, CoinoneTicker.Ticker.class)
                         );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.QTUM,
+                                gson.toJson(coinoneTicker.qtum, CoinoneTicker.Ticker.class)
+                        );
 
                         // 코인 가격 설정 조건 체크
                         Realm realm = Realm.getDefaultInstance();

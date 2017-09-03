@@ -95,17 +95,17 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     private void initMenuCoinPrice(){
         CoinoneTicker.Ticker tickerBtc = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.BTC), CoinoneTicker.Ticker.class);
-        mBinding.tvBtcPrice.setText(String.format("%,d",tickerBtc.last));
+        mBinding.tvBtcPrice.setText(tickerBtc != null ? String.format("%,d",tickerBtc.last) : "");
         CoinoneTicker.Ticker tickerBch = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.BCH), CoinoneTicker.Ticker.class);
-        mBinding.tvBchPrice.setText(String.format("%,d",tickerBch.last));
+        mBinding.tvBchPrice.setText(tickerBch != null ? String.format("%,d",tickerBch.last) : "");
         CoinoneTicker.Ticker tickerEth = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.ETH), CoinoneTicker.Ticker.class);
-        mBinding.tvEthPrice.setText(String.format("%,d",tickerEth.last));
+        mBinding.tvEthPrice.setText(tickerEth != null ? String.format("%,d",tickerEth.last) : "");
         CoinoneTicker.Ticker tickerEtc = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.ETC), CoinoneTicker.Ticker.class);
-        mBinding.tvEtcPrice.setText(String.format("%,d",tickerEtc.last));
+        mBinding.tvEtcPrice.setText(tickerEtc != null ? String.format("%,d",tickerEtc.last) : "");
         CoinoneTicker.Ticker tickerXrp = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.XRP), CoinoneTicker.Ticker.class);
-        mBinding.tvXrpPrice.setText(String.format("%,d",tickerXrp.last));
+        mBinding.tvXrpPrice.setText(tickerXrp != null ? String.format("%,d",tickerXrp.last) : "");
         CoinoneTicker.Ticker tickerQtum = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.QTUM), CoinoneTicker.Ticker.class);
-        mBinding.tvQtumPrice.setText(String.format("%,d",tickerQtum.last));
+        mBinding.tvQtumPrice.setText(tickerQtum != null ? String.format("%,d",tickerQtum.last) : "");
     }
 
     @Override
