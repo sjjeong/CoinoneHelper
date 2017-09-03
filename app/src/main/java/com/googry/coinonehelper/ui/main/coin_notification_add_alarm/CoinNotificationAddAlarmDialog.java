@@ -35,6 +35,7 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
     private static final long DIVIDER_ETH = 50;
     private static final long DIVIDER_ETC = 10;
     private static final long DIVIDER_XRP = 1;
+    private static final long DIVIDER_QTUM = 10;
     private CoinNotificationAddAlarmDialogBinding mBinding;
 
     private Realm mRealm;
@@ -103,6 +104,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.XRP;
                 }
                 break;
+                case QTUM: {
+                    mBinding.rbQtum.setChecked(true);
+                    mCoinType = CoinType.QTUM;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }
@@ -129,6 +135,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
             break;
             case R.id.rb_xrp: {
                 mCoinType = CoinType.XRP;
+            }
+            break;
+            case R.id.rb_qtum: {
+                mCoinType = CoinType.QTUM;
             }
             break;
         }
@@ -158,6 +168,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
             break;
             case XRP: {
                 price += plus ? DIVIDER_XRP : -DIVIDER_XRP;
+            }
+            break;
+            case QTUM: {
+                price += plus ? DIVIDER_QTUM : -DIVIDER_QTUM;
             }
             break;
         }
@@ -196,6 +210,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                         coinType = CoinType.XRP;
                     }
                     break;
+                    case R.id.rb_qtum: {
+                        coinType = CoinType.QTUM;
+                    }
+                    break;
                 }
 
                 long targetPrice = Long.parseLong(mBinding.etPrice.getText().toString().replace(",", ""));
@@ -219,6 +237,10 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     break;
                     case XRP: {
                         divider = DIVIDER_XRP;
+                    }
+                    break;
+                    case QTUM: {
+                        divider = DIVIDER_QTUM;
                     }
                     break;
                 }
