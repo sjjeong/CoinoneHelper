@@ -13,8 +13,7 @@ public enum CoinType {
     BCH,
     ETH,
     ETC,
-    XRP,
-    QTUM;
+    XRP;
 
     @StringRes
     public static int getCoinTitleRes(CoinType coinType) {
@@ -29,8 +28,6 @@ public enum CoinType {
                 return R.string.etc;
             case XRP:
                 return R.string.xrp;
-            case QTUM:
-                return R.string.qtum;
             default:
                 return R.string.btc;
         }

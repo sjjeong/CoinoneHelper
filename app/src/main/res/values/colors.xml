@@ -13,5 +13,11 @@
 
     <drawable name="transparent">@android:color/transparent</drawable>
 
+    <color name="colorBtc">#3868D5</color>
+    <color name="colorBch">#5E876D</color>
+    <color name="colorEth">#505F99</color>
+    <color name="colorEtc">#539898</color>
+    <color name="colorXrp">#3D6B97</color>
+    <color name="colorQtum">#5B98CF</color>
 
 </resources>

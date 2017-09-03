@@ -16,18 +16,23 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.data.CoinType;
+import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
 import com.googry.coinonehelper.ui.main.chatting.ChattingFragment;
 import com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmFragment;
 import com.googry.coinonehelper.ui.main.compare_another_exchange.CompareAnotherExchangeFragment;
 import com.googry.coinonehelper.ui.setting.SettingActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
+import com.googry.coinonehelper.util.LogUtil;
+import com.googry.coinonehelper.util.PrefUtil;
 import com.googry.coinonehelper.util.ui.FragmentUtil;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
+import com.yarolegovich.slidingrootnav.callback.DragStateListener;
 
 public class MainActivity extends BaseActivity<MainFragment> {
     private MainNavigationDrawerBinding mBinding;
@@ -69,10 +74,38 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 .withMenuOpened(true)
                 .withSavedState(savedInstanceState)
                 .withMenuLayout(R.layout.main_navigation_drawer)
+                .addDragStateListener(new DragStateListener() {
+                    @Override
+                    public void onDragStart() {
+                        initMenuCoinPrice();
+                    }
+
+                    @Override
+                    public void onDragEnd(boolean isMenuOpened) {
+                        LogUtil.i("end: " + isMenuOpened);
+                    }
+                })
                 .inject();
 
         mBinding = DataBindingUtil.bind(mSlidingRootNav.getLayout().findViewById(R.id.root));
         mBinding.setActivity(this);
+
+        initMenuCoinPrice();
+    }
+
+    private void initMenuCoinPrice(){
+        CoinoneTicker.Ticker tickerBtc = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.BTC), CoinoneTicker.Ticker.class);
+        mBinding.tvBtcPrice.setText(String.format("%,d",tickerBtc.last));
+        CoinoneTicker.Ticker tickerBch = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.BCH), CoinoneTicker.Ticker.class);
+        mBinding.tvBchPrice.setText(String.format("%,d",tickerBch.last));
+        CoinoneTicker.Ticker tickerEth = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.ETH), CoinoneTicker.Ticker.class);
+        mBinding.tvEthPrice.setText(String.format("%,d",tickerEth.last));
+        CoinoneTicker.Ticker tickerEtc = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.ETC), CoinoneTicker.Ticker.class);
+        mBinding.tvEtcPrice.setText(String.format("%,d",tickerEtc.last));
+        CoinoneTicker.Ticker tickerXrp = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.XRP), CoinoneTicker.Ticker.class);
+        mBinding.tvXrpPrice.setText(String.format("%,d",tickerXrp.last));
+        CoinoneTicker.Ticker tickerQtum = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.QTUM), CoinoneTicker.Ticker.class);
+        mBinding.tvQtumPrice.setText(String.format("%,d",tickerQtum.last));
     }
 
     @Override
@@ -102,6 +135,10 @@ public class MainActivity extends BaseActivity<MainFragment> {
             }
             case R.id.btn_xrp: {
                 coinType = CoinType.XRP;
+                break;
+            }
+            case R.id.btn_qtum: {
+                coinType = CoinType.QTUM;
                 break;
             }
         }

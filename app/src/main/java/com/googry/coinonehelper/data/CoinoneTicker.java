@@ -19,6 +19,8 @@ public class CoinoneTicker {
     public Ticker etc;
     @SerializedName("xrp")
     public Ticker xrp;
+    @SerializedName("qtum")
+    public Ticker qtum;
 
 
     public class Ticker {

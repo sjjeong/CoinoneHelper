@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -43,9 +44,9 @@
 
             <FrameLayout
                 android:layout_width="0dp"
-                android:visibility="visible"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -74,100 +75,228 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="주문표"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"/>
+                    <LinearLayout
+                        style="@style/SlideItem">
 
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/bitcoin"/>
 
-                        <TableRow>
+                        <TextView
+                            android:id="@+id/btn_btc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/btc"
+                            android:textColor="@color/colorBtc"/>
 
-                            <Button
-                                android:id="@+id/btn_btc"
-                                style="@style/PositiveButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                                android:text="@string/btc"/>
+                        <TextView
+                            android:id="@+id/tv_btc_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            tools:text="5,000,000"/>
 
-                            <Button
-                                android:id="@+id/btn_bch"
-                                style="@style/PositiveButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                                android:text="@string/bch"/>
-                        </TableRow>
+                    </LinearLayout>
 
-                        <TableRow>
+                    <LinearLayout
+                        style="@style/SlideItem">
 
-                            <Button
-                                android:id="@+id/btn_eth"
-                                style="@style/PositiveButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                                android:text="@string/eth"/>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/bitcoincash"/>
 
-                            <Button
-                                android:id="@+id/btn_etc"
-                                style="@style/PositiveButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                                android:text="@string/etc"/>
-                        </TableRow>
+                        <TextView
+                            android:id="@+id/btn_bch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/bch"
+                            android:textColor="@color/colorBch"/>
 
-                        <TableRow>
+                        <TextView
+                            android:id="@+id/tv_bch_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            tools:text="620,000"/>
 
-                            <Button
-                                android:id="@+id/btn_xrp"
-                                style="@style/PositiveButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
-                                android:text="@string/xrp"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        style="@style/SlideItem">
 
-                        </TableRow>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ethereum"/>
 
-                    </TableLayout>
+                        <TextView
+                            android:id="@+id/btn_eth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/eth"
+                            android:textColor="@color/colorEth"/>
+
+                        <TextView
+                            android:id="@+id/tv_eth_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            tools:text="400,000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SlideItem">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ethereumclassic"/>
+
+                        <TextView
+                            android:id="@+id/btn_etc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/etc"
+                            android:textColor="@color/colorEtc"/>
+
+                        <TextView
+                            android:id="@+id/tv_etc_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            tools:text="20,000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SlideItem">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ripple"/>
+
+                        <TextView
+                            android:id="@+id/btn_xrp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/xrp"
+                            android:textColor="@color/colorXrp"/>
+
+                        <TextView
+                            android:id="@+id/tv_xrp_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            tools:text="340"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SlideItem">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/qtum"/>
+
+                        <TextView
+                            android:id="@+id/btn_qtum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
+                            android:text="@string/qtum"
+                            android:textColor="@color/colorQtum"/>
+
+                        <TextView
+                            android:id="@+id/tv_qtum_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            tools:text="18,000"/>
+
+                    </LinearLayout>
+
 
                     <View
                         style="@style/DashDot"/>
 
-                    <Button
-                        style="@style/PositiveButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
-                        android:text="@string/compare_another_exchange"/>
+                    <LinearLayout
+                        style="@style/SlideItem">
 
-                    <Button
-                        style="@style/PositiveButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
-                        android:text="@string/coin_notification_alarm"/>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/compare"/>
 
-                    <Button
-                        style="@style/PositiveButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{(v) -> activity.onChattingClick(v)}"
-                        android:text="@string/chatting_test"
-                        android:visibility="visible"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
+                            android:text="@string/compare_another_exchange"
+                            android:textColor="@android:color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SlideItem">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/coin_alarm"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
+                            android:text="@string/coin_notification_alarm"
+                            android:textColor="@android:color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SlideItem">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/chatting"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:onClick="@{(v) -> activity.onChattingClick(v)}"
+                            android:text="@string/chatting"
+                            android:textColor="@android:color/black"/>
+                    </LinearLayout>
+
+                    <View
+                        style="@style/DashDot"/>
 
                 </LinearLayout>
             </LinearLayout>
