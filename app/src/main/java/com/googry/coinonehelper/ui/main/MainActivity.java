@@ -149,7 +149,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
             mFragment.setCoinTypeUi(coinType);
         }
         mSlidingRootNav.closeMenu();
-        getSupportActionBar().setTitle(((TextView) v).getText().toString());
+        getSupportActionBar().setTitle(CoinType.getCoinTitleRes(coinType));
     }
 
     // databinding

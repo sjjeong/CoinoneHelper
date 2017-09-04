@@ -77,7 +77,8 @@
 
                     <LinearLayout
                         android:id="@+id/btn_btc"
-                        style="@style/SlideItem">
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -89,7 +90,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
                             android:text="@string/btc"
                             android:textColor="@color/colorBtc"/>
 
@@ -104,7 +104,8 @@
 
                     <LinearLayout
                         android:id="@+id/btn_bch"
-                        style="@style/SlideItem">
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -116,7 +117,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
                             android:text="@string/bch"
                             android:textColor="@color/colorBch"/>
 
@@ -130,8 +130,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                            android:id="@+id/btn_eth"
-                        style="@style/SlideItem">
+                        android:id="@+id/btn_eth"
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -143,7 +144,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
                             android:text="@string/eth"
                             android:textColor="@color/colorEth"/>
 
@@ -157,8 +157,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                            android:id="@+id/btn_etc"
-                        style="@style/SlideItem">
+                        android:id="@+id/btn_etc"
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -170,7 +171,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
                             android:text="@string/etc"
                             android:textColor="@color/colorEtc"/>
 
@@ -184,8 +184,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                            android:id="@+id/btn_xrp"
-                        style="@style/SlideItem">
+                        android:id="@+id/btn_xrp"
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -197,7 +198,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
                             android:text="@string/xrp"
                             android:textColor="@color/colorXrp"/>
 
@@ -211,8 +211,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                            android:id="@+id/btn_qtum"
-                        style="@style/SlideItem">
+                        android:id="@+id/btn_qtum"
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -224,7 +225,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onOrderbookClick(v)}"
                             android:text="@string/qtum"
                             android:textColor="@color/colorQtum"/>
 
