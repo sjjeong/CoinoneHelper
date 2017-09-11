@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <variable
+            name="dialog"
+            type="com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmDialog"/>
+
+        <variable
+            name="price"
+            type="Long"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_default"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coin_type"/>
+
+            <RadioGroup
+                android:id="@+id/rg_coin_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:onCheckedChanged="@{(group, id) -> dialog.onCheckedChanged(group, id)}"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_btc"
+                    android:drawableEnd="@drawable/bitcoin"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btc"/>
+
+                <RadioButton
+                    android:id="@+id/rb_bch"
+                    android:drawableEnd="@drawable/bitcoincash"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bch"/>
+
+                <RadioButton
+                    android:id="@+id/rb_eth"
+                    android:drawableEnd="@drawable/ethereum"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eth"/>
+
+                <RadioButton
+                    android:id="@+id/rb_etc"
+                    android:drawableEnd="@drawable/ethereumclassic"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/etc"/>
+
+                <RadioButton
+                    android:id="@+id/rb_xrp"
+                    android:drawableEnd="@drawable/ripple"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xrp"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:inputType="numberDecimal"
+                    android:text='@{String.format("%,d",price)}'/>
+
+                <Button
+                    android:id="@+id/btn_minus"
+                    style="@style/NegativeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:onClick="@{(v) -> dialog.onPlusMinusButtonClick(v, false)}"
+                    android:text="@string/minus"/>
+
+                <Button
+                    android:id="@+id/btn_plus"
+                    style="@style/PositiveButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:onClick="@{(v) -> dialog.onPlusMinusButtonClick(v, true)}"
+                    android:text="@string/plus"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/NegativeButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:onClick="@{(v) -> dialog.onNegativeButtonClick(v)}"
+                    android:text="@string/cancel"/>
+
+                <Button
+                    style="@style/PositiveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:onClick="@{(v) -> dialog.onPositiveButtonClick(v)}"
+                    android:text="@string/save"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -44,6 +44,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
     private CompareAnotherExchangeFragment mCompareAnotherExchangeFragment;
     private ChattingFragment mChattingFragment;
 
+    private SlideMenuCoinTypeAdapter mSlideMenuCoinTypeAdapter;
+
     @Override
     protected int getLayoutId() {
         return R.layout.main_activity;
@@ -77,7 +79,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
                 .addDragStateListener(new DragStateListener() {
                     @Override
                     public void onDragStart() {
-                        initMenuCoinPrice();
+                        mSlideMenuCoinTypeAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -90,66 +92,26 @@ public class MainActivity extends BaseActivity<MainFragment> {
         mBinding = DataBindingUtil.bind(mSlidingRootNav.getLayout().findViewById(R.id.root));
         mBinding.setActivity(this);
 
-        initMenuCoinPrice();
-    }
+        mSlideMenuCoinTypeAdapter = new SlideMenuCoinTypeAdapter(new SlideMenuCoinTypeAdapter.OnCoinTypeItemClickListener() {
+            @Override
+            public void onCoinTypeItemClickListener(CoinType coinType) {
+                if (FragmentUtil.getFragment(MainActivity.this, getFragmentContentId()) != mFragment) {
+                    mFragment = MainFragment.newInstance(coinType);
+                    FragmentUtil.replaceFragment(MainActivity.this, getFragmentContentId(), mFragment);
+                } else {
+                    mFragment.setCoinTypeUi(coinType);
+                }
+                mSlidingRootNav.closeMenu();
+                getSupportActionBar().setTitle(CoinType.getCoinTitleRes(coinType));
+            }
+        });
+        mBinding.rvCoinType.setAdapter(mSlideMenuCoinTypeAdapter);
 
-    private void initMenuCoinPrice(){
-        CoinoneTicker.Ticker tickerBtc = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.BTC), CoinoneTicker.Ticker.class);
-        mBinding.tvBtcPrice.setText(tickerBtc != null ? String.format("%,d",tickerBtc.last) : "");
-        CoinoneTicker.Ticker tickerBch = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.BCH), CoinoneTicker.Ticker.class);
-        mBinding.tvBchPrice.setText(tickerBch != null ? String.format("%,d",tickerBch.last) : "");
-        CoinoneTicker.Ticker tickerEth = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.ETH), CoinoneTicker.Ticker.class);
-        mBinding.tvEthPrice.setText(tickerEth != null ? String.format("%,d",tickerEth.last) : "");
-        CoinoneTicker.Ticker tickerEtc = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.ETC), CoinoneTicker.Ticker.class);
-        mBinding.tvEtcPrice.setText(tickerEtc != null ? String.format("%,d",tickerEtc.last) : "");
-        CoinoneTicker.Ticker tickerXrp = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.XRP), CoinoneTicker.Ticker.class);
-        mBinding.tvXrpPrice.setText(tickerXrp != null ? String.format("%,d",tickerXrp.last) : "");
-        CoinoneTicker.Ticker tickerQtum = new Gson().fromJson(PrefUtil.loadTicker(getApplicationContext(), CoinType.QTUM), CoinoneTicker.Ticker.class);
-        mBinding.tvQtumPrice.setText(tickerQtum != null ? String.format("%,d",tickerQtum.last) : "");
     }
 
     @Override
     protected MainFragment getFragment() {
         return MainFragment.newInstance();
-    }
-
-    // databinding
-    public void onOrderbookClick(View v) {
-        CoinType coinType = CoinType.BTC;
-        switch (v.getId()) {
-            case R.id.btn_btc: {
-                coinType = CoinType.BTC;
-                break;
-            }
-            case R.id.btn_bch: {
-                coinType = CoinType.BCH;
-                break;
-            }
-            case R.id.btn_eth: {
-                coinType = CoinType.ETH;
-                break;
-            }
-            case R.id.btn_etc: {
-                coinType = CoinType.ETC;
-                break;
-            }
-            case R.id.btn_xrp: {
-                coinType = CoinType.XRP;
-                break;
-            }
-            case R.id.btn_qtum: {
-                coinType = CoinType.QTUM;
-                break;
-            }
-        }
-        if (FragmentUtil.getFragment(this, getFragmentContentId()) != mFragment) {
-            mFragment = MainFragment.newInstance(coinType);
-            FragmentUtil.replaceFragment(this, getFragmentContentId(), mFragment);
-        } else {
-            mFragment.setCoinTypeUi(coinType);
-        }
-        mSlidingRootNav.closeMenu();
-        getSupportActionBar().setTitle(CoinType.getCoinTitleRes(coinType));
     }
 
     // databinding

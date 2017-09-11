@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -75,167 +75,11 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/btn_btc"
-                        style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/bitcoin"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/btc"
-                            android:textColor="@color/colorBtc"/>
-
-                        <TextView
-                            android:id="@+id/tv_btc_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            tools:text="5,000,000"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btn_bch"
-                        style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/bitcoincash"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/bch"
-                            android:textColor="@color/colorBch"/>
-
-                        <TextView
-                            android:id="@+id/tv_bch_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            tools:text="620,000"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btn_eth"
-                        style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ethereum"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/eth"
-                            android:textColor="@color/colorEth"/>
-
-                        <TextView
-                            android:id="@+id/tv_eth_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            tools:text="400,000"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btn_etc"
-                        style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ethereumclassic"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/etc"
-                            android:textColor="@color/colorEtc"/>
-
-                        <TextView
-                            android:id="@+id/tv_etc_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            tools:text="20,000"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btn_xrp"
-                        style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ripple"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/xrp"
-                            android:textColor="@color/colorXrp"/>
-
-                        <TextView
-                            android:id="@+id/tv_xrp_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            tools:text="340"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btn_qtum"
-                        style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onOrderbookClick(v)}">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/qtum"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/qtum"
-                            android:textColor="@color/colorQtum"/>
-
-                        <TextView
-                            android:id="@+id/tv_qtum_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            tools:text="18,000"/>
-
-                    </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_coin_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="LinearLayoutManager"/>
 
 
                     <View

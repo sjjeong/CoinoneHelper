@@ -1,5 +1,6 @@
 package com.googry.coinonehelper.data;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
 import com.googry.coinonehelper.R;
@@ -32,7 +33,27 @@ public enum CoinType {
             case QTUM:
                 return R.string.qtum;
             default:
-                return R.string.btc;
+                return R.string.empty;
+        }
+    }
+
+    @DrawableRes
+    public static int getCoinIconRes(CoinType coinType) {
+        switch (coinType) {
+            case BTC:
+                return R.drawable.bitcoin;
+            case BCH:
+                return R.drawable.bitcoincash;
+            case ETH:
+                return R.drawable.ethereum;
+            case ETC:
+                return R.drawable.ethereumclassic;
+            case XRP:
+                return R.drawable.ripple;
+            case QTUM:
+                return R.drawable.qtum;
+            default:
+                return R.drawable.bitcoin;
         }
     }
 
