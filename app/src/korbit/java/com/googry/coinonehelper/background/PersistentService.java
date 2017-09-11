@@ -76,7 +76,7 @@ public class PersistentService extends Service {
         mContext = this;
 
         countDownTimer();
-//        countDownTimer.start();
+        countDownTimer.start();
     }
 
     public void countDownTimer() {

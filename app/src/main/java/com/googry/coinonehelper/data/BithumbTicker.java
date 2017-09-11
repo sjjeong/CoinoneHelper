@@ -28,8 +28,8 @@ public class BithumbTicker {
     }
 
     public class Ticker {
-        @SerializedName("sell_price")
-        public long sell_price;
+        @SerializedName("closing_price")
+        public long closingPrice;
 
     }
 }
