@@ -7,16 +7,15 @@ import android.support.v7.widget.RecyclerView;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
+import com.googry.coinonehelper.data.BithumbOrderbook;
+import com.googry.coinonehelper.data.BithumbSoloTicker;
+import com.googry.coinonehelper.data.BithumbTrade;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
-import com.googry.coinonehelper.data.KorbitOrderbook;
-import com.googry.coinonehelper.data.KorbitTicker;
-import com.googry.coinonehelper.data.KorbitTrade;
 import com.googry.coinonehelper.databinding.OrderbookFragmentBinding;
 import com.googry.coinonehelper.util.DialogUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by seokjunjeong on 2017. 5. 28..
@@ -29,17 +28,17 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     private OrderbookContract.Presenter mPresenter;
     private RecyclerView mRvAskes, mRvBides, mRvTrades;
     private OrderbookAdapter mAskAdapter, mBidAdapter;
-    private TradeAdapter mKorbitTradeAdapter;
+    private TradeAdapter mBithumbTradeAdapter;
 
-    private CoinType mKorbitCoinType;
+    private CoinType mBithumbCoinType;
 
 
     public static OrderbookFragment newInstance(CoinType coinType) {
-        OrderbookFragment korbitOrderbookFragment = new OrderbookFragment();
+        OrderbookFragment bithumbOrderbookFragment = new OrderbookFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_COIN_TYPE, coinType);
-        korbitOrderbookFragment.setArguments(bundle);
-        return korbitOrderbookFragment;
+        bithumbOrderbookFragment.setArguments(bundle);
+        return bithumbOrderbookFragment;
     }
 
     @Override
@@ -55,11 +54,11 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
 
         mAskAdapter = new OrderbookAdapter(getContext(), OrderbookAdapter.BookType.ASK);
         mBidAdapter = new OrderbookAdapter(getContext(), OrderbookAdapter.BookType.BID);
-        mKorbitTradeAdapter = new TradeAdapter(getContext());
+        mBithumbTradeAdapter = new TradeAdapter(getContext());
 
         mRvAskes.setAdapter(mAskAdapter);
         mRvBides.setAdapter(mBidAdapter);
-        mRvTrades.setAdapter(mKorbitTradeAdapter);
+        mRvTrades.setAdapter(mBithumbTradeAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
                 RecyclerView.VERTICAL);
@@ -72,7 +71,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
         layoutManager.setAutoMeasureEnabled(false);
         mRvAskes.setLayoutManager(layoutManager);
 
-        mKorbitCoinType = (CoinType) getArguments().getSerializable(KEY_COIN_TYPE);
+        mBithumbCoinType = (CoinType) getArguments().getSerializable(KEY_COIN_TYPE);
     }
 
     @Override
@@ -83,7 +82,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     @Override
     protected void startPresenter() {
         mBinding.setPresenter(mPresenter);
-        mPresenter.setCoinType(mKorbitCoinType);
+        mPresenter.setCoinType(mBithumbCoinType);
 
         mPresenter.start();
     }
@@ -106,19 +105,19 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     }
 
     @Override
-    public void showOrderbookList(KorbitOrderbook korbitOrderbook) {
-        if (korbitOrderbook == null ||
-                korbitOrderbook.asks == null ||
-                korbitOrderbook.bids == null) return;
+    public void showOrderbookList(BithumbOrderbook bithumbOrderbook) {
+        if (bithumbOrderbook == null ||
+                bithumbOrderbook.data.asks == null ||
+                bithumbOrderbook.data.bids == null) return;
 
         ArrayList<CoinoneOrderbook.Book> askes, bides;
         askes = new ArrayList<>();
-        for (List<String> strings : korbitOrderbook.asks) {
-            askes.add(new CoinoneOrderbook.Book(Long.valueOf(strings.get(0)), Double.valueOf(strings.get(1))));
+        for (BithumbOrderbook.Book book : bithumbOrderbook.data.asks) {
+            askes.add(new CoinoneOrderbook.Book(book.price, book.quantity));
         }
         bides = new ArrayList<>();
-        for (List<String> strings : korbitOrderbook.bids) {
-            bides.add(new CoinoneOrderbook.Book(Long.valueOf(strings.get(0)), Double.valueOf(strings.get(1))));
+        for (BithumbOrderbook.Book book : bithumbOrderbook.data.bids) {
+            bides.add(new CoinoneOrderbook.Book(book.price, book.quantity));
         }
 
         if (mAskAdapter.getItemCount() == 0 &&
@@ -151,14 +150,15 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     }
 
     @Override
-    public void showTradeList(List<KorbitTrade> trade) {
+    public void showTradeList(BithumbTrade trade) {
         if (trade == null) return;
-        mKorbitTradeAdapter.setTrades(trade);
+        if (trade.completeOrders == null) return;
+        mBithumbTradeAdapter.setTrades(trade.completeOrders);
 
     }
 
     @Override
-    public void showTicker(KorbitTicker.TickerDetailed ticker) {
+    public void showTicker(BithumbSoloTicker.Ticker ticker) {
         if (ticker == null) return;
         mBinding.setTicker(ticker);
     }

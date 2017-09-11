@@ -6,26 +6,9 @@ import com.google.gson.annotations.SerializedName;
  * Created by seokjunjeong on 2017. 7. 1..
  */
 
-public class BithumbTicker {
+public class BithumbSoloTicker {
     @SerializedName("data")
-    public Data data;
-
-    public class Data {
-        @SerializedName("BTC")
-        public Ticker btc;
-        @SerializedName("BCH")
-        public Ticker bch;
-        @SerializedName("ETH")
-        public Ticker eth;
-        @SerializedName("DASH")
-        public Ticker dash;
-        @SerializedName("LTC")
-        public Ticker ltc;
-        @SerializedName("ETC")
-        public Ticker etc;
-        @SerializedName("XRP")
-        public Ticker xrp;
-    }
+    public Ticker ticker;
 
     public class Ticker {
         @SerializedName("closing_price")

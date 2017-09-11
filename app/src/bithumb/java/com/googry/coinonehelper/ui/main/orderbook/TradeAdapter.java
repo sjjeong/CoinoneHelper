@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
-import com.googry.coinonehelper.data.KorbitTrade;
+import com.googry.coinonehelper.data.BithumbTrade;
 import com.googry.coinonehelper.databinding.TradeItemBinding;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> {
-    private List<KorbitTrade> mTrades;
+    private List<BithumbTrade.CompleteOrder> mTrades;
     private Context mContext;
 
     public TradeAdapter(Context context) {
@@ -27,7 +27,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> 
         mTrades = new ArrayList<>();
     }
 
-    public void setTrades(List<KorbitTrade> trades) {
+    public void setTrades(List<BithumbTrade.CompleteOrder> trades) {
         mTrades = trades;
         notifyDataSetChanged();
     }
@@ -58,9 +58,9 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.ViewHolder> 
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(KorbitTrade trade) {
+        public void bind(BithumbTrade.CompleteOrder trade) {
             binding.setPrice(String.format("%,d", trade.price));
-            binding.setQty(String.format("%,.4f", trade.amount));
+            binding.setQty(String.format("%,.4f", trade.units_traded));
             binding.setBuy(true);
         }
 

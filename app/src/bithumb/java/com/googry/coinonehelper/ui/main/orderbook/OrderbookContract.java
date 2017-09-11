@@ -2,12 +2,10 @@ package com.googry.coinonehelper.ui.main.orderbook;
 
 import com.googry.coinonehelper.base.BasePresenter;
 import com.googry.coinonehelper.base.BaseView;
+import com.googry.coinonehelper.data.BithumbOrderbook;
+import com.googry.coinonehelper.data.BithumbSoloTicker;
+import com.googry.coinonehelper.data.BithumbTrade;
 import com.googry.coinonehelper.data.CoinType;
-import com.googry.coinonehelper.data.KorbitOrderbook;
-import com.googry.coinonehelper.data.KorbitTicker;
-import com.googry.coinonehelper.data.KorbitTrade;
-
-import java.util.List;
 
 /**
  * Created by seokjunjeong on 2017. 5. 28..
@@ -15,11 +13,11 @@ import java.util.List;
 
 public class OrderbookContract {
     public interface View extends BaseView<Presenter> {
-        void showOrderbookList(KorbitOrderbook korbitOrderbook);
+        void showOrderbookList(BithumbOrderbook bithumbOrderbook);
 
-        void showTradeList(List<KorbitTrade> trade);
+        void showTradeList(BithumbTrade trade);
 
-        void showTicker(KorbitTicker.TickerDetailed ticker);
+        void showTicker(BithumbSoloTicker.Ticker ticker);
 
         void showCoinoneServerDownProgressDialog();
 

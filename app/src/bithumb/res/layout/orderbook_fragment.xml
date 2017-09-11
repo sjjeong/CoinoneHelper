@@ -10,7 +10,7 @@
 
         <variable
             name="ticker"
-            type="com.googry.coinonehelper.data.KorbitTicker.TickerDetailed"/>
+            type="com.googry.coinonehelper.data.BithumbSoloTicker.Ticker"/>
     </data>
 
     <LinearLayout
@@ -57,8 +57,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%,d",ticker.last)}'
-                        android:textColor="@{ticker.change >= 0 ? @color/colorBid : @color/colorAsk}"/>
+                        android:text='@{String.format("%,d",ticker.closingPrice)}'
+                        android:textColor="@{(ticker.closingPrice - ticker.openingPrice) >= 0 ? @color/colorBid : @color/colorAsk}"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%,d",ticker.last - ticker.change)}'/>
+                        android:text='@{String.format("%,d",ticker.openingPrice)}'/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -80,8 +80,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%+,d \n %+.2f%%",ticker.change,ticker.changePercent)}'
-                        android:textColor="@{ticker.change >= 0 ? @color/colorBid : @color/colorAsk}"/>
+                        android:text='@{String.format("%+,d \n %+.2f%%",(ticker.closingPrice - ticker.openingPrice),(Double.valueOf((ticker.closingPrice - ticker.openingPrice)) * 100 / ticker.openingPrice))}'
+                        android:textColor="@{(ticker.closingPrice - ticker.openingPrice) >= 0 ? @color/colorBid : @color/colorAsk}"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%,d",ticker.high)}'/>
+                        android:text='@{String.format("%,d",ticker.maxPrice)}'/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%,d",ticker.low)}'/>
+                        android:text='@{String.format("%,d",ticker.minPrice)}'/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text='@{String.format("%,.0f",ticker.volume)}'/>
+                        android:text='@{String.format("%,.0f",ticker.unitsTraded)}'/>
 
                 </LinearLayout>
 

@@ -3,16 +3,16 @@ package com.googry.coinonehelper.ui.main.orderbook;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.googry.coinonehelper.data.BithumbOrderbook;
+import com.googry.coinonehelper.data.BithumbSoloTicker;
+import com.googry.coinonehelper.data.BithumbTrade;
 import com.googry.coinonehelper.data.CoinType;
-import com.googry.coinonehelper.data.KorbitOrderbook;
-import com.googry.coinonehelper.data.KorbitTicker;
-import com.googry.coinonehelper.data.KorbitTrade;
-import com.googry.coinonehelper.data.remote.KorbitApiManager;
+import com.googry.coinonehelper.data.remote.BithumbApiManager;
+import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,9 +34,9 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     private Timer mTimer;
     private TimerTask mTimerTask;
-    private Callback<KorbitOrderbook> mOrderbookCallback = new Callback<KorbitOrderbook>() {
+    private Callback<BithumbOrderbook> mOrderbookCallback = new Callback<BithumbOrderbook>() {
         @Override
-        public void onResponse(Call<KorbitOrderbook> call, Response<KorbitOrderbook> response) {
+        public void onResponse(Call<BithumbOrderbook> call, Response<BithumbOrderbook> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
             saveCoinoneOrderbook(response.body());
@@ -44,14 +44,14 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         }
 
         @Override
-        public void onFailure(Call<KorbitOrderbook> call, Throwable t) {
+        public void onFailure(Call<BithumbOrderbook> call, Throwable t) {
             mView.showCoinoneServerDownProgressDialog();
 
         }
     };
-    private Callback<List<KorbitTrade>> mTradeCallback = new Callback<List<KorbitTrade>>() {
+    private Callback<BithumbTrade> mTradeCallback = new Callback<BithumbTrade>() {
         @Override
-        public void onResponse(Call<List<KorbitTrade>> call, Response<List<KorbitTrade>> response) {
+        public void onResponse(Call<BithumbTrade> call, Response<BithumbTrade> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
             saveCoinoneTrade(response.body());
@@ -60,23 +60,25 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
 
         @Override
-        public void onFailure(Call<List<KorbitTrade>> call, Throwable t) {
+        public void onFailure(Call<BithumbTrade> call, Throwable t) {
             mView.showCoinoneServerDownProgressDialog();
 
         }
     };
 
-    private Callback<KorbitTicker.TickerDetailed> mTickerCallback = new Callback<KorbitTicker.TickerDetailed>() {
+    private Callback<BithumbSoloTicker.Ticker> mTickerCallback = new Callback<BithumbSoloTicker.Ticker>() {
         @Override
-        public void onResponse(Call<KorbitTicker.TickerDetailed> call, Response<KorbitTicker.TickerDetailed> response) {
+        public void onResponse(Call<BithumbSoloTicker.Ticker> call, Response<BithumbSoloTicker.Ticker> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
+            BithumbSoloTicker.Ticker ticker = response.body();
+            LogUtil.i(mCoinType.name() + " : " +ticker.closingPrice);
             saveCoinoneTicker(response.body());
             loadCoinoneTicker();
         }
 
         @Override
-        public void onFailure(Call<KorbitTicker.TickerDetailed> call, Throwable t) {
+        public void onFailure(Call<BithumbSoloTicker.Ticker> call, Throwable t) {
             mView.showCoinoneServerDownProgressDialog();
 
         }
@@ -120,18 +122,17 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     @Override
     public void loadCoinoneOrderbook() {
-        mView.showOrderbookList(new Gson().fromJson(PrefUtil.loadOrderbook(mContext, mCoinType), KorbitOrderbook.class));
+        mView.showOrderbookList(new Gson().fromJson(PrefUtil.loadOrderbook(mContext, mCoinType), BithumbOrderbook.class));
     }
 
     @Override
     public void loadCoinoneTrade() {
-        mView.showTradeList((List<KorbitTrade>) new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), new TypeToken<List<KorbitTrade>>() {
-        }.getType()));
+        mView.showTradeList(new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), BithumbTrade.class));
     }
 
     @Override
     public void loadCoinoneTicker() {
-        mView.showTicker(new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), KorbitTicker.TickerDetailed.class));
+        mView.showTicker(new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), BithumbSoloTicker.Ticker.class));
     }
 
     private void makeTimer() {
@@ -146,35 +147,36 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
     }
 
     private void requestOrderbook(CoinType coinType) {
-        KorbitApiManager.KorbitPublicApi korbiApi = KorbitApiManager.getApiManager().create(KorbitApiManager.KorbitPublicApi.class);
-        Call<KorbitOrderbook> callOrderbook = korbiApi.orderbook(coinType.name().toLowerCase() + "_krw");
+        BithumbApiManager.BithumbPublicApi bithumbApi = BithumbApiManager.getApiManager().create(BithumbApiManager.BithumbPublicApi.class);
+        Call<BithumbOrderbook> callOrderbook = bithumbApi.orderbook(coinType.name().toLowerCase());
         callOrderbook.enqueue(mOrderbookCallback);
-        Call<List<KorbitTrade>> callTrade = korbiApi.trades(coinType.name().toLowerCase() + "_krw", "hour");
+        Call<BithumbTrade> callTrade = bithumbApi.trades(coinType.name().toLowerCase());
         callTrade.enqueue(mTradeCallback);
-        Call<KorbitTicker.TickerDetailed> callTicker = korbiApi.ticker(coinType.name().toLowerCase() + "_krw");
+        Call<BithumbSoloTicker.Ticker> callTicker = bithumbApi.ticker(coinType.name().toLowerCase());
         callTicker.enqueue(mTickerCallback);
 
     }
 
-    private void saveCoinoneOrderbook(KorbitOrderbook korbitOrderbook) {
-        if (korbitOrderbook.asks != null) {
-            korbitOrderbook.asks = new ArrayList<>(korbitOrderbook.asks.subList(0, korbitOrderbook.asks.size() < ORDERBOOK_CNT ? korbitOrderbook.asks.size() : ORDERBOOK_CNT));
+    private void saveCoinoneOrderbook(BithumbOrderbook korbitOrderbook) {
+        if (korbitOrderbook.data.asks != null) {
+            korbitOrderbook.data.asks = new ArrayList<>(korbitOrderbook.data.asks.subList(0, korbitOrderbook.data.asks.size() < ORDERBOOK_CNT ? korbitOrderbook.data.asks.size() : ORDERBOOK_CNT));
         }
-        if (korbitOrderbook.bids != null) {
-            korbitOrderbook.bids = new ArrayList<>(korbitOrderbook.bids.subList(0, korbitOrderbook.bids.size() < ORDERBOOK_CNT ? korbitOrderbook.bids.size() : ORDERBOOK_CNT));
+        if (korbitOrderbook.data.bids != null) {
+            korbitOrderbook.data.bids = new ArrayList<>(korbitOrderbook.data.bids.subList(0, korbitOrderbook.data.bids.size() < ORDERBOOK_CNT ? korbitOrderbook.data.bids.size() : ORDERBOOK_CNT));
         }
         PrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(korbitOrderbook));
     }
 
-    private void saveCoinoneTrade(List<KorbitTrade> korbitTrade) {
-        if (korbitTrade != null) {
-            korbitTrade = new ArrayList<>(korbitTrade.subList(0, korbitTrade.size() < TRADE_CNT ? korbitTrade.size() : TRADE_CNT));
+    private void saveCoinoneTrade(BithumbTrade bithumbTrade) {
+        if (bithumbTrade.completeOrders != null) {
+            Collections.reverse(bithumbTrade.completeOrders);
+            bithumbTrade.completeOrders = new ArrayList<>(bithumbTrade.completeOrders.subList(0, bithumbTrade.completeOrders.size() < TRADE_CNT ? bithumbTrade.completeOrders.size() : TRADE_CNT));
         }
-        PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(korbitTrade));
+        PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(bithumbTrade));
 
     }
 
-    private void saveCoinoneTicker(KorbitTicker.TickerDetailed ticker) {
+    private void saveCoinoneTicker(BithumbSoloTicker.Ticker ticker) {
         PrefUtil.saveTicker(mContext, mCoinType, new Gson().toJson(ticker));
     }
 }
