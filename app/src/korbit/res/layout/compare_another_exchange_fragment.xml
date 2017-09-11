@@ -98,7 +98,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.btc.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.btc.last)}'/>
 
                             </LinearLayout>
 
@@ -202,7 +202,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.bch.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.bch.last)}'/>
 
                             </LinearLayout>
 
@@ -327,7 +327,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.eth.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.eth.last)}'/>
 
                             </LinearLayout>
 
@@ -452,7 +452,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.etc.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.etc.last)}'/>
 
                             </LinearLayout>
 
@@ -578,7 +578,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.xrp.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.xrp.last)}'/>
 
                             </LinearLayout>
 
@@ -725,7 +725,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.ltc.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.ltc.last)}'/>
 
                             </LinearLayout>
 
@@ -787,7 +787,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.dash.closingPrice)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.dash.last)}'/>
 
                             </LinearLayout>
 

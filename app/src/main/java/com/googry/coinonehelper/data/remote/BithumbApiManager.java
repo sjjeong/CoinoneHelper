@@ -72,7 +72,7 @@ public class BithumbApiManager {
         );
 
         @GET("public/ticker/{currency}")
-        Call<BithumbSoloTicker.Ticker> ticker(
+        Call<BithumbSoloTicker> ticker(
                 @Path("currency") String currency
         );
 

@@ -29,15 +29,6 @@ public class BithumbTicker {
 
     public class Ticker {
         @SerializedName("closing_price")
-        public long closingPrice;
-        @SerializedName("opening_price")
-        public long openingPrice;
-        @SerializedName("min_price")
-        public long minPrice;
-        @SerializedName("max_price")
-        public long maxPrice;
-        @SerializedName("units_traded")
-        public double unitsTraded;
-
+        public long last;
     }
 }

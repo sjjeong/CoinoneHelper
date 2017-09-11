@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
+import com.googry.coinonehelper.data.BithumbSoloTicker;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.databinding.SlideMenuCoinTypeItemBinding;
 import com.googry.coinonehelper.util.PrefUtil;
 
@@ -68,8 +71,16 @@ public class SlideMenuCoinTypeAdapter extends RecyclerView.Adapter<SlideMenuCoin
             mCoinType = coinType;
             mBinding.ivCoinIcon.setImageResource(CoinType.getCoinIconRes(coinType));
             mBinding.ivCoinTitle.setText(CoinType.getCoinTitleRes(coinType));
-            CoinoneTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, coinType), CoinoneTicker.Ticker.class);
-            mBinding.tvCoinPrice.setText(ticker != null ? String.format("%,d", ticker.last) : "");
+            if (BuildConfig.FLAVOR.equals("bithumb")) {
+                BithumbSoloTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, coinType), BithumbSoloTicker.Ticker.class);
+                mBinding.tvCoinPrice.setText(ticker != null ? String.format("%,d", ticker.last) : "");
+            } else if (BuildConfig.FLAVOR.equals("korbit")) {
+                KorbitTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, coinType), KorbitTicker.Ticker.class);
+                mBinding.tvCoinPrice.setText(ticker != null ? String.format("%,d", ticker.last) : "");
+            } else {
+                CoinoneTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, coinType), CoinoneTicker.Ticker.class);
+                mBinding.tvCoinPrice.setText(ticker != null ? String.format("%,d", ticker.last) : "");
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ public class BithumbOrderbook {
         @SerializedName("price")
         public long price;
         @SerializedName("quantity")
-        public double quantity;
+        public double qty;
 
     }
 }

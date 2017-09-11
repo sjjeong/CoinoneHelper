@@ -12,15 +12,15 @@ public class BithumbSoloTicker {
 
     public class Ticker {
         @SerializedName("closing_price")
-        public long closingPrice;
+        public long last;
         @SerializedName("opening_price")
-        public long openingPrice;
+        public long first;
         @SerializedName("min_price")
-        public long minPrice;
+        public long low;
         @SerializedName("max_price")
-        public long maxPrice;
+        public long high;
         @SerializedName("units_traded")
-        public double unitsTraded;
+        public double volume;
 
     }
 }

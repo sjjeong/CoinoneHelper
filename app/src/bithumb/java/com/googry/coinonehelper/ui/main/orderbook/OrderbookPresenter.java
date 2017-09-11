@@ -66,19 +66,17 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         }
     };
 
-    private Callback<BithumbSoloTicker.Ticker> mTickerCallback = new Callback<BithumbSoloTicker.Ticker>() {
+    private Callback<BithumbSoloTicker> mTickerCallback = new Callback<BithumbSoloTicker>() {
         @Override
-        public void onResponse(Call<BithumbSoloTicker.Ticker> call, Response<BithumbSoloTicker.Ticker> response) {
+        public void onResponse(Call<BithumbSoloTicker> call, Response<BithumbSoloTicker> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
-            BithumbSoloTicker.Ticker ticker = response.body();
-            LogUtil.i(mCoinType.name() + " : " +ticker.closingPrice);
-            saveCoinoneTicker(response.body());
+            saveCoinoneTicker(response.body().ticker);
             loadCoinoneTicker();
         }
 
         @Override
-        public void onFailure(Call<BithumbSoloTicker.Ticker> call, Throwable t) {
+        public void onFailure(Call<BithumbSoloTicker> call, Throwable t) {
             mView.showCoinoneServerDownProgressDialog();
 
         }
@@ -152,7 +150,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         callOrderbook.enqueue(mOrderbookCallback);
         Call<BithumbTrade> callTrade = bithumbApi.trades(coinType.name().toLowerCase());
         callTrade.enqueue(mTradeCallback);
-        Call<BithumbSoloTicker.Ticker> callTicker = bithumbApi.ticker(coinType.name().toLowerCase());
+        Call<BithumbSoloTicker> callTicker = bithumbApi.ticker(coinType.name().toLowerCase());
         callTicker.enqueue(mTickerCallback);
 
     }

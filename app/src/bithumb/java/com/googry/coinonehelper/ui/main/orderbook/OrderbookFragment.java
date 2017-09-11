@@ -113,11 +113,11 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
         ArrayList<CoinoneOrderbook.Book> askes, bides;
         askes = new ArrayList<>();
         for (BithumbOrderbook.Book book : bithumbOrderbook.data.asks) {
-            askes.add(new CoinoneOrderbook.Book(book.price, book.quantity));
+            askes.add(new CoinoneOrderbook.Book(book.price, book.qty));
         }
         bides = new ArrayList<>();
         for (BithumbOrderbook.Book book : bithumbOrderbook.data.bids) {
-            bides.add(new CoinoneOrderbook.Book(book.price, book.quantity));
+            bides.add(new CoinoneOrderbook.Book(book.price, book.qty));
         }
 
         if (mAskAdapter.getItemCount() == 0 &&
