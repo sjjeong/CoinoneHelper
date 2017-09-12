@@ -813,6 +813,66 @@
                             </LinearLayout>
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        style="@style/CoinTickerCardView"
+                        app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                        app:cardElevation="@dimen/compare_cardview_cardElevation"
+                        app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/xmr"
+                                android:textSize="20dp"
+                                android:textStyle="bold"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/bithumb"/>
+
+                                <TextView
+                                    android:id="@+id/tv_bithumb_xmr_price"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableRight="@drawable/ic_krw"
+                                    android:gravity="right"
+                                    android:text='@{String.format("%,d",bithumbTicker.data.xmr.last)}'/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/poloniex"/>
+
+                                <TextView
+                                    android:id="@+id/tv_poloniex_xmr_price"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableRight="@drawable/ic_dollar"
+                                    android:gravity="right"
+                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtXmr.last)}'/>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
 
 

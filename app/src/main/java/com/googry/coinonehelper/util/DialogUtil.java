@@ -15,7 +15,7 @@ public class DialogUtil {
 
     private static void createServerDownProgressDialog(Context context) {
         mServerDownProgressDialog = new ProgressDialog(context);
-        mServerDownProgressDialog.setMessage(context.getString(R.string.coinone_server_down));
+        mServerDownProgressDialog.setMessage(context.getString(R.string.server_down));
     }
 
     public static void showServerDownProgressDialog(Context context) {

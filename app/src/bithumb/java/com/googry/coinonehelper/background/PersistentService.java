@@ -19,8 +19,8 @@ import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.data.CoinType;
-import com.googry.coinonehelper.data.CoinoneTicker;
-import com.googry.coinonehelper.data.remote.CoinoneApiManager;
+import com.googry.coinonehelper.data.BithumbTicker;
+import com.googry.coinonehelper.data.remote.BithumbApiManager;
 import com.googry.coinonehelper.ui.PopupActivity;
 import com.googry.coinonehelper.ui.SplashActivity;
 import com.googry.coinonehelper.util.LogUtil;
@@ -76,7 +76,7 @@ public class PersistentService extends Service {
         mContext = this;
 
         countDownTimer();
-//        countDownTimer.start();
+        countDownTimer.start();
     }
 
     public void countDownTimer() {
@@ -84,38 +84,53 @@ public class PersistentService extends Service {
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             public void onTick(long millisUntilFinished) {
                 LogUtil.i(BuildConfig.FLAVOR + " service");
-                CoinoneApiManager.CoinonePublicApi api = CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePublicApi.class);
-                Call<CoinoneTicker> call = api.allTicker();
-                call.enqueue(new Callback<CoinoneTicker>() {
+                BithumbApiManager.BithumbPublicApi api = BithumbApiManager.getApiManager().create(BithumbApiManager.BithumbPublicApi.class);
+                Call<BithumbTicker> call = api.allTicker();
+                call.enqueue(new Callback<BithumbTicker>() {
                     @Override
-                    public void onResponse(Call<CoinoneTicker> call, Response<CoinoneTicker> response) {
+                    public void onResponse(Call<BithumbTicker> call, Response<BithumbTicker> response) {
                         if (response.body() == null) return;
-                        CoinoneTicker coinoneTicker = response.body();
+                        BithumbTicker.Data ticker =  response.body().data;
                         Gson gson = new Gson();
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
                                 CoinType.BTC,
-                                gson.toJson(coinoneTicker.btc, CoinoneTicker.Ticker.class)
+                                gson.toJson(ticker.btc, BithumbTicker.Ticker.class)
                         );
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
                                 CoinType.BCH,
-                                gson.toJson(coinoneTicker.bch, CoinoneTicker.Ticker.class)
+                                gson.toJson(ticker.bch, BithumbTicker.Ticker.class)
                         );
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
                                 CoinType.ETH,
-                                gson.toJson(coinoneTicker.eth, CoinoneTicker.Ticker.class)
+                                gson.toJson(ticker.eth, BithumbTicker.Ticker.class)
                         );
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
                                 CoinType.ETC,
-                                gson.toJson(coinoneTicker.etc, CoinoneTicker.Ticker.class)
+                                gson.toJson(ticker.etc, BithumbTicker.Ticker.class)
                         );
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
                                 CoinType.XRP,
-                                gson.toJson(coinoneTicker.xrp, CoinoneTicker.Ticker.class)
+                                gson.toJson(ticker.xrp, BithumbTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.DASH,
+                                gson.toJson(ticker.dash, BithumbTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.LTC,
+                                gson.toJson(ticker.ltc, BithumbTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.XMR,
+                                gson.toJson(ticker.xmr, BithumbTicker.Ticker.class)
                         );
 
                         // 코인 가격 설정 조건 체크
@@ -127,23 +142,35 @@ public class PersistentService extends Service {
                             String msg = "";
                             switch (coinNotification.getCoinType()) {
                                 case BTC: {
-                                    targetPrice = coinoneTicker.btc.last;
+                                    targetPrice = ticker.btc.last;
                                 }
                                 break;
                                 case BCH: {
-                                    targetPrice = coinoneTicker.bch.last;
+                                    targetPrice = ticker.bch.last;
                                 }
                                 break;
                                 case ETH: {
-                                    targetPrice = coinoneTicker.eth.last;
+                                    targetPrice = ticker.eth.last;
                                 }
                                 break;
                                 case ETC: {
-                                    targetPrice = coinoneTicker.etc.last;
+                                    targetPrice = ticker.etc.last;
                                 }
                                 break;
                                 case XRP: {
-                                    targetPrice = coinoneTicker.xrp.last;
+                                    targetPrice = ticker.xrp.last;
+                                }
+                                break;
+                                case DASH: {
+                                    targetPrice = ticker.dash.last;
+                                }
+                                break;
+                                case LTC: {
+                                    targetPrice = ticker.ltc.last;
+                                }
+                                break;
+                                case XMR: {
+                                    targetPrice = ticker.xmr.last;
                                 }
                                 break;
                             }
@@ -200,7 +227,7 @@ public class PersistentService extends Service {
                     }
 
                     @Override
-                    public void onFailure(Call<CoinoneTicker> call, Throwable t) {
+                    public void onFailure(Call<BithumbTicker> call, Throwable t) {
 
                     }
                 });

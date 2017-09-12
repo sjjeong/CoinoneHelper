@@ -11,14 +11,15 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
+import com.googry.coinonehelper.data.BithumbTicker;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.data.CoinType;
-import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.databinding.CoinNotificationAddAlarmDialogBinding;
 import com.googry.coinonehelper.util.PrefUtil;
 
@@ -30,12 +31,6 @@ import io.realm.Realm;
 
 public class CoinNotificationAddAlarmDialog extends DialogFragment {
     private static final String EXTRA_COIN_NOTIFICATION = "EXTRA_COIN_NOTIFICATION";
-    private static final long DIVIDER_BTC = 500;
-    private static final long DIVIDER_BCH = 100;
-    private static final long DIVIDER_ETH = 50;
-    private static final long DIVIDER_ETC = 10;
-    private static final long DIVIDER_XRP = 1;
-    private static final long DIVIDER_QTUM = 10;
     private CoinNotificationAddAlarmDialogBinding mBinding;
 
     private Realm mRealm;
@@ -44,6 +39,7 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
 
     private long mNowPrice;
     private CoinType mCoinType;
+    private long mDivider;
 
     public static CoinNotificationAddAlarmDialog newInstance(CoinNotification coinNotification) {
         CoinNotificationAddAlarmDialog dialog = new CoinNotificationAddAlarmDialog();
@@ -76,7 +72,7 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
         if (mCoinNotification == null) {
             mBinding.rbBtc.setChecked(true);
             mCoinType = CoinType.BTC;
-            mNowPrice = new Gson().fromJson(PrefUtil.loadTicker(getContext(), CoinType.BTC), CoinoneTicker.Ticker.class).last;
+            mNowPrice = new Gson().fromJson(PrefUtil.loadTicker(getContext(), CoinType.BTC), BithumbTicker.Ticker.class).last;
             mBinding.setPrice(mNowPrice);
         } else {
             switch (mCoinNotification.getCoinType()) {
@@ -104,65 +100,39 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.XRP;
                 }
                 break;
+                case DASH: {
+                    mBinding.rbDash.setChecked(true);
+                    mCoinType = CoinType.DASH;
+                }
+                break;
+                case LTC: {
+                    mBinding.rbLtc.setChecked(true);
+                    mCoinType = CoinType.LTC;
+                }
+                break;
+                case XMR: {
+                    mBinding.rbXmr.setChecked(true);
+                    mCoinType = CoinType.XRP;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }
+        mDivider = CoinType.getCoinDivider(mCoinType);
     }
 
     // databinding
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        switch (checkedId) {
-            case R.id.rb_btc: {
-                mCoinType = CoinType.BTC;
-            }
-            break;
-            case R.id.rb_bch: {
-                mCoinType = CoinType.BCH;
-            }
-            break;
-            case R.id.rb_eth: {
-                mCoinType = CoinType.ETH;
-            }
-            break;
-            case R.id.rb_etc: {
-                mCoinType = CoinType.ETC;
-            }
-            break;
-            case R.id.rb_xrp: {
-                mCoinType = CoinType.XRP;
-            }
-            break;
-        }
-        mNowPrice = new Gson().fromJson(PrefUtil.loadTicker(getContext(), mCoinType), CoinoneTicker.Ticker.class).last;
+        RadioButton btn = (RadioButton) mBinding.getRoot().findViewById(checkedId);
+        mCoinType = CoinType.getCoinTypeFromTitle(btn.getText().toString());
+        mDivider = CoinType.getCoinDivider(mCoinType);
+        mNowPrice = new Gson().fromJson(PrefUtil.loadTicker(getContext(), mCoinType), BithumbTicker.Ticker.class).last;
         mBinding.setPrice(mNowPrice);
     }
 
     // databinding
     public void onPlusMinusButtonClick(View v, boolean plus) {
-        long price = mBinding.getPrice();
-        switch (mCoinType) {
-            case BTC: {
-                price += plus ? DIVIDER_BTC : -DIVIDER_BTC;
-            }
-            break;
-            case BCH: {
-                price += plus ? DIVIDER_BCH : -DIVIDER_BCH;
-            }
-            break;
-            case ETH: {
-                price += plus ? DIVIDER_ETH : -DIVIDER_ETH;
-            }
-            break;
-            case ETC: {
-                price += plus ? DIVIDER_ETC : -DIVIDER_ETC;
-            }
-            break;
-            case XRP: {
-                price += plus ? DIVIDER_XRP : -DIVIDER_XRP;
-            }
-            break;
-        }
-        mBinding.setPrice(price);
+        mBinding.setPrice(plus ? mBinding.getPrice() + mDivider : mBinding.getPrice() - mDivider);
     }
 
     // databinding
@@ -174,57 +144,9 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-
-                CoinType coinType = CoinType.BTC;
-                switch (mBinding.rgCoinGroup.getCheckedRadioButtonId()) {
-                    case R.id.rb_btc: {
-                        coinType = CoinType.BTC;
-                    }
-                    break;
-                    case R.id.rb_bch: {
-                        coinType = CoinType.BCH;
-                    }
-                    break;
-                    case R.id.rb_eth: {
-                        coinType = CoinType.ETH;
-                    }
-                    break;
-                    case R.id.rb_etc: {
-                        coinType = CoinType.ETC;
-                    }
-                    break;
-                    case R.id.rb_xrp: {
-                        coinType = CoinType.XRP;
-                    }
-                    break;
-                }
-
                 long targetPrice = Long.parseLong(mBinding.etPrice.getText().toString().replace(",", ""));
-                long divider = 1;
-                switch (coinType) {
-                    case BTC: {
-                        divider = DIVIDER_BTC;
-                    }
-                    break;
-                    case BCH: {
-                        divider = DIVIDER_BCH;
-                    }
-                    break;
-                    case ETH: {
-                        divider = DIVIDER_ETH;
-                    }
-                    break;
-                    case ETC: {
-                        divider = DIVIDER_ETC;
-                    }
-                    break;
-                    case XRP: {
-                        divider = DIVIDER_XRP;
-                    }
-                    break;
-                }
-                if (targetPrice % divider != 0) {
-                    Toast.makeText(getContext(), String.format("가격이 %d으로 나누어 떨어지게 적어주세요.", divider), Toast.LENGTH_LONG).show();
+                if (targetPrice % mDivider != 0) {
+                    Toast.makeText(getContext(), String.format("가격이 %d으로 나누어 떨어지게 적어주세요.", mDivider), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -242,7 +164,7 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     coinNotification = new CoinNotification();
                     coinNotification.setCreatedTs(System.currentTimeMillis());
                 }
-                coinNotification.setCoinType(coinType);
+                coinNotification.setCoinType(mCoinType);
                 coinNotification.setTargetPrice(targetPrice);
                 coinNotification.setPriceDirection(direction);
                 coinNotification.setUpdatedTs(System.currentTimeMillis());

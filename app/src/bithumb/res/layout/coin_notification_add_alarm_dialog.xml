@@ -41,43 +41,69 @@
 
                 <RadioButton
                     android:id="@+id/rb_btc"
-                    android:drawableEnd="@drawable/bitcoin"
-                    android:drawablePadding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/bitcoin"
+                    android:drawablePadding="5dp"
                     android:text="@string/btc"/>
 
                 <RadioButton
-                    android:id="@+id/rb_bch"
-                    android:drawableEnd="@drawable/bitcoincash"
-                    android:drawablePadding="5dp"
+                    android:id="@+id/rb_eth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bch"/>
-
-                <RadioButton
-                    android:id="@+id/rb_eth"
                     android:drawableEnd="@drawable/ethereum"
                     android:drawablePadding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/eth"/>
 
                 <RadioButton
-                    android:id="@+id/rb_etc"
-                    android:drawableEnd="@drawable/ethereumclassic"
-                    android:drawablePadding="5dp"
+                    android:id="@+id/rb_dash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/dash"
+                    android:drawablePadding="5dp"
+                    android:text="@string/dash"/>
+
+                <RadioButton
+                    android:id="@+id/rb_ltc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/litecoin"
+                    android:drawablePadding="5dp"
+                    android:text="@string/ltc"/>
+
+                <RadioButton
+                    android:id="@+id/rb_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ethereumclassic"
+                    android:drawablePadding="5dp"
                     android:text="@string/etc"/>
 
                 <RadioButton
                     android:id="@+id/rb_xrp"
-                    android:drawableEnd="@drawable/ripple"
-                    android:drawablePadding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ripple"
+                    android:drawablePadding="5dp"
                     android:text="@string/xrp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_bch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/bitcoincash"
+                    android:drawablePadding="5dp"
+                    android:text="@string/bch"/>
+
+                <RadioButton
+                    android:id="@+id/rb_xmr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/monero"
+                    android:drawablePadding="5dp"
+                    android:text="@string/xmr"/>
+
+
             </RadioGroup>
 
             <TextView

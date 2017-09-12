@@ -1,6 +1,7 @@
 package com.googry.coinonehelper.data;
 
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
 import com.googry.coinonehelper.R;
@@ -43,6 +44,29 @@ public enum CoinType {
         }
     }
 
+    @Nullable
+    public static CoinType getCoinTypeFromTitle(String title){
+        switch (title) {
+            case "BTC":
+                return BTC;
+            case "ETH":
+                return ETH;
+            case "DASH":
+                return DASH;
+            case "LTC":
+                return LTC;
+            case "ETC":
+                return ETC;
+            case "XRP":
+                return XRP;
+            case "BCH":
+                return BCH;
+            case "XMR":
+                return XMR;
+            default:
+                return null;
+        }
+    }
 
     @DrawableRes
     public static int getCoinIconRes(CoinType coinType) {
@@ -65,6 +89,29 @@ public enum CoinType {
                 return R.drawable.monero;
             default:
                 return R.drawable.bitcoin;
+        }
+    }
+
+    public static long getCoinDivider(CoinType coinType){
+        switch (coinType) {
+            case BTC:
+                return 1000;
+            case ETH:
+                return 50;
+            case DASH:
+                return 50;
+            case LTC:
+                return 10;
+            case ETC:
+                return 5;
+            case XRP:
+                return 1;
+            case BCH:
+                return 100;
+            case XMR:
+                return 10;
+            default:
+                return 1;
         }
     }
 

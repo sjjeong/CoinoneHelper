@@ -21,6 +21,8 @@ public class PoloniexTicker {
     public Ticker usdtLtc;
     @SerializedName("USDT_DASH")
     public Ticker usdtDash;
+    @SerializedName("USDT_XMR")
+    public Ticker usdtXmr;
     @SerializedName("BTC_BCH")
     public Ticker btcBch;
     @SerializedName("BTC_ETH")
@@ -33,6 +35,8 @@ public class PoloniexTicker {
     public Ticker btcLtc;
     @SerializedName("BTC_DASH")
     public Ticker btcDash;
+    @SerializedName("BTC_XMR")
+    public Ticker btcXmr;
 
     public class Ticker {
         @SerializedName("last")
