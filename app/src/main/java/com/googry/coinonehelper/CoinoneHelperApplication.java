@@ -2,6 +2,8 @@ package com.googry.coinonehelper;
 
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
+
 import io.realm.Realm;
 
 /**
@@ -15,5 +17,6 @@ public class CoinoneHelperApplication extends Application {
         super.onCreate();
 
         Realm.init(this);
+        FirebaseApp.initializeApp(this);
     }
 }

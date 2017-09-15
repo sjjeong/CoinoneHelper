@@ -47,17 +47,16 @@ android {
     }
     productFlavors {
         coinone {
-
         }
         bithumb {
             applicationId 'com.googry.coinonehelper.bithumb'
-            versionCode 1
-            versionName '0.0.1'
+            versionCode 2
+            versionName '0.0.2'
         }
         korbit {
             applicationId 'com.googry.coinonehelper.korbit'
-            versionCode 1
-            versionName '0.0.1'
+            versionCode 2
+            versionName '0.0.2'
         }
     }
 }
@@ -75,12 +74,12 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
     // Firebase
-    compile 'com.google.firebase:firebase-ads:10.2.1'
-    compile 'com.google.firebase:firebase-crash:10.2.1'
-    compile 'com.google.firebase:firebase-auth:10.2.1'
-    compile 'com.google.android.gms:play-services-auth:10.2.1'
-    compile 'com.google.firebase:firebase-database:10.2.1'
-    compile 'com.google.firebase:firebase-storage:10.2.1'
+    compile 'com.google.firebase:firebase-ads:11.0.4'
+    compile 'com.google.firebase:firebase-crash:11.0.4'
+    compile 'com.google.firebase:firebase-auth:11.0.4'
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
+    compile 'com.google.firebase:firebase-database:11.0.4'
+    compile 'com.google.firebase:firebase-storage:11.0.4'
 
     // Sliding Root Nav
     compile 'com.yarolegovich:sliding-root-nav:1.0.2'
