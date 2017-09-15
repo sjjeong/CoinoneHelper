@@ -8,8 +8,8 @@ android {
         applicationId "com.googry.coinonehelper"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 20
-        versionName "0.9.4"
+        versionCode 21
+        versionName "0.9.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -50,13 +50,13 @@ android {
         }
         bithumb {
             applicationId 'com.googry.coinonehelper.bithumb'
-            versionCode 2
-            versionName '0.0.2'
+            versionCode 3
+            versionName '0.1.1'
         }
         korbit {
             applicationId 'com.googry.coinonehelper.korbit'
-            versionCode 2
-            versionName '0.0.2'
+            versionCode 3
+            versionName '0.1.1'
         }
     }
 }
