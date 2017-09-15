@@ -85,11 +85,11 @@ public class ChattingPresenter implements ChattingContract.Presenter {
                 .getInstance()
                 .getReference();
         mQuery = mDatabaseReference.child(MESSAGES_CHILD)
-                .limitToFirst(50);
+                .limitToLast(50);
     }
 
     private boolean checkUserSignin() {
-        return mFirebaseUser == null ? false : true;
+        return mFirebaseUser != null;
     }
 
     @Override
