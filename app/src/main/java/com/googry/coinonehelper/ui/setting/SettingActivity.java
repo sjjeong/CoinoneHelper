@@ -143,6 +143,7 @@ public class SettingActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     failedSignInForGoogle();
                                 } else {
+                                    Toast.makeText(getApplicationContext(), R.string.google_sign_in_success, Toast.LENGTH_LONG).show();
                                     initFirebaseUser();
                                 }
                             }

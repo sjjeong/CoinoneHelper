@@ -59,6 +59,7 @@
     <string name="nickname_change_success">별명 변경에 성공했습니다.</string>
     <string name="nickname_change_failed">별명 변경에 실패했습니다.</string>
     <string name="google_sign_in_failed">구글 로그인 실패</string>
+    <string name="google_sign_in_success">구글 로그인 성공</string>
     <string name="id">아이디</string>
     <string name="nickname">별명</string>
     <string name="developer_page">개발자 페이지</string>
