@@ -86,6 +86,7 @@
                         style="@style/DashDot"/>
 
                     <LinearLayout
+                        android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
                         style="@style/SlideItem">
 
                         <ImageView
@@ -98,12 +99,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
                             android:text="@string/compare_another_exchange"
                             android:textColor="@android:color/black"/>
                     </LinearLayout>
 
                     <LinearLayout
+                        android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
                         style="@style/SlideItem">
 
                         <ImageView
@@ -116,12 +117,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
                             android:text="@string/coin_notification_alarm"
                             android:textColor="@android:color/black"/>
                     </LinearLayout>
 
                     <LinearLayout
+                        android:onClick="@{(v) -> activity.onChattingClick(v)}"
                         style="@style/SlideItem">
 
                         <ImageView
@@ -134,7 +135,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:onClick="@{(v) -> activity.onChattingClick(v)}"
                             android:text="@string/chatting"
                             android:textColor="@android:color/black"/>
                     </LinearLayout>
