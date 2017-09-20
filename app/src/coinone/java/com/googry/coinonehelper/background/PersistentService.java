@@ -127,8 +127,9 @@ public class PersistentService extends Service {
                         Realm realm = Realm.getDefaultInstance();
                         RealmResults<CoinNotification> realmResults
                                 = realm.where(CoinNotification.class).findAll();
+                        long targetPrice;
                         for (final CoinNotification coinNotification : realmResults) {
-                            long targetPrice = 0;
+                            targetPrice = 0;
                             String msg = "";
                             switch (coinNotification.getCoinType()) {
                                 case BTC: {
@@ -149,6 +150,10 @@ public class PersistentService extends Service {
                                 break;
                                 case XRP: {
                                     targetPrice = coinoneTicker.xrp.last;
+                                }
+                                break;
+                                case QTUM: {
+                                    targetPrice = coinoneTicker.qtum.last;
                                 }
                                 break;
                             }
