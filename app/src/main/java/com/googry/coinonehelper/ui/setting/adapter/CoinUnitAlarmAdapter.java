@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.BuildConfig;
@@ -20,7 +19,6 @@ import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.KorbitTicker;
 import com.googry.coinonehelper.data.UnitAlarm;
 import com.googry.coinonehelper.databinding.CoinPriceUnitAlarmItemBinding;
-import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.Arrays;
@@ -35,7 +33,7 @@ import io.realm.Realm;
 public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdapter.ViewHolder> {
     private List<CoinType> mCoinTypes;
     private Realm mRealm;
-    private long[] mUnits = {1, 10, 20, 50, 100};
+    private long[] mUnits = {1, 5, 10, 50, 100};
 
     public CoinUnitAlarmAdapter() {
         mCoinTypes = Arrays.asList(CoinType.values());
@@ -82,14 +80,14 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
                 mUnitAlarm = new UnitAlarm();
                 mUnitAlarm.coinType = coinType.name();
                 mUnitAlarm.runFlag = false;
-                mUnitAlarm.divider = CoinType.getCoinDivider(coinType);
+                mUnitAlarm.divider = CoinType.getCoinDivider(coinType) * mUnits[1];
             }
             mBinding.setFlag(mUnitAlarm.runFlag);
             mBinding.setUnit(mUnitAlarm.divider);
 
         }
 
-        public void onUnitClick(View v){
+        public void onUnitClick(View v) {
             long divider = CoinType.getCoinDivider(mCoinType);
             final String[] strUnits = new String[mUnits.length];
             for (int i = 0; i < strUnits.length; i++) {

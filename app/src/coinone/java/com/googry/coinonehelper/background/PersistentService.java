@@ -184,14 +184,12 @@ public class PersistentService extends Service {
 
                             long divider = unitAlarm.divider;
                             long prevPrice = unitAlarm.prevPrice;
-                            LogUtil.i(String.format("prev %d last %d", prevPrice, targetPrice ));
                             if (targetPrice <= prevPrice - divider ||
                                     targetPrice >= prevPrice + divider) {
 
                                 msg += String.format(" %d원 %s",
                                         (targetPrice - prevPrice),
                                         (targetPrice - prevPrice) >= 0 ? "up" : "down");
-                                LogUtil.i(msg);
                                 final long finalTargetPrice = targetPrice;
                                 mRealm.executeTransaction(new Realm.Transaction() {
                                     @Override
