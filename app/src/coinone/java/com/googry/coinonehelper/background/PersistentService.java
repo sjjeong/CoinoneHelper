@@ -128,6 +128,65 @@ public class PersistentService extends Service {
                         RealmResults<CoinNotification> realmResults
                                 = realm.where(CoinNotification.class).findAll();
                         long targetPrice;
+                        for (CoinType coinType : CoinType.values()) {
+                            if (!PrefUtil.loadCoinUnitAlarmFlag(getApplicationContext(), coinType)) {
+                                continue;
+                            }
+                            targetPrice = 0;
+                            String msg = "";
+                            long id = System.currentTimeMillis();
+                            switch (coinType) {
+                                case BTC: {
+                                    targetPrice = coinoneTicker.btc.last;
+                                    id += 1;
+                                }
+                                break;
+                                case BCH: {
+                                    targetPrice = coinoneTicker.bch.last;
+                                    id += 2;
+                                }
+                                break;
+                                case ETH: {
+                                    targetPrice = coinoneTicker.eth.last;
+                                    id += 3;
+                                }
+                                break;
+                                case ETC: {
+                                    targetPrice = coinoneTicker.etc.last;
+                                    id += 4;
+                                }
+                                break;
+                                case XRP: {
+                                    targetPrice = coinoneTicker.xrp.last;
+                                    id += 5;
+                                }
+                                break;
+                                case QTUM: {
+                                    targetPrice = coinoneTicker.qtum.last;
+                                    id += 6;
+                                }
+                                break;
+                            }
+
+                            msg += coinType.name() + " " +
+                                    targetPrice;
+
+                            long divider = PrefUtil.loadCoinUnitAlarm(getApplicationContext(), coinType);
+                            long prevPrice = PrefUtil.loadCoinUnitAlarmPrice(getApplicationContext(), coinType);
+                            if (targetPrice <= prevPrice - divider ||
+                                    targetPrice >= prevPrice + divider) {
+
+                                msg += String.format(" %d원 %s",
+                                        (targetPrice - prevPrice),
+                                        (targetPrice - prevPrice) >= 0 ? "up" : "down");
+                                LogUtil.i(msg);
+                                PrefUtil.saveCoinUnitAlarmPrice(getApplicationContext(), coinType, targetPrice);
+                            } else {
+                                continue;
+                            }
+                            showNofi(msg, (int) id);
+                        }
+
                         for (final CoinNotification coinNotification : realmResults) {
                             targetPrice = 0;
                             String msg = "";
@@ -172,35 +231,8 @@ public class PersistentService extends Service {
                             } else {
                                 continue;
                             }
-                            NotificationManager mNotificationManager;
-                            mNotificationManager =
-                                    (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
-
-                            // 알림 데이터 모델 생성 및 데이터 셋팅
-                            stackBuilder.addParentStack(SplashActivity.class);
-                            Intent intent = new Intent(mContext, SplashActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            stackBuilder.addNextIntent(intent);
-
-                            PendingIntent contentIntent =
-                                    PendingIntent.getActivity(mContext, (int) coinNotification.getCreatedTs(),
-                                            intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-                            // 노티 띄우기
-                            NotificationCompat.Builder mBuilder =
-                                    new NotificationCompat.Builder(mContext)
-                                            .setSmallIcon(R.mipmap.ic_launcher)
-                                            .setLargeIcon(BitmapFactory.decodeResource(
-                                                    mContext.getResources(), R.mipmap.ic_launcher))
-                                            .setContentTitle(mContext.getString(R.string.app_name))
-                                            .setTicker(mContext.getString(R.string.app_name))
-                                            .setDefaults(Notification.DEFAULT_ALL)
-                                            .setContentText(msg)
-                                            .setAutoCancel(true);
-                            mBuilder.setContentIntent(contentIntent);
-                            mNotificationManager.notify((int) coinNotification.getCreatedTs(), mBuilder.build());
+                            showNofi(msg, (int) coinNotification.getCreatedTs());
 
                             // 팝업 띄우기
                             mContext.startActivity(new Intent(mContext, PopupActivity.class)
@@ -223,6 +255,38 @@ public class PersistentService extends Service {
         };
     }
 
+
+    private void showNofi(String msg, int createTs) {
+        NotificationManager mNotificationManager;
+        mNotificationManager =
+                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
+
+        // 알림 데이터 모델 생성 및 데이터 셋팅
+        stackBuilder.addParentStack(SplashActivity.class);
+        Intent intent = new Intent(mContext, SplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        stackBuilder.addNextIntent(intent);
+
+        PendingIntent contentIntent =
+                PendingIntent.getActivity(mContext, createTs,
+                        intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        // 노티 띄우기
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(mContext)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(
+                                mContext.getResources(), R.mipmap.ic_launcher))
+                        .setContentTitle(mContext.getString(R.string.app_name))
+                        .setTicker(mContext.getString(R.string.app_name))
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setContentText(msg)
+                        .setAutoCancel(true);
+        mBuilder.setContentIntent(contentIntent);
+        mNotificationManager.notify(createTs, mBuilder.build());
+    }
 
     /**
      * 알람 매니져에 서비스 등록

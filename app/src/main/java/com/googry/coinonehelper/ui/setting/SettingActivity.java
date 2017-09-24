@@ -31,6 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.databinding.SettingActivityBinding;
+import com.googry.coinonehelper.ui.setting.adapter.CoinUnitAlarmAdapter;
 
 /**
  * Created by seokjunjeong on 2017. 8. 19..
@@ -55,6 +56,12 @@ public class SettingActivity extends AppCompatActivity {
 
         createGoogleApiClient();
         initFirebaseUser();
+        initCoinUnitAlarm();
+    }
+
+    private void initCoinUnitAlarm() {
+        CoinUnitAlarmAdapter adapter = new CoinUnitAlarmAdapter();
+        mBinding.rvCoinPriceUnitAlarm.setAdapter(adapter);
     }
 
     private void initFirebaseUser() {

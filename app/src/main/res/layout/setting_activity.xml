@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -44,115 +45,135 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/account"/>
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/ll_account"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/account"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/id"/>
-
-                    <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="sjjeong1225@gmail.com"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> activity.onChangeNicknameClick(v)}"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/nickname"/>
-
-                    <TextView
-                        android:id="@+id/tv_nickname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="googry"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_modify_nickname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <EditText
-                        android:id="@+id/et_nickname"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:orientation="vertical">
 
-                    <Button
-                        style="@style/PositiveButton"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/id"/>
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="sjjeong1225@gmail.com"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:onClick="@{(v) -> activity.onConfirmNicknameChangeClick(v)}"
-                        android:text="@string/confirm"/>
+                        android:onClick="@{(v) -> activity.onChangeNicknameClick(v)}"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/nickname"/>
+
+                        <TextView
+                            android:id="@+id/tv_nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="googry"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_modify_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <EditText
+                            android:id="@+id/et_nickname"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <Button
+                            style="@style/PositiveButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:onClick="@{(v) -> activity.onConfirmNicknameChangeClick(v)}"
+                            android:text="@string/confirm"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
+
+                <Button
+                    android:id="@+id/btn_google"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/common_google_signin_btn_text_light"
+                    android:onClick="@{(v) -> activity.onGoogleBtnClick(v)}"
+                    android:text="@string/sign_in_for_google"/>
+
+                <include
+                    layout="@layout/divider"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="가격 단위 알람"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_coin_price_unit_alarm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="LinearLayoutManager"/>
+
+                <include
+                    layout="@layout/divider"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_bg_selector"
+                    android:onClick="@{(v) -> activity.onDeveloperPageClick(v)}"
+                    android:padding="10dp"
+                    android:text="@string/developer_page"
+                    android:textColor="@drawable/text_selector"/>
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/btn_google"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/common_google_signin_btn_text_light"
-                android:onClick="@{(v) -> activity.onGoogleBtnClick(v)}"
-                android:text="@string/sign_in_for_google"/>
-
-            <include
-                layout="@layout/divider"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_bg_selector"
-                android:onClick="@{(v) -> activity.onDeveloperPageClick(v)}"
-                android:padding="10dp"
-                android:text="@string/developer_page"
-                android:textColor="@drawable/text_selector"/>
-        </LinearLayout>
-
-
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 </layout>
