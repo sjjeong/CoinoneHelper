@@ -17,9 +17,6 @@ public class PrefUtil {
     private static final String KEY_SUFFIX_ORDERBOOK = "_orderbook";
     private static final String KEY_SUFFIX_COMPLETE_ORDER = "_complete_order";
     private static final String KEY_SUFFIX_TICKER = "_ticker";
-    private static final String KEY_SUFFIX_UNIT_ALARM = "_unit_alarm";
-    private static final String KEY_SUFFIX_UNIT_ALARM_PRICE = "_unit_alarm_price";
-    private static final String KEY_SUFFIX_UNIT_ALARM_FLAG = "_unit_alarm_flag";
 
     public static void saveOrderbook(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
@@ -52,38 +49,6 @@ public class PrefUtil {
 
     public static String loadTicker(Context context, CoinType coinType) {
         return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_TICKER), EMPTY);
-    }
-
-    public static void saveCoinUnitAlarm(Context context, CoinType coinType, long divideUnit){
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putLong(getKey(coinType, KEY_SUFFIX_UNIT_ALARM), divideUnit);
-        editor.commit();
-    }
-
-    public static long loadCoinUnitAlarm(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getLong(getKey(coinType, KEY_SUFFIX_UNIT_ALARM), CoinType.getCoinDivider(coinType));
-    }
-
-    public static void saveCoinUnitAlarmPrice(Context context, CoinType coinType, long price){
-        long divider = loadCoinUnitAlarm(context, coinType);
-        long standardPrice = price - (price % divider);
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putLong(getKey(coinType, KEY_SUFFIX_UNIT_ALARM_PRICE), standardPrice);
-        editor.commit();
-    }
-
-    public static long loadCoinUnitAlarmPrice(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getLong(getKey(coinType, KEY_SUFFIX_UNIT_ALARM_PRICE), 0);
-    }
-
-    public static void saveCoinUnitAlarmFlag(Context context, CoinType coinType, boolean flag){
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putBoolean(getKey(coinType, KEY_SUFFIX_UNIT_ALARM_FLAG), flag);
-        editor.commit();
-    }
-
-    public static boolean loadCoinUnitAlarmFlag(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getBoolean(getKey(coinType, KEY_SUFFIX_UNIT_ALARM_FLAG), false);
     }
 
     private static SharedPreferences getSharedPrefs(Context context) {

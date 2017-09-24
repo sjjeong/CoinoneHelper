@@ -84,7 +84,6 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
                     @Override
                     public void onDragEnd(boolean isMenuOpened) {
-                        LogUtil.i("end: " + isMenuOpened);
                     }
                 })
                 .inject();

@@ -18,6 +18,7 @@ import com.googry.coinonehelper.data.BithumbSoloTicker;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.KorbitTicker;
+import com.googry.coinonehelper.data.UnitAlarm;
 import com.googry.coinonehelper.databinding.CoinPriceUnitAlarmItemBinding;
 import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
@@ -25,15 +26,20 @@ import com.googry.coinonehelper.util.PrefUtil;
 import java.util.Arrays;
 import java.util.List;
 
+import io.realm.Realm;
+
 /**
  * Created by seokjunjeong on 2017. 9. 17..
  */
 
 public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdapter.ViewHolder> {
     private List<CoinType> mCoinTypes;
+    private Realm mRealm;
+    private long[] mUnits = {1, 10, 20, 50, 100};
 
     public CoinUnitAlarmAdapter() {
         mCoinTypes = Arrays.asList(CoinType.values());
+        mRealm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -57,7 +63,7 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
         private CoinPriceUnitAlarmItemBinding mBinding;
         private CoinType mCoinType;
         private Context mContext;
-        private long[] mUnits = {1, 10, 20, 50, 100};
+        private UnitAlarm mUnitAlarm;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,8 +75,17 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
         public void bind(CoinType coinType) {
             mCoinType = coinType;
             mBinding.setType(coinType.name());
-            mBinding.setFlag(PrefUtil.loadCoinUnitAlarmFlag(mContext, coinType));
-            mBinding.setUnit(PrefUtil.loadCoinUnitAlarm(mContext, coinType));
+            mUnitAlarm = mRealm.where(UnitAlarm.class)
+                    .equalTo("coinType", coinType.name())
+                    .findFirst();
+            if (mUnitAlarm == null) {
+                mUnitAlarm = new UnitAlarm();
+                mUnitAlarm.coinType = coinType.name();
+                mUnitAlarm.runFlag = false;
+                mUnitAlarm.divider = CoinType.getCoinDivider(coinType);
+            }
+            mBinding.setFlag(mUnitAlarm.runFlag);
+            mBinding.setUnit(mUnitAlarm.divider);
 
         }
 
@@ -84,8 +99,14 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
             new AlertDialog.Builder(mContext)
                     .setItems(strUnits, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            PrefUtil.saveCoinUnitAlarm(mContext, mCoinType, Long.valueOf(strUnits[which]));
+                        public void onClick(DialogInterface dialog, final int which) {
+                            mRealm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    mUnitAlarm.divider = Long.valueOf(strUnits[which]);
+                                    realm.copyToRealmOrUpdate(mUnitAlarm);
+                                }
+                            });
                             mBinding.setUnit(Long.valueOf(strUnits[which]));
                         }
                     })
@@ -93,20 +114,26 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
                     .show();
         }
 
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            PrefUtil.saveCoinUnitAlarmFlag(mContext, mCoinType, isChecked);
-            long price = 0;
-            if (BuildConfig.FLAVOR.equals("bithumb")) {
-                BithumbSoloTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), BithumbSoloTicker.Ticker.class);
-                price = ticker.last;
-            } else if (BuildConfig.FLAVOR.equals("korbit")) {
-                KorbitTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), KorbitTicker.Ticker.class);
-                price = ticker.last;
-            } else {
-                CoinoneTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class);
-                price = ticker.last;
-            }
-            PrefUtil.saveCoinUnitAlarmPrice(mContext, mCoinType, price);
+        public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    long price;
+                    if (BuildConfig.FLAVOR.equals("bithumb")) {
+                        BithumbSoloTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), BithumbSoloTicker.Ticker.class);
+                        price = ticker.last;
+                    } else if (BuildConfig.FLAVOR.equals("korbit")) {
+                        KorbitTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), KorbitTicker.Ticker.class);
+                        price = ticker.last;
+                    } else {
+                        CoinoneTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class);
+                        price = ticker.last;
+                    }
+                    mUnitAlarm.runFlag = isChecked;
+                    mUnitAlarm.prevPrice = price;
+                    realm.copyToRealmOrUpdate(mUnitAlarm);
+                }
+            });
         }
     }
 }

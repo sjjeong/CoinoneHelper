@@ -20,6 +20,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.UnitAlarm;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.ui.PopupActivity;
 import com.googry.coinonehelper.ui.SplashActivity;
@@ -44,6 +45,8 @@ public class PersistentService extends Service {
     private CountDownTimer countDownTimer;
 
     private Context mContext;
+
+    private Realm mRealm;
 
     @Override
     public void onCreate() {
@@ -74,6 +77,7 @@ public class PersistentService extends Service {
      */
     private void initData() {
         mContext = this;
+        mRealm = Realm.getDefaultInstance();
 
         countDownTimer();
         countDownTimer.start();
@@ -129,7 +133,13 @@ public class PersistentService extends Service {
                                 = realm.where(CoinNotification.class).findAll();
                         long targetPrice;
                         for (CoinType coinType : CoinType.values()) {
-                            if (!PrefUtil.loadCoinUnitAlarmFlag(getApplicationContext(), coinType)) {
+                            final UnitAlarm unitAlarm = mRealm.where(UnitAlarm.class)
+                                    .equalTo("coinType", coinType.name())
+                                    .findFirst();
+                            if (unitAlarm == null) {
+                                continue;
+                            }
+                            if (!unitAlarm.runFlag) {
                                 continue;
                             }
                             targetPrice = 0;
@@ -171,8 +181,10 @@ public class PersistentService extends Service {
                             msg += coinType.name() + " " +
                                     targetPrice;
 
-                            long divider = PrefUtil.loadCoinUnitAlarm(getApplicationContext(), coinType);
-                            long prevPrice = PrefUtil.loadCoinUnitAlarmPrice(getApplicationContext(), coinType);
+
+                            long divider = unitAlarm.divider;
+                            long prevPrice = unitAlarm.prevPrice;
+                            LogUtil.i(String.format("prev %d last %d", prevPrice, targetPrice ));
                             if (targetPrice <= prevPrice - divider ||
                                     targetPrice >= prevPrice + divider) {
 
@@ -180,7 +192,14 @@ public class PersistentService extends Service {
                                         (targetPrice - prevPrice),
                                         (targetPrice - prevPrice) >= 0 ? "up" : "down");
                                 LogUtil.i(msg);
-                                PrefUtil.saveCoinUnitAlarmPrice(getApplicationContext(), coinType, targetPrice);
+                                final long finalTargetPrice = targetPrice;
+                                mRealm.executeTransaction(new Realm.Transaction() {
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        unitAlarm.prevPrice = finalTargetPrice;
+                                        realm.copyToRealmOrUpdate(unitAlarm);
+                                    }
+                                });
                             } else {
                                 continue;
                             }
