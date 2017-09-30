@@ -115,6 +115,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.XRP;
                 }
                 break;
+                case ZEC: {
+                    mBinding.rbZec.setChecked(true);
+                    mCoinType = CoinType.ZEC;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }

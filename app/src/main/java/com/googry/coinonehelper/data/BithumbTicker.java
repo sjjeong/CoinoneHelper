@@ -27,6 +27,8 @@ public class BithumbTicker {
         public Ticker xrp;
         @SerializedName("XMR")
         public Ticker xmr;
+        @SerializedName("ZEC")
+        public Ticker zec;
     }
 
     public class Ticker {

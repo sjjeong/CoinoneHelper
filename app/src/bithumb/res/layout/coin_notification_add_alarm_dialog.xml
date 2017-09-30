@@ -103,6 +103,14 @@
                     android:drawablePadding="5dp"
                     android:text="@string/xmr"/>
 
+                <RadioButton
+                    android:id="@+id/rb_zec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/zcash"
+                    android:drawablePadding="5dp"
+                    android:text="@string/zec"/>
+
 
             </RadioGroup>
 

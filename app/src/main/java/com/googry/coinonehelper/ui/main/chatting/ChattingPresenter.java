@@ -12,7 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.googry.coinonehelper.data.ChatMessage;
-import com.googry.coinonehelper.util.LogUtil;
 
 import java.util.Date;
 
@@ -33,7 +32,6 @@ public class ChattingPresenter implements ChattingContract.Presenter {
             mFirebaseUser = firebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
                 // User is signed in
-                LogUtil.i("user email: " + mFirebaseUser.getEmail());
                 mView.setFirebaseUser(mFirebaseUser);
 
             } else {
@@ -46,7 +44,6 @@ public class ChattingPresenter implements ChattingContract.Presenter {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
-            LogUtil.i(message.name + ": " + message.message);
             mView.addMessage(message);
         }
 
