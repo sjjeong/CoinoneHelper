@@ -5,10 +5,13 @@ import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.BuildConfig;
@@ -31,9 +34,9 @@ import io.realm.Realm;
  */
 
 public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdapter.ViewHolder> {
+    private static final int DEFAULT_UNIT = 10;
     private List<CoinType> mCoinTypes;
     private Realm mRealm;
-    private long[] mUnits = {1, 5, 10, 50, 100};
 
     public CoinUnitAlarmAdapter() {
         mCoinTypes = Arrays.asList(CoinType.values());
@@ -80,39 +83,28 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
                 mUnitAlarm = new UnitAlarm();
                 mUnitAlarm.coinType = coinType.name();
                 mUnitAlarm.runFlag = false;
-                mUnitAlarm.divider = CoinType.getCoinDivider(coinType) * mUnits[1];
+                mUnitAlarm.divider = CoinType.getCoinDivider(coinType) * DEFAULT_UNIT;
             }
             mBinding.setFlag(mUnitAlarm.runFlag);
             mBinding.setUnit(mUnitAlarm.divider);
-
-        }
-
-        public void onUnitClick(View v) {
-            long divider = CoinType.getCoinDivider(mCoinType);
-            final String[] strUnits = new String[mUnits.length];
-            for (int i = 0; i < strUnits.length; i++) {
-                strUnits[i] = String.valueOf(mUnits[i] * divider);
-            }
-
-            new AlertDialog.Builder(mContext)
-                    .setItems(strUnits, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, final int which) {
-                            mRealm.executeTransaction(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    mUnitAlarm.divider = Long.valueOf(strUnits[which]);
-                                    realm.copyToRealmOrUpdate(mUnitAlarm);
-                                }
-                            });
-                            mBinding.setUnit(Long.valueOf(strUnits[which]));
-                        }
-                    })
-                    .setTitle("알람 단위를 선택해주세요.")
-                    .show();
+            mBinding.etCoinPriceUnit.setEnabled(!mUnitAlarm.runFlag);
         }
 
         public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+            String divider = mBinding.etCoinPriceUnit.getText().toString();
+            if (TextUtils.isEmpty(divider)) {
+                Toast.makeText(mContext, "단위를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                mBinding.setUnit(CoinType.getCoinDivider(mCoinType) * DEFAULT_UNIT);
+                mBinding.switchAlarm.setChecked(false);
+                return;
+            }
+            divider = divider.replaceAll(",", "");
+            if (divider.length() > 18) {
+                Toast.makeText(mContext, "단위가 너무 큽니다.", Toast.LENGTH_SHORT).show();
+                mBinding.setUnit(CoinType.getCoinDivider(mCoinType) * DEFAULT_UNIT);
+                mBinding.switchAlarm.setChecked(false);
+                return;
+            }
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -127,9 +119,11 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
                         CoinoneTicker.Ticker ticker = new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class);
                         price = ticker.last;
                     }
+                    mUnitAlarm.divider = Long.parseLong(mBinding.etCoinPriceUnit.getText().toString().replaceAll(",", ""));
                     mUnitAlarm.runFlag = isChecked;
                     mUnitAlarm.prevPrice = price;
                     realm.copyToRealmOrUpdate(mUnitAlarm);
+                    mBinding.etCoinPriceUnit.setEnabled(!mUnitAlarm.runFlag);
                 }
             });
         }
