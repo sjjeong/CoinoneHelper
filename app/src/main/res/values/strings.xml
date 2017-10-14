@@ -77,6 +77,10 @@
     <string name="help_developer">개발자 도와주기</string>
     <string name="destination_tag">Destination Tag</string>
     <string name="say_developer">개발자 한마디</string>
+    <string name="coin_volume">코인 볼륨</string>
+    <string name="capitalization">총량</string>
+    <string name="volume_24h">거래량(24h)</string>
+    <string name="graph_7days">7일간 그래프</string>
 
 
 </resources>

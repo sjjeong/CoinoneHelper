@@ -24,6 +24,7 @@ import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
 import com.googry.coinonehelper.ui.main.chatting.ChattingFragment;
 import com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmFragment;
+import com.googry.coinonehelper.ui.main.coin_volume.CoinVolumeFragment;
 import com.googry.coinonehelper.ui.main.compare_another_exchange.CompareAnotherExchangeFragment;
 import com.googry.coinonehelper.ui.setting.SettingActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     private CoinNotificationAddAlarmFragment mCoinNotificationAddAlarmFragment;
     private CompareAnotherExchangeFragment mCompareAnotherExchangeFragment;
     private ChattingFragment mChattingFragment;
+    private CoinVolumeFragment mCoinVolumeFragment;
 
     private SlideMenuCoinTypeAdapter mSlideMenuCoinTypeAdapter;
 
@@ -136,6 +138,14 @@ public class MainActivity extends BaseActivity<MainFragment> {
         }
         replaceFragment(mChattingFragment, R.string.chatting_test);
         Toast.makeText(getApplicationContext(),"현재 개발중인 서비스입니다.\n서비스 이용이 제한적 일 수 있습니다.",Toast.LENGTH_LONG).show();
+    }
+
+    // databinding
+    public void onShowCoinVolumeClick(View v) {
+        if (mCoinVolumeFragment == null) {
+            mCoinVolumeFragment = CoinVolumeFragment.newInstance();
+        }
+        replaceFragment(mCoinVolumeFragment, R.string.coin_volume);
     }
 
     // databinding
