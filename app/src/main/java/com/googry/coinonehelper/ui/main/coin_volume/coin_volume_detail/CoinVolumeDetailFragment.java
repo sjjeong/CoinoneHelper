@@ -101,9 +101,9 @@ public class CoinVolumeDetailFragment extends BaseFragment<CoinVolumeDetailFragm
                     CoinMarket coinMarket = coinMarkets.get(i);
                     volume24 += NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);
                 }
-                pieEntries.add(new PieEntry(volume24, "OTHER"));
+                pieEntries.add(new PieEntry(volume24, getString(R.string.others)));
 
-                PieDataSet pieDataSet = new PieDataSet(pieEntries, "temp");
+                PieDataSet pieDataSet = new PieDataSet(pieEntries, coinName);
 
                 ArrayList<Integer> colors = new ArrayList<Integer>();
 

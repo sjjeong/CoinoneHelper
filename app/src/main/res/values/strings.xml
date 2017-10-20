@@ -81,6 +81,11 @@
     <string name="capitalization">총량</string>
     <string name="volume_24h">거래량(24h)</string>
     <string name="graph_7days">7일간 그래프</string>
+    <string name="others">Others</string>
+    <string name="market">마켓</string>
+    <string name="buy_currency">구매화폐</string>
+    <string name="percent">퍼센트</string>
+    <string name="coin">코인</string>
 
 
 </resources>
