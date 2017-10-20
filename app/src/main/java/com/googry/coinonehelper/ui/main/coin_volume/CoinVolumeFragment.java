@@ -42,12 +42,6 @@ public class CoinVolumeFragment extends BaseFragment<CoinVolumeFragmentBinding> 
     @Override
     protected void initView() {
         mCoinVolumeAdapter = new CoinVolumeAdapter();
-        mCoinVolumeAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-            }
-        });
         mBinding.rvCoinList.setAdapter(mCoinVolumeAdapter);
 
         mBinding.swipeRefreshLayout.setRefreshing(true);

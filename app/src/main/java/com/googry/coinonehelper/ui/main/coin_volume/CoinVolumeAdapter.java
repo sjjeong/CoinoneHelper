@@ -1,5 +1,6 @@
 package com.googry.coinonehelper.ui.main.coin_volume;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinMarketCap;
 import com.googry.coinonehelper.databinding.CoinVolumeItemBinding;
-import com.googry.coinonehelper.ui.OnItemClickListener;
+import com.googry.coinonehelper.ui.main.coin_volume.coin_volume_detail.CoinVolumeDetailActivity;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,6 @@ public class CoinVolumeAdapter extends RecyclerView.Adapter<CoinVolumeAdapter.Co
 
     private ArrayList<CoinMarketCap> mCoinMarketCaps;
 
-    public OnItemClickListener mOnItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
 
     public void setCoinMarketCaps(ArrayList<CoinMarketCap> coinMarketCaps) {
         mCoinMarketCaps = coinMarketCaps;
@@ -57,9 +53,9 @@ public class CoinVolumeAdapter extends RecyclerView.Adapter<CoinVolumeAdapter.Co
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(getAdapterPosition());
-                    }
+                    Intent intent = new Intent(mBinding.getRoot().getContext(), CoinVolumeDetailActivity.class);
+                    intent.putExtra(CoinVolumeDetailActivity.KEY_COIN_MARKET_CAP, mBinding.getCoinMarketCap());
+                    mBinding.getRoot().getContext().startActivity(intent);
                 }
             });
         }

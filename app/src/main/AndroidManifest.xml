@@ -43,13 +43,18 @@
             android:name=".ui.setting.SettingActivity"
             android:label="@string/setting"
             android:parentActivityName=".ui.main.MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".ui.setting.DeveloperActivity"
             android:label="@string/developer_page"
             android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.coin_volume.coin_volume_detail.CoinVolumeDetailActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <service
             android:name=".background.PersistentService"

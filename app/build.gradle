@@ -90,6 +90,9 @@ dependencies {
     // glide
     compile 'com.github.bumptech.glide:glide:4.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+
+    // mpchart
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }
 
 
