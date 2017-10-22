@@ -110,6 +110,13 @@
                     android:drawableEnd="@drawable/zcash"
                     android:drawablePadding="5dp"
                     android:text="@string/zec"/>
+                <RadioButton
+                    android:id="@+id/rb_qtum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/qtum"
+                    android:drawablePadding="5dp"
+                    android:text="@string/qtum"/>
 
 
             </RadioGroup>

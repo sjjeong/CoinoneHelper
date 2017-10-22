@@ -141,6 +141,11 @@ public class PersistentService extends Service {
                                 CoinType.ZEC,
                                 gson.toJson(ticker.zec, BithumbTicker.Ticker.class)
                         );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.QTUM,
+                                gson.toJson(ticker.qtum, BithumbTicker.Ticker.class)
+                        );
 
                         // 코인 가격 설정 조건 체크
                         Realm realm = Realm.getDefaultInstance();
@@ -204,6 +209,11 @@ public class PersistentService extends Service {
                                 case ZEC: {
                                     targetPrice = ticker.xmr.last;
                                     id += 9;
+                                }
+                                break;
+                                case QTUM: {
+                                    targetPrice = ticker.qtum.last;
+                                    id += 10;
                                 }
                                 break;
                             }
@@ -272,6 +282,10 @@ public class PersistentService extends Service {
                                 break;
                                 case ZEC: {
                                     targetPrice = ticker.zec.last;
+                                }
+                                break;
+                                case QTUM: {
+                                    targetPrice = ticker.qtum.last;
                                 }
                                 break;
                             }

@@ -120,6 +120,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.ZEC;
                 }
                 break;
+                case QTUM: {
+                    mBinding.rbQtum.setChecked(true);
+                    mCoinType = CoinType.QTUM;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }
