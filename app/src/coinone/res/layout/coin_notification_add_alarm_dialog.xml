@@ -85,6 +85,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/qtum"/>
+                <RadioButton
+                    android:id="@+id/rb_ltc"
+                    android:drawableEnd="@drawable/litecoin"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ltc"/>
             </RadioGroup>
 
             <TextView

@@ -126,6 +126,11 @@ public class PersistentService extends Service {
                                 CoinType.QTUM,
                                 gson.toJson(coinoneTicker.qtum, CoinoneTicker.Ticker.class)
                         );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.LTC,
+                                gson.toJson(coinoneTicker.ltc, CoinoneTicker.Ticker.class)
+                        );
 
                         // 코인 가격 설정 조건 체크
                         Realm realm = Realm.getDefaultInstance();
@@ -173,6 +178,11 @@ public class PersistentService extends Service {
                                 break;
                                 case QTUM: {
                                     targetPrice = coinoneTicker.qtum.last;
+                                    id += 6;
+                                }
+                                break;
+                                case LTC: {
+                                    targetPrice = coinoneTicker.ltc.last;
                                     id += 6;
                                 }
                                 break;
@@ -230,6 +240,10 @@ public class PersistentService extends Service {
                                 break;
                                 case QTUM: {
                                     targetPrice = coinoneTicker.qtum.last;
+                                }
+                                break;
+                                case LTC: {
+                                    targetPrice = coinoneTicker.ltc.last;
                                 }
                                 break;
                             }

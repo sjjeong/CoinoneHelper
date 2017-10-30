@@ -70,7 +70,6 @@
                                     android:text="@string/coinone"/>
 
                                 <TextView
-                                    android:id="@+id/tv_coinone_btc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -92,7 +91,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_btc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -113,7 +111,6 @@
                                     android:text="@string/korbit"/>
 
                                 <TextView
-                                    android:id="@+id/tv_korbit_btc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -134,7 +131,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_btc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -175,7 +171,6 @@
                                     android:text="@string/coinone"/>
 
                                 <TextView
-                                    android:id="@+id/tv_coinone_bch_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -196,7 +191,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_bch_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -217,7 +211,6 @@
                                     android:text="@string/korbit"/>
 
                                 <TextView
-                                    android:id="@+id/tv_korbit_bch_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -238,7 +231,6 @@
                                     android:text="@string/poloniex_to_coinone_btc"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_bch_krw_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -259,7 +251,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_bch_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -300,7 +291,6 @@
                                     android:text="@string/coinone"/>
 
                                 <TextView
-                                    android:id="@+id/tv_coinone_eth_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -321,7 +311,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_eth_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -342,7 +331,6 @@
                                     android:text="@string/korbit"/>
 
                                 <TextView
-                                    android:id="@+id/tv_korbit_eth_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -363,7 +351,6 @@
                                     android:text="@string/poloniex_to_coinone_btc"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_eth_krw_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -384,7 +371,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_eth_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -425,7 +411,6 @@
                                     android:text="@string/coinone"/>
 
                                 <TextView
-                                    android:id="@+id/tv_coinone_etc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -446,7 +431,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_etc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -467,7 +451,6 @@
                                     android:text="@string/korbit"/>
 
                                 <TextView
-                                    android:id="@+id/tv_korbit_etc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -489,7 +472,6 @@
                                     android:text="@string/poloniex_to_coinone_btc"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_etc_krw_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -510,7 +492,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_etc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -551,7 +532,6 @@
                                     android:text="@string/coinone"/>
 
                                 <TextView
-                                    android:id="@+id/tv_coinone_xrp_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -572,7 +552,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_xrp_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -593,7 +572,6 @@
                                     android:text="@string/korbit"/>
 
                                 <TextView
-                                    android:id="@+id/tv_korbit_xrp_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -615,7 +593,6 @@
                                     android:text="@string/poloniex_to_coinone_btc"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_xrp_krw_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -636,7 +613,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_xrp_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -677,7 +653,6 @@
                                     android:text="@string/coinone"/>
 
                                 <TextView
-                                    android:id="@+id/tv_coinone_qtum_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -698,7 +673,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_qtum_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -737,10 +711,29 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="@string/coinone"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableRight="@drawable/ic_krw"
+                                    android:gravity="right"
+                                    android:text='@{String.format("%,d",coinoneTicker.ltc.last)}'/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_ltc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -758,10 +751,29 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="@string/poloniex_to_coinone_btc"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableRight="@drawable/ic_krw"
+                                    android:gravity="right"
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcLtc.last * coinoneTicker.btc.last))}'/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_ltc_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -802,7 +814,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_dash_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -823,7 +834,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_dash_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -864,7 +874,6 @@
                                     android:text="@string/bithumb"/>
 
                                 <TextView
-                                    android:id="@+id/tv_bithumb_xmr_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -873,6 +882,7 @@
                                     android:text='@{String.format("%,d",bithumbTicker.data.xmr.last)}'/>
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -884,7 +894,6 @@
                                     android:text="@string/poloniex"/>
 
                                 <TextView
-                                    android:id="@+id/tv_poloniex_xmr_price"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
