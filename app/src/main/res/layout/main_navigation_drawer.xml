@@ -58,17 +58,45 @@
 
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
+            android:orientation="vertical"
             android:background="@drawable/btn_bg_default"
             android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_my_assets"
+                    style="@style/SlideItem"
+                    android:onClick="@{(v) -> activity.onMyAssetsClick(v)}">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_person"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/my_assets"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <View
+                style="@style/DashDot"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,8 +114,8 @@
                         style="@style/DashDot"/>
 
                     <LinearLayout
-                        android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}"
-                        style="@style/SlideItem">
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -104,8 +132,8 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}"
-                        style="@style/SlideItem">
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -122,8 +150,8 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:onClick="@{(v) -> activity.onChattingClick(v)}"
-                        style="@style/SlideItem">
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onChattingClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -140,8 +168,8 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:onClick="@{(v) -> activity.onShowCoinVolumeClick(v)}"
-                        style="@style/SlideItem">
+                        style="@style/SlideItem"
+                        android:onClick="@{(v) -> activity.onShowCoinVolumeClick(v)}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -161,8 +189,8 @@
                         style="@style/DashDot"/>
 
                 </LinearLayout>
-            </LinearLayout>
 
-        </ScrollView>
+            </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 </layout>

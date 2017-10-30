@@ -86,6 +86,7 @@
     <string name="buy_currency">구매화폐</string>
     <string name="percent">퍼센트</string>
     <string name="coin">코인</string>
+    <string name="my_assets">내 자산</string>
 
 
 </resources>
