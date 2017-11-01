@@ -105,6 +105,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.QTUM;
                 }
                 break;
+                case LTC: {
+                    mBinding.rbLtc.setChecked(true);
+                    mCoinType = CoinType.LTC;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }

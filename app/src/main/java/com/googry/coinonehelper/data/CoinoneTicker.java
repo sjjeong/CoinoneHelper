@@ -21,6 +21,8 @@ public class CoinoneTicker {
     public Ticker xrp;
     @SerializedName("qtum")
     public Ticker qtum;
+    @SerializedName("ltc")
+    public Ticker ltc;
 
 
     public class Ticker {
