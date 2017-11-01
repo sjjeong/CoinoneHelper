@@ -55,6 +55,10 @@
             android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.chart.ChartActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".background.PersistentService"

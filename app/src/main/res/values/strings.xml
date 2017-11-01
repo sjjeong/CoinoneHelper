@@ -5,6 +5,7 @@
     <string name="admob_exit_banner_id">ca-app-pub-3455486566753347/9881743310</string>
     <string name="admob_compare_trade_site">ca-app-pub-3455486566753347/9153276114</string>
     <string name="admob_start_interstitial_id">ca-app-pub-3455486566753347/4498510575</string>
+    <string name="admob_chart_back_interstitial_id">ca-app-pub-3455486566753347/3338219912</string>
     <string name="auth_google_web_client_id">934192085579-qsk08cm75ea0mon73qthnglf3j6fpg9p.apps.googleusercontent.com</string>
 
     <string name="donate_btc">16zZo9VvfoWRBmjN7QPZFbCrPLL9qutCp8</string>
@@ -86,6 +87,7 @@
     <string name="buy_currency">구매화폐</string>
     <string name="percent">퍼센트</string>
     <string name="coin">코인</string>
+    <string name="chart">차트</string>
 
 
 </resources>
