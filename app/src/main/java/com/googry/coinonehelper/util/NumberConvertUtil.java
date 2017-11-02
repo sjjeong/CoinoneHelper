@@ -12,6 +12,13 @@ public class NumberConvertUtil {
     private static final String STAR = "*";
     private static final String PERCENT = "%";
 
+    public static double convertDollarStringToDouble(String value) {
+        value = removeDollarString(value);
+        value = removeCommaString(value);
+        value = removeSpaceString(value);
+        value = removeStarString(value);
+        return Double.valueOf(value);
+    }
     public static float convertDollarStringToFloat(String value) {
         value = removeDollarString(value);
         value = removeCommaString(value);

@@ -96,7 +96,7 @@ public class CoinVolumeDetailFragment extends BaseFragment<CoinVolumeDetailFragm
                     int volume24 = NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);
                     pieEntries.add(new PieEntry(volume24, coinMarket.source));
                 }
-                int volume24 = 0;
+                long volume24 = 0;
                 for(int i = lastPosition;i < coinMarkets.size();i++){
                     CoinMarket coinMarket = coinMarkets.get(i);
                     volume24 += NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);

@@ -8,7 +8,7 @@ public class CoinMarket {
     public String source;
     public String pair;
     public String volume24;
-    public float price;
+    public double price;
     public String volumePercent;
 
 }

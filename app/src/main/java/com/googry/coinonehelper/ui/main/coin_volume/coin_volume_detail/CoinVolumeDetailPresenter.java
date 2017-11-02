@@ -57,7 +57,7 @@ public class CoinVolumeDetailPresenter implements CoinVolumeDetailContract.Prese
                         coinMarket.source = elements.get(1).text();
                         coinMarket.pair = elements.get(2).text();
                         coinMarket.volume24 = elements.get(3).text();
-                        coinMarket.price = NumberConvertUtil.convertDollarStringToFloat(elements.get(4).text());
+                        coinMarket.price = NumberConvertUtil.convertDollarStringToDouble(elements.get(4).text());
                         coinMarket.volumePercent = elements.get(5).text();
                         if (!coinMarket.volumePercent.equals("0.00%")) {
                             mCoinMarkets.add(coinMarket);
