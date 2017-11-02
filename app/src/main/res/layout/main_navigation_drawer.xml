@@ -185,6 +185,24 @@
                             android:textColor="@android:color/black"/>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:onClick="@{(v) -> activity.onShowChartClick(v)}"
+                        style="@style/SlideItem">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_chart"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/chart"
+                            android:textColor="@android:color/black"/>
+                    </LinearLayout>
+
                     <View
                         style="@style/DashDot"/>
 

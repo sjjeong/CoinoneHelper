@@ -23,6 +23,7 @@ import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
+import com.googry.coinonehelper.ui.chart.ChartActivity;
 import com.googry.coinonehelper.ui.main.chatting.ChattingFragment;
 import com.googry.coinonehelper.ui.main.coin_notification_add_alarm.CoinNotificationAddAlarmFragment;
 import com.googry.coinonehelper.ui.main.coin_volume.CoinVolumeFragment;
@@ -161,6 +162,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
             mCoinVolumeFragment = CoinVolumeFragment.newInstance();
         }
         replaceFragment(mCoinVolumeFragment, R.string.coin_volume);
+    }
+
+    // databinding
+    public void onShowChartClick(View v) {
+        startActivity(new Intent(getApplicationContext(), ChartActivity.class));
     }
 
     // databinding
