@@ -86,9 +86,6 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
 
     @Override
     public void start() {
-        loadCoinoneOrderbook();
-        loadCoinoneTrade();
-        loadCoinoneTicker();
     }
 
     @Override
@@ -114,18 +111,6 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         makeTimer();
     }
 
-    private void loadCoinoneOrderbook() {
-        mView.showOrderbookList(new Gson().fromJson(PrefUtil.loadOrderbook(mContext, mCoinType), CoinoneOrderbook.class));
-    }
-
-    private void loadCoinoneTrade() {
-        mView.showTradeList(new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), CoinoneTrade.class));
-    }
-
-    private void loadCoinoneTicker() {
-        mView.showTicker(new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class));
-    }
-
     private void makeTimer() {
         mTimer = new Timer();
         mTimerTask = new TimerTask() {
@@ -134,7 +119,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
                 requestOrderbook(mCoinType);
             }
         };
-        mTimer.schedule(mTimerTask, 1000, REFRESH_PERIOD);
+        mTimer.schedule(mTimerTask, 5000, REFRESH_PERIOD);
     }
 
     private void requestOrderbook(CoinType coinType) {
