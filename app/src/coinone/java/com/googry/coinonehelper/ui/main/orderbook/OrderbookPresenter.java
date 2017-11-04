@@ -38,8 +38,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         public void onResponse(Call<CoinoneOrderbook> call, Response<CoinoneOrderbook> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
-            saveCoinoneOrderbook(response.body());
-            loadCoinoneOrderbook();
+            mView.showOrderbookList(response.body());
         }
 
         @Override
@@ -53,8 +52,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         public void onResponse(Call<CoinoneTrade> call, Response<CoinoneTrade> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
-            saveCoinoneTrade(response.body());
-            loadCoinoneTrade();
+            mView.showTradeList(response.body());
         }
 
 
@@ -70,8 +68,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         public void onResponse(Call<CoinoneTicker.Ticker> call, Response<CoinoneTicker.Ticker> response) {
             mView.hideCoinoneServerDownProgressDialog();
             if (response.body() == null) return;
-            saveCoinoneTicker(response.body());
-            loadCoinoneTicker();
+            mView.showTicker(response.body());
         }
 
         @Override
@@ -117,18 +114,15 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         makeTimer();
     }
 
-    @Override
-    public void loadCoinoneOrderbook() {
+    private void loadCoinoneOrderbook() {
         mView.showOrderbookList(new Gson().fromJson(PrefUtil.loadOrderbook(mContext, mCoinType), CoinoneOrderbook.class));
     }
 
-    @Override
-    public void loadCoinoneTrade() {
+    private void loadCoinoneTrade() {
         mView.showTradeList(new Gson().fromJson(PrefUtil.loadCompleteOrder(mContext, mCoinType), CoinoneTrade.class));
     }
 
-    @Override
-    public void loadCoinoneTicker() {
+    private void loadCoinoneTicker() {
         mView.showTicker(new Gson().fromJson(PrefUtil.loadTicker(mContext, mCoinType), CoinoneTicker.Ticker.class));
     }
 
@@ -152,26 +146,5 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         Call<CoinoneTicker.Ticker> callTicker = api.ticker(coinType.name());
         callTicker.enqueue(mTickerCallback);
 
-    }
-
-    private void saveCoinoneOrderbook(CoinoneOrderbook coinoneOrderbook) {
-        if (coinoneOrderbook.askes != null)
-            coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, coinoneOrderbook.askes.size() < ORDERBOOK_CNT ? coinoneOrderbook.askes.size() : ORDERBOOK_CNT));
-        if (coinoneOrderbook.bides != null)
-            coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, coinoneOrderbook.bides.size() < ORDERBOOK_CNT ? coinoneOrderbook.bides.size() : ORDERBOOK_CNT));
-        PrefUtil.saveOrderbook(mContext, mCoinType, new Gson().toJson(coinoneOrderbook));
-    }
-
-    private void saveCoinoneTrade(CoinoneTrade coinoneTrade) {
-        if (coinoneTrade.completeOrders != null) {
-            Collections.reverse(coinoneTrade.completeOrders);
-            coinoneTrade.completeOrders = new ArrayList<>(coinoneTrade.completeOrders.subList(0, coinoneTrade.completeOrders.size() < TRADE_CNT ? coinoneTrade.completeOrders.size() : TRADE_CNT));
-        }
-        PrefUtil.saveCompleteOrder(mContext, mCoinType, new Gson().toJson(coinoneTrade));
-
-    }
-
-    private void saveCoinoneTicker(CoinoneTicker.Ticker ticker) {
-        PrefUtil.saveTicker(mContext, mCoinType, new Gson().toJson(ticker));
     }
 }

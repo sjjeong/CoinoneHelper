@@ -1,10 +1,12 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
@@ -13,8 +15,10 @@ import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.databinding.OrderbookFragmentBinding;
 import com.googry.coinonehelper.util.DialogUtil;
+import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by seokjunjeong on 2017. 5. 28..
@@ -23,6 +27,8 @@ import java.util.ArrayList;
 public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
         implements OrderbookContract.View {
     private static final String KEY_COIN_TYPE = "coinType";
+    private static final int ORDERBOOK_CNT = 20;
+    private static final int TRADE_CNT = 20;
 
     private OrderbookContract.Presenter mPresenter;
     private RecyclerView mRvAskes, mRvBides, mRvTrades;
@@ -104,8 +110,13 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     }
 
     @Override
-    public void showOrderbookList(CoinoneOrderbook coinoneOrderbook) {
+    public void showOrderbookList(final CoinoneOrderbook coinoneOrderbook) {
         if (coinoneOrderbook == null) return;
+        if (coinoneOrderbook.askes != null)
+            coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, coinoneOrderbook.askes.size() < ORDERBOOK_CNT ? coinoneOrderbook.askes.size() : ORDERBOOK_CNT));
+        if (coinoneOrderbook.bides != null)
+            coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, coinoneOrderbook.bides.size() < ORDERBOOK_CNT ? coinoneOrderbook.bides.size() : ORDERBOOK_CNT));
+
         ArrayList<CoinoneOrderbook.Book> askes, bides;
         askes = coinoneOrderbook.askes;
         bides = coinoneOrderbook.bides;
@@ -139,20 +150,46 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
             }
             mBidAdapter.setBook(book, i);
         }
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (getContext() != null) {
+                    PrefUtil.saveOrderbook(getContext(), mCoinType, new Gson().toJson(coinoneOrderbook));
+                }
+            }
+        });
     }
 
     @Override
-    public void showTradeList(CoinoneTrade trade) {
+    public void showTradeList(final CoinoneTrade trade) {
         if (trade == null) return;
         if (trade.completeOrders == null) return;
-        mTradeAdapter.setTrades(trade.completeOrders);
+        Collections.reverse(trade.completeOrders);
+        trade.completeOrders = new ArrayList<>(trade.completeOrders.subList(0, trade.completeOrders.size() < TRADE_CNT ? trade.completeOrders.size() : TRADE_CNT));
 
+        mTradeAdapter.setTrades(trade.completeOrders);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (getContext() != null) {
+                    PrefUtil.saveCompleteOrder(getContext(), mCoinType, new Gson().toJson(trade));
+                }
+            }
+        });
     }
 
     @Override
-    public void showTicker(CoinoneTicker.Ticker ticker) {
+    public void showTicker(final CoinoneTicker.Ticker ticker) {
         if (ticker == null) return;
         mBinding.setTicker(ticker);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (getContext() != null) {
+                    PrefUtil.saveTicker(getContext(), mCoinType, new Gson().toJson(ticker));
+                }
+            }
+        });
     }
 
     @Override

@@ -30,11 +30,5 @@ public class OrderbookContract {
         void stop();
 
         void load();
-
-        void loadCoinoneOrderbook();
-
-        void loadCoinoneTrade();
-
-        void loadCoinoneTicker();
     }
 }
