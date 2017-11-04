@@ -152,7 +152,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="가격 단위 알람"/>
+                    android:text="@string/market_account"/>
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="@{(v) -> activity.onMarketAccountRegisterClick(v)}"
+                    android:text="@{activity.marketAccount}"/>
+
+                <include
+                    layout="@layout/divider"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/price_unit_alarm"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_coin_price_unit_alarm"

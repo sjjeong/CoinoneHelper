@@ -93,6 +93,9 @@ dependencies {
 
     // mpchart
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+
+    // secure preference
+    compile 'com.scottyab:secure-preferences-lib:0.1.4'
 }
 
 

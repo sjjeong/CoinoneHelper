@@ -55,6 +55,7 @@
     <string name="send">전송</string>
     <string name="setting">설정</string>
     <string name="account">계정</string>
+    <string name="market_account">코인원 계정</string>
     <string name="sign_in_for_google">구글 로그인</string>
     <string name="sign_out">로그아웃</string>
     <string name="nickname_changing">별명을 변경 중입니다.</string>
@@ -89,6 +90,26 @@
     <string name="coin">코인</string>
     <string name="my_assets">내 자산</string>
     <string name="chart">차트</string>
+    <string name="register_account">계정 등록</string>
+    <string name="unregister_account">계정 해제</string>
+    <string name="access_token">Access Token</string>
+    <string name="secret_key">Secret Key</string>
+    <string name="register">등록</string>
+    <string name="price_unit_alarm">가격 단위 알람</string>
+    <string name="how_to_make_token_and_key">Token과 Key 생성 방법</string>
+    <string name="precaution">주의사항(필독)</string>
+    <string name="description_access_token_secret_key">Access Token과 Secret Key를 발급 할 때 \'거래소 조회\'와 \'사용자 조회\' API 권한을 체크 해주세요.\n그 외 권한은 자산에 피해가 발생 할 수 있습니다.\n\n코인원헬퍼는 채팅 기능 외에 서버를 사용하지 않기 때문에 등록하시는 Access Token과 Secret Key는 현재 사용하시는 기기에 저장되고 개발자가 알지 못합니다.\n또한 개발자는 절대로 유저에게 Access Token과 Secret Key를 요구하지 않습니다.\n\nAccess Token과 Secret Key를 타인에게 노출, 양도, 대여, 위임 등 본인의 관리소홀로 발생한 손해는 코인원헬퍼에서 책임지지 않습니다.\n\n만약 타인에게 노출 된 경우에 코인원 홈페이지에서 Key를 삭제한 후 재등록 해주세요.</string>
+    <string name="ask_register_account">내 자산을 확인하려면 코인원 계정을 등록해야 합니다.\n계정 등록 화면으로 이동하시겠습니까?</string>
+    <string name="move">이동</string>
+    <string name="no">아니요</string>
+    <string name="do_you_want_to_unregister">정말로 계정을 해제하시겠습니까?</string>
+    <string name="unregister">해제</string>
+    <string name="server_error">Server Error…</string>
+    <string name="cant_check_account">계정 정보를 확인 할 수 없습니다. 다시 입력해 주세요.</string>
+    <string name="description_register_account">계정 정보를 등록했습니다.</string>
+    <string name="checking_account">계정 정보를 확인 중입니다.</string>
+    <string name="empty_access_token">AccessToken이 비어있습니다.</string>
+    <string name="empty_secret_key">SecretKey가 비어있습니다.</string>
 
 
 </resources>

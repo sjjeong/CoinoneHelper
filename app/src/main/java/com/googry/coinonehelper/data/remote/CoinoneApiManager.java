@@ -1,13 +1,19 @@
 package com.googry.coinonehelper.data.remote;
 
+import com.googry.coinonehelper.data.CoinoneBalance;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
+import com.googry.coinonehelper.data.CoinoneUserInfo;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -48,6 +54,20 @@ public class CoinoneApiManager {
                 @Query("currency") String currency
         );
 
+    }
+
+    public interface CoinonePrivateApi {
+        @POST("v2/account/balance/")
+        Call<CoinoneBalance> balance(
+                @Header("X-COINONE-PAYLOAD") String payload,
+                @Header("X-COINONE-SIGNATURE") String signature,
+                @Body String body);
+
+        @POST("v2/account/user_info/")
+        Call<CoinoneUserInfo> userInfo(
+                @Header("X-COINONE-PAYLOAD") String payload,
+                @Header("X-COINONE-SIGNATURE") String signature,
+                @Body String body);
     }
 
 }

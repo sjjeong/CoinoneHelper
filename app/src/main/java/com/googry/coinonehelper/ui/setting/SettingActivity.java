@@ -1,12 +1,16 @@
 package com.googry.coinonehelper.ui.setting;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,6 +36,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.databinding.SettingActivityBinding;
 import com.googry.coinonehelper.ui.setting.adapter.CoinUnitAlarmAdapter;
+import com.googry.coinonehelper.ui.widget.MarketAccountRegisterDialog;
+import com.googry.coinonehelper.util.PrefUtil;
 
 /**
  * Created by seokjunjeong on 2017. 8. 19..
@@ -39,11 +45,11 @@ import com.googry.coinonehelper.ui.setting.adapter.CoinUnitAlarmAdapter;
 
 public class SettingActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
+    public ObservableField<String> marketAccount = new ObservableField<>();
     private SettingActivityBinding mBinding;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private GoogleApiClient mGoogleApiClient;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +63,17 @@ public class SettingActivity extends AppCompatActivity {
         createGoogleApiClient();
         initFirebaseUser();
         initCoinUnitAlarm();
+        initMarketAccount();
+    }
+
+    private void initMarketAccount() {
+        String accessToken = PrefUtil.loadAccessToken(getApplicationContext());
+        String secretKey = PrefUtil.loadSecretKey(getApplicationContext());
+        if (!TextUtils.isEmpty(accessToken) && !TextUtils.isEmpty(secretKey)) {
+            marketAccount.set(getString(R.string.unregister_account));
+        } else {
+            marketAccount.set(getString(R.string.register_account));
+        }
     }
 
     private void initCoinUnitAlarm() {
@@ -227,7 +244,46 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
-    public void onDeveloperPageClick(View v){
+    // databinding
+    public void onMarketAccountRegisterClick(View v) {
+        if (marketAccount.get().equals(getString(R.string.register_account))) {
+            MarketAccountRegisterDialog dialog = MarketAccountRegisterDialog.newInstance();
+            dialog.setOnRequestResultListener(new MarketAccountRegisterDialog.OnRequestResultListener() {
+                @Override
+                public void onRequestResultListener() {
+                    marketAccount.set(getString(R.string.unregister_account));
+                }
+            });
+            dialog.show(getSupportFragmentManager(), dialog.getTag());
+        } else {
+            new AlertDialog.Builder(SettingActivity.this)
+                    .setMessage(R.string.do_you_want_to_unregister)
+                    .setPositiveButton(R.string.unregister, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    marketAccount.set(getString(R.string.register_account));
+                                    PrefUtil.saveAccessToken(getApplicationContext(), "");
+                                    PrefUtil.saveSecretKey(getApplicationContext(), "");
+                                    PrefUtil.saveUserInfo(getApplicationContext(), "");
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .show();
+        }
+
+    }
+
+    public void onDeveloperPageClick(View v) {
         startActivity(new Intent(getApplicationContext(), DeveloperActivity.class));
     }
 

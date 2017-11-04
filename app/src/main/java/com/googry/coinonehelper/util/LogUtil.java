@@ -15,4 +15,7 @@ public class LogUtil {
     public static void i(String message) {
         if (ISDEBUG) Log.i(TAG, message);
     }
+    public static void e(String message) {
+        if (ISDEBUG) Log.e(TAG, message);
+    }
 }

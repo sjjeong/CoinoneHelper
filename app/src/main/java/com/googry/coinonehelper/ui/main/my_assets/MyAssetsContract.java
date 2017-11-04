@@ -14,7 +14,7 @@ public interface MyAssetsContract {
     }
 
     interface View extends BaseView<Presenter> {
-
+        void showSettingUi();
     }
 
 }
