@@ -150,14 +150,6 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
             }
             mBidAdapter.setBook(book, i);
         }
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (getContext() != null) {
-                    PrefUtil.saveOrderbook(getContext(), mCoinType, new Gson().toJson(coinoneOrderbook));
-                }
-            }
-        });
     }
 
     @Override
@@ -168,28 +160,12 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
         trade.completeOrders = new ArrayList<>(trade.completeOrders.subList(0, trade.completeOrders.size() < TRADE_CNT ? trade.completeOrders.size() : TRADE_CNT));
 
         mTradeAdapter.setTrades(trade.completeOrders);
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (getContext() != null) {
-                    PrefUtil.saveCompleteOrder(getContext(), mCoinType, new Gson().toJson(trade));
-                }
-            }
-        });
     }
 
     @Override
     public void showTicker(final CoinoneTicker.Ticker ticker) {
         if (ticker == null) return;
         mBinding.setTicker(ticker);
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (getContext() != null) {
-                    PrefUtil.saveTicker(getContext(), mCoinType, new Gson().toJson(ticker));
-                }
-            }
-        });
     }
 
     @Override
