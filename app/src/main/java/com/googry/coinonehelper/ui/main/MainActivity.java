@@ -190,8 +190,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     public void onBackPressed() {
-        if (!mSlidingRootNav.isMenuHidden()) {
-            mSlidingRootNav.closeMenu();
+        if (mSlidingRootNav.isMenuHidden()) {
+            mSlidingRootNav.openMenu();
             return;
         }
         ExitAdDialog exitAdDialog = new ExitAdDialog();
