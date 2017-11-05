@@ -96,6 +96,9 @@ dependencies {
 
     // secure preference
     compile 'com.scottyab:secure-preferences-lib:0.1.4'
+
+    // number progress bar
+    compile 'com.daimajia.numberprogressbar:library:1.4@aar'
 }
 
 

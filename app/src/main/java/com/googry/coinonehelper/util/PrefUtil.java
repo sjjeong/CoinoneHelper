@@ -19,6 +19,7 @@ public class PrefUtil {
     private static final String KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN";
     private static final String KEY_SECRET_KEY = "KEY_SECRET_KEY";
     private static final String KEY_USER_INFO = "KEY_USER_INFO";
+    private static final String KEY_REGISTER_ACCOUNT = "KEY_REGISTER_ACCOUNT";
 
     public static void saveTicker(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
@@ -29,6 +30,16 @@ public class PrefUtil {
 
     public static String loadTicker(Context context, CoinType coinType) {
         return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_TICKER), EMPTY);
+    }
+
+    public static void saveRegisterAccount(Context context, boolean isRegister){
+        SharedPreferences.Editor editor = getEditor(context);
+        editor.putBoolean(KEY_REGISTER_ACCOUNT, isRegister);
+        apply(editor);
+    }
+
+    public static boolean loadRegisterAccount(Context context) {
+        return getSharedPrefs(context).getBoolean(KEY_REGISTER_ACCOUNT, false);
     }
 
     private static SharedPreferences getSharedPrefs(Context context) {

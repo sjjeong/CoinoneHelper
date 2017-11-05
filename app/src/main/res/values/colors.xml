@@ -19,5 +19,16 @@
     <color name="colorEtc">#539898</color>
     <color name="colorXrp">#3D6B97</color>
     <color name="colorQtum">#5B98CF</color>
+    <color name="colorLtc">#5F6879</color>
+    <color name="colorKrw">#CA7E57</color>
+
+    <drawable name="drawableBtc">#3868D5</drawable>
+    <drawable name="drawableBch">#5E876D</drawable>
+    <drawable name="drawableEth">#505F99</drawable>
+    <drawable name="drawableEtc">#539898</drawable>
+    <drawable name="drawableXrp">#3D6B97</drawable>
+    <drawable name="drawableQtum">#5B98CF</drawable>
+    <drawable name="drawableLtc">#5F6879</drawable>
+    <drawable name="drawableKrw">#CA7E57</drawable>
 
 </resources>

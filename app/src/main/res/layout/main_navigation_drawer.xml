@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
-                    android:onClick="@{(v) -> activity.onSettingClick(v)}"
+                    android:onClick="@{() -> activity.onSettingClick()}"
                     android:src="@drawable/ic_setting"/>
             </FrameLayout>
 
@@ -73,7 +73,7 @@
                 <LinearLayout
                     android:id="@+id/ll_my_assets"
                     style="@style/SlideItem"
-                    android:onClick="@{(v) -> activity.onMyAssetsClick(v)}">
+                    android:onClick="@{() -> activity.onMyAssetsClick()}">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -115,7 +115,7 @@
 
                     <LinearLayout
                         style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onCompareAnotherExchangeClick(v)}">
+                        android:onClick="@{() -> activity.onCompareAnotherExchangeClick()}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -133,7 +133,7 @@
 
                     <LinearLayout
                         style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onCoinNotificationClick(v)}">
+                        android:onClick="@{() -> activity.onCoinNotificationClick()}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -151,7 +151,7 @@
 
                     <LinearLayout
                         style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onChattingClick(v)}">
+                        android:onClick="@{() -> activity.onChattingClick()}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -169,7 +169,7 @@
 
                     <LinearLayout
                         style="@style/SlideItem"
-                        android:onClick="@{(v) -> activity.onShowCoinVolumeClick(v)}">
+                        android:onClick="@{() -> activity.onShowCoinVolumeClick()}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -186,7 +186,8 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:onClick="@{(v) -> activity.onShowChartClick(v)}"
+                        android:onClick="@{() -> activity.onShowChartClick()}"
+                        android:id="@+id/ll_chart"
                         style="@style/SlideItem">
 
                         <ImageView

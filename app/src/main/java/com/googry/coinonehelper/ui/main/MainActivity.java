@@ -10,18 +10,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.gson.Gson;
 import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.data.CoinType;
-import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
 import com.googry.coinonehelper.ui.chart.ChartActivity;
 import com.googry.coinonehelper.ui.main.chatting.ChattingFragment;
@@ -31,7 +28,6 @@ import com.googry.coinonehelper.ui.main.compare_another_exchange.CompareAnotherE
 import com.googry.coinonehelper.ui.main.my_assets.MyAssetsFragment;
 import com.googry.coinonehelper.ui.setting.SettingActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
-import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 import com.googry.coinonehelper.util.ui.FragmentUtil;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -52,6 +48,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     private SlideMenuCoinTypeAdapter mSlideMenuCoinTypeAdapter;
 
+    private boolean isFirstOpen;
+
     @Override
     protected int getLayoutId() {
         return R.layout.main_activity;
@@ -67,6 +65,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mAdView = (AdView) findViewById(R.id.ad_view);
         setAdSetting();
+
+        isFirstOpen = true;
     }
 
     @Override
@@ -115,6 +115,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
         if (!BuildConfig.FLAVOR.equals("coinone")) {
             mBinding.llMyAssets.setVisibility(View.GONE);
+            mBinding.llChart.setVisibility(View.GONE);
         }
     }
 
@@ -124,7 +125,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     // databinding
-    public void onMyAssetsClick(View v) {
+    public void onMyAssetsClick() {
         if (mMyAssetsFragment == null) {
             mMyAssetsFragment = MyAssetsFragment.newInstance();
         }
@@ -132,7 +133,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     // databinding
-    public void onCompareAnotherExchangeClick(View v) {
+    public void onCompareAnotherExchangeClick() {
         if (mCompareAnotherExchangeFragment == null) {
             mCompareAnotherExchangeFragment = CompareAnotherExchangeFragment.newInstance();
         }
@@ -140,7 +141,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     // databindng
-    public void onCoinNotificationClick(View v) {
+    public void onCoinNotificationClick() {
         if (mCoinNotificationAddAlarmFragment == null) {
             mCoinNotificationAddAlarmFragment = CoinNotificationAddAlarmFragment.newInstance();
         }
@@ -148,16 +149,16 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     // databinding
-    public void onChattingClick(View v) {
+    public void onChattingClick() {
         if (mChattingFragment == null) {
             mChattingFragment = ChattingFragment.newInstance();
         }
         replaceFragment(mChattingFragment, R.string.chatting);
-        Toast.makeText(getApplicationContext(),"현재 개발중인 서비스입니다.\n서비스 이용이 제한적 일 수 있습니다.",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "현재 개발중인 서비스입니다.\n서비스 이용이 제한적 일 수 있습니다.", Toast.LENGTH_LONG).show();
     }
 
     // databinding
-    public void onShowCoinVolumeClick(View v) {
+    public void onShowCoinVolumeClick() {
         if (mCoinVolumeFragment == null) {
             mCoinVolumeFragment = CoinVolumeFragment.newInstance();
         }
@@ -165,12 +166,12 @@ public class MainActivity extends BaseActivity<MainFragment> {
     }
 
     // databinding
-    public void onShowChartClick(View v) {
+    public void onShowChartClick() {
         startActivity(new Intent(getApplicationContext(), ChartActivity.class));
     }
 
     // databinding
-    public void onSettingClick(View v){
+    public void onSettingClick() {
         startActivity(new Intent(getApplicationContext(), SettingActivity.class));
     }
 
@@ -228,5 +229,12 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
         // Resume the AdView.
         mAdView.resume();
+        isFirstOpen = false;
+
+        if (BuildConfig.FLAVOR.equals("coinone")) {
+            if (isFirstOpen && PrefUtil.loadRegisterAccount(getApplicationContext())) {
+                onMyAssetsClick();
+            }
+        }
     }
 }

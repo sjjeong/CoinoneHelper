@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class CoinoneBalance {
+    @SerializedName("errorCode")
+    public String errorCode;
     @SerializedName("btc")
     public Balance balanceBtc;
     @SerializedName("eth")

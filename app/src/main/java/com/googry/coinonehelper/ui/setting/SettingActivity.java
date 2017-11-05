@@ -67,9 +67,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initMarketAccount() {
-        String accessToken = PrefUtil.loadAccessToken(getApplicationContext());
-        String secretKey = PrefUtil.loadSecretKey(getApplicationContext());
-        if (!TextUtils.isEmpty(accessToken) && !TextUtils.isEmpty(secretKey)) {
+        if (PrefUtil.loadRegisterAccount(getApplicationContext())) {
             marketAccount.set(getString(R.string.unregister_account));
         } else {
             marketAccount.set(getString(R.string.register_account));
@@ -252,6 +250,7 @@ public class SettingActivity extends AppCompatActivity {
                 @Override
                 public void onRequestResultListener() {
                     marketAccount.set(getString(R.string.unregister_account));
+                    PrefUtil.saveRegisterAccount(getApplicationContext(), true);
                 }
             });
             dialog.show(getSupportFragmentManager(), dialog.getTag());
@@ -265,6 +264,7 @@ public class SettingActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     marketAccount.set(getString(R.string.register_account));
+                                    PrefUtil.saveRegisterAccount(getApplicationContext(), false);
                                     PrefUtil.saveAccessToken(getApplicationContext(), "");
                                     PrefUtil.saveSecretKey(getApplicationContext(), "");
                                     PrefUtil.saveUserInfo(getApplicationContext(), "");
