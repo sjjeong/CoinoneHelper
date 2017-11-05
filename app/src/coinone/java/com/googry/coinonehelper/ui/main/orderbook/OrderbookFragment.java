@@ -166,6 +166,14 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     public void showTicker(final CoinoneTicker.Ticker ticker) {
         if (ticker == null) return;
         mBinding.setTicker(ticker);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (getContext() != null) {
+                    PrefUtil.saveTicker(getContext(), mCoinType, new Gson().toJson(ticker));
+                }
+            }
+        });
     }
 
     @Override
