@@ -14,31 +14,7 @@ public class PrefUtil {
     private static final String EMPTY = "";
     private static final String PREF_TIME_STAMP = "pref_time_stamp";
     private static final String KEY_PREFIX = "key_";
-    private static final String KEY_SUFFIX_ORDERBOOK = "_orderbook";
-    private static final String KEY_SUFFIX_COMPLETE_ORDER = "_complete_order";
     private static final String KEY_SUFFIX_TICKER = "_ticker";
-
-    public static void saveOrderbook(Context context, CoinType coinType, String value) {
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putString(getKey(coinType, KEY_SUFFIX_ORDERBOOK), value);
-        commit(editor);
-    }
-
-
-    public static String loadOrderbook(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_ORDERBOOK), EMPTY);
-    }
-
-    public static void saveCompleteOrder(Context context, CoinType coinType, String value) {
-        SharedPreferences.Editor editor = getEditor(context);
-        editor.putString(getKey(coinType, KEY_SUFFIX_COMPLETE_ORDER), value);
-        commit(editor);
-    }
-
-
-    public static String loadCompleteOrder(Context context, CoinType coinType) {
-        return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_COMPLETE_ORDER), EMPTY);
-    }
 
     public static void saveTicker(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
