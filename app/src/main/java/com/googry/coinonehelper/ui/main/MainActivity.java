@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
         if (mChattingFragment == null) {
             mChattingFragment = ChattingFragment.newInstance();
         }
-        replaceFragment(mChattingFragment, R.string.chatting_test);
+        replaceFragment(mChattingFragment, R.string.chatting);
         Toast.makeText(getApplicationContext(),"현재 개발중인 서비스입니다.\n서비스 이용이 제한적 일 수 있습니다.",Toast.LENGTH_LONG).show();
     }
 
@@ -204,8 +204,8 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
     @Override
     public void onBackPressed() {
-        if (!mSlidingRootNav.isMenuHidden()) {
-            mSlidingRootNav.closeMenu();
+        if (mSlidingRootNav.isMenuHidden()) {
+            mSlidingRootNav.openMenu();
             return;
         }
         ExitAdDialog exitAdDialog = new ExitAdDialog();

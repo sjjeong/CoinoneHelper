@@ -36,7 +36,6 @@
     <string name="question_exit_coinonehelper">코인원헬퍼를 종료할까요?</string>
     <string name="cancel">취소</string>
     <string name="exit">종료</string>
-    <string name="developing">개발 중입니다...</string>
     <string name="compare_another_exchange">거래소 별 가격</string>
     <string name="coinone">코인원</string>
     <string name="bithumb">빗썸</string>
@@ -51,7 +50,6 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="chatting">채팅</string>
-    <string name="chatting_test">채팅\n베타서비스</string>
     <string name="send">전송</string>
     <string name="setting">설정</string>
     <string name="account">계정</string>
@@ -110,6 +108,7 @@
     <string name="checking_account">계정 정보를 확인 중입니다.</string>
     <string name="empty_access_token">AccessToken이 비어있습니다.</string>
     <string name="empty_secret_key">SecretKey가 비어있습니다.</string>
+    <string name="dont_have_alarm">등록된 알람이 없습니다.</string>
 
 
 </resources>

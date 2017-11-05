@@ -69,13 +69,15 @@ public class CoinVolumeDetailFragment extends BaseFragment<CoinVolumeDetailFragm
 
     @Override
     public void refresh() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mCoinVolumeDetailAdapter.notifyDataSetChanged();
-                mBinding.progressBar.setVisibility(View.GONE);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mCoinVolumeDetailAdapter.notifyDataSetChanged();
+                    mBinding.progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
 
     }
 
@@ -86,62 +88,64 @@ public class CoinVolumeDetailFragment extends BaseFragment<CoinVolumeDetailFragm
 
     @Override
     public void showPieChart(final ArrayList<CoinMarket> coinMarkets, final String coinName) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<PieEntry> pieEntries = new ArrayList<>();
-                int lastPosition = coinMarkets.size() >= 10 ? 10 : coinMarkets.size();
-                for (int i = 0; i < lastPosition; i++) {
-                    CoinMarket coinMarket = coinMarkets.get(i);
-                    int volume24 = NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);
-                    pieEntries.add(new PieEntry(volume24, coinMarket.source));
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<PieEntry> pieEntries = new ArrayList<>();
+                    int lastPosition = coinMarkets.size() >= 10 ? 10 : coinMarkets.size();
+                    for (int i = 0; i < lastPosition; i++) {
+                        CoinMarket coinMarket = coinMarkets.get(i);
+                        int volume24 = NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);
+                        pieEntries.add(new PieEntry(volume24, coinMarket.source));
+                    }
+                    long volume24 = 0;
+                    for (int i = lastPosition; i < coinMarkets.size(); i++) {
+                        CoinMarket coinMarket = coinMarkets.get(i);
+                        volume24 += NumberConvertUtil.convertDollarStringToLong(coinMarket.volume24);
+                    }
+                    pieEntries.add(new PieEntry(volume24, getString(R.string.others)));
+
+                    PieDataSet pieDataSet = new PieDataSet(pieEntries, coinName);
+
+                    ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                    for (int c : ColorTemplate.VORDIPLOM_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.JOYFUL_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.COLORFUL_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.LIBERTY_COLORS)
+                        colors.add(c);
+
+                    for (int c : ColorTemplate.PASTEL_COLORS)
+                        colors.add(c);
+
+                    colors.add(ColorTemplate.getHoloBlue());
+
+                    pieDataSet.setColors(colors);
+
+                    PieData pieData = new PieData(pieDataSet);
+                    pieData.setValueFormatter(new PercentFormatter());
+                    pieData.setValueTextSize(11f);
+                    pieData.setValueTextColor(Color.BLACK);
+                    mBinding.picChartMarkets.setEntryLabelColor(Color.BLACK);
+                    mBinding.picChartMarkets.getLegend().setEnabled(false);
+                    mBinding.picChartMarkets.getDescription().setEnabled(false);
+                    mBinding.picChartMarkets.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                    mBinding.picChartMarkets.setCenterText(coinName);
+                    mBinding.picChartMarkets.setCenterTextSize(28);
+                    mBinding.picChartMarkets.setData(pieData);
+                    mBinding.picChartMarkets.setUsePercentValues(true);
+                    mBinding.picChartMarkets.invalidate();
                 }
-                long volume24 = 0;
-                for(int i = lastPosition;i < coinMarkets.size();i++){
-                    CoinMarket coinMarket = coinMarkets.get(i);
-                    volume24 += NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);
-                }
-                pieEntries.add(new PieEntry(volume24, getString(R.string.others)));
+            });
 
-                PieDataSet pieDataSet = new PieDataSet(pieEntries, coinName);
-
-                ArrayList<Integer> colors = new ArrayList<Integer>();
-
-                for (int c : ColorTemplate.VORDIPLOM_COLORS)
-                    colors.add(c);
-
-                for (int c : ColorTemplate.JOYFUL_COLORS)
-                    colors.add(c);
-
-                for (int c : ColorTemplate.COLORFUL_COLORS)
-                    colors.add(c);
-
-                for (int c : ColorTemplate.LIBERTY_COLORS)
-                    colors.add(c);
-
-                for (int c : ColorTemplate.PASTEL_COLORS)
-                    colors.add(c);
-
-                colors.add(ColorTemplate.getHoloBlue());
-
-                pieDataSet.setColors(colors);
-
-                PieData pieData = new PieData(pieDataSet);
-                pieData.setValueFormatter(new PercentFormatter());
-                pieData.setValueTextSize(11f);
-                pieData.setValueTextColor(Color.BLACK);
-                mBinding.picChartMarkets.setEntryLabelColor(Color.BLACK);
-                mBinding.picChartMarkets.getLegend().setEnabled(false);
-                mBinding.picChartMarkets.getDescription().setEnabled(false);
-                mBinding.picChartMarkets.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-                mBinding.picChartMarkets.setCenterText(coinName);
-                mBinding.picChartMarkets.setCenterTextSize(28);
-                mBinding.picChartMarkets.setData(pieData);
-                mBinding.picChartMarkets.setUsePercentValues(true);
-                mBinding.picChartMarkets.invalidate();
-            }
-        });
-
+        }
     }
 
 }

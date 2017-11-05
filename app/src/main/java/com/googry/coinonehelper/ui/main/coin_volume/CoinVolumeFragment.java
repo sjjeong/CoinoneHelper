@@ -2,13 +2,11 @@ package com.googry.coinonehelper.ui.main.coin_volume;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.View;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinMarketCap;
 import com.googry.coinonehelper.databinding.CoinVolumeFragmentBinding;
-import com.googry.coinonehelper.ui.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -70,12 +68,14 @@ public class CoinVolumeFragment extends BaseFragment<CoinVolumeFragmentBinding> 
 
     @Override
     public void refresh() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mBinding.swipeRefreshLayout.setRefreshing(false);
-                mCoinVolumeAdapter.notifyDataSetChanged();
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mBinding.swipeRefreshLayout.setRefreshing(false);
+                    mCoinVolumeAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 }

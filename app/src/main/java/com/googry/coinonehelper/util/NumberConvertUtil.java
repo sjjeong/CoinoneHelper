@@ -34,6 +34,13 @@ public class NumberConvertUtil {
         value = removeStarString(value);
         return Integer.valueOf(value);
     }
+    public static long convertDollarStringToLong(String value) {
+        value = removeDollarString(value);
+        value = removeCommaString(value);
+        value = removeSpaceString(value);
+        value = removeStarString(value);
+        return Long.valueOf(value);
+    }
 
     public static float convertPercentStringToFloat(String value) {
         value = removeCommaString(value);

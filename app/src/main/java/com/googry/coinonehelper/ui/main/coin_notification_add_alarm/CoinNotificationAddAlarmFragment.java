@@ -1,5 +1,6 @@
 package com.googry.coinonehelper.ui.main.coin_notification_add_alarm;
 
+import android.view.View;
 import android.widget.Toast;
 
 import com.googry.coinonehelper.R;
@@ -7,7 +8,6 @@ import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.databinding.CoinNotificationAddAlarmFragmentBinding;
 import com.googry.coinonehelper.ui.OnItemClickListener;
-import com.googry.coinonehelper.util.LogUtil;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -99,6 +99,8 @@ public class CoinNotificationAddAlarmFragment
     public void showCoinNotificationList(RealmResults<CoinNotification> realmResults) {
         mAdapter.setData(realmResults);
         mAdapter.notifyDataSetChanged();
-        LogUtil.i("showCoinNotificationList");
+        if (realmResults.size() != 0) {
+            mBinding.tvDontHaveAlarm.setVisibility(View.GONE);
+        }
     }
 }
