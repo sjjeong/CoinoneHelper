@@ -1,8 +1,10 @@
 package com.googry.coinonehelper.ui.widget;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -124,7 +126,8 @@ public class MarketAccountRegisterDialog extends DialogFragment {
 
     // databinding
     public void onShowMakeTokenKeyClick() {
-
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@sjjeong1225/%EC%BD%94%EC%9D%B8%EC%9B%90-%EA%B1%B0%EB%9E%98%EC%86%8C-private-api-key-%EB%A7%8C%EB%93%9C%EB%8A%94-%EB%B0%A9%EB%B2%95-faf8e2f5b158"));
+        startActivity(browserIntent);
     }
 
     public interface OnRequestResultListener{

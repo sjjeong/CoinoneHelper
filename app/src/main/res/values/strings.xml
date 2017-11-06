@@ -112,7 +112,7 @@
     <string name="description_load_my_assets_to_coinone">코인원에서 내 재산 정보를 가져오는 중입니다.</string>
     <string name="money">화폐</string>
     <string name="order_avail">거래가능</string>
-    <string name="order">거래</string>
+    <string name="order">거래중</string>
     <string name="assets">자산</string>
 
 
