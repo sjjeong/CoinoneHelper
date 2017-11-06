@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.googry.coinonehelper.CoinoneHelperApplication;
 import com.googry.coinonehelper.data.CoinType;
-import com.securepreferences.SecurePreferences;
 
 /**
  * Created by seokjunjeong on 2017. 6. 16..
@@ -32,7 +32,7 @@ public class PrefUtil {
         return getSharedPrefs(context).getString(getKey(coinType, KEY_SUFFIX_TICKER), EMPTY);
     }
 
-    public static void saveRegisterAccount(Context context, boolean isRegister){
+    public static void saveRegisterAccount(Context context, boolean isRegister) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putBoolean(KEY_REGISTER_ACCOUNT, isRegister);
         apply(editor);
@@ -50,42 +50,42 @@ public class PrefUtil {
         return getSharedPrefs(context).edit();
     }
 
-    public static void saveAccessToken(Context context, String accessToken) {
-        SharedPreferences.Editor editor = getSecureEditor(context);
+    public static void saveAccessToken(String accessToken) {
+        SharedPreferences.Editor editor = getSecureEditor();
         editor.putString(KEY_ACCESS_TOKEN, accessToken);
         apply(editor);
     }
 
-    public static String loadAccessToken(Context context) {
-        return getSecureSharedPrefs(context).getString(KEY_ACCESS_TOKEN, null);
+    public static String loadAccessToken() {
+        return getSecureSharedPrefs().getString(KEY_ACCESS_TOKEN, null);
     }
 
-    public static void saveSecretKey(Context context, String secretKey) {
-        SharedPreferences.Editor editor = getSecureEditor(context);
+    public static void saveSecretKey(String secretKey) {
+        SharedPreferences.Editor editor = getSecureEditor();
         editor.putString(KEY_SECRET_KEY, secretKey);
         apply(editor);
     }
 
-    public static String loadSecretKey(Context context) {
-        return getSecureSharedPrefs(context).getString(KEY_SECRET_KEY, null);
+    public static String loadSecretKey() {
+        return getSecureSharedPrefs().getString(KEY_SECRET_KEY, null);
     }
 
-    public static void saveUserInfo(Context context, String userInfo) {
-        SharedPreferences.Editor editor = getSecureEditor(context);
+    public static void saveUserInfo(String userInfo) {
+        SharedPreferences.Editor editor = getSecureEditor();
         editor.putString(KEY_USER_INFO, userInfo);
         apply(editor);
     }
 
-    public static String loadUserInfo(Context context) {
-        return getSecureSharedPrefs(context).getString(KEY_USER_INFO, null);
+    public static String loadUserInfo() {
+        return getSecureSharedPrefs().getString(KEY_USER_INFO, null);
     }
 
-    private static SharedPreferences getSecureSharedPrefs(Context context) {
-        return new SecurePreferences(context);
+    private static SharedPreferences getSecureSharedPrefs() {
+        return CoinoneHelperApplication.getInstance().getSecurePreferences();
     }
 
-    private static SharedPreferences.Editor getSecureEditor(Context context) {
-        return getSecureSharedPrefs(context).edit();
+    private static SharedPreferences.Editor getSecureEditor() {
+        return getSecureSharedPrefs().edit();
     }
 
     // if you do not care about the result and calling from the main thread

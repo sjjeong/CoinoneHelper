@@ -1,7 +1,6 @@
 package com.googry.coinonehelper.ui.main.my_assets;
 
 import android.content.Context;
-import android.databinding.ObservableField;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -32,13 +31,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
 
     @Override
     public void start() {
-        checkRegisterAccount();
-    }
 
-    private void checkRegisterAccount() {
-        if (!PrefUtil.loadRegisterAccount(mContext)) {
-            mView.showSettingUi();
-        }
     }
 
     @Override
@@ -72,5 +65,15 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
             }
         });
 
+    }
+
+    @Override
+    public void checkRegisterAccount() {
+        if (PrefUtil.loadRegisterAccount(mContext)) {
+            mView.showLoadingDialog();
+            loadBalance();
+        } else {
+            mView.showSettingUi();
+        }
     }
 }

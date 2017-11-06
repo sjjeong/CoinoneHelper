@@ -1,8 +1,10 @@
 package com.googry.coinonehelper;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import com.google.firebase.FirebaseApp;
+import com.securepreferences.SecurePreferences;
 
 import java.io.FileNotFoundException;
 
@@ -22,11 +24,29 @@ public class CoinoneHelperApplication extends Application {
      * 초기 버전
      */
     private static final long REALM_SCHEMA_INIT = 0;
-
     /**
      * unit alarm의 스키마 추가로 버전 1
      */
     private static final long REALM_SCHEMA_UNIT_ALARM = 1;
+    private static CoinoneHelperApplication sInstance;
+    private SecurePreferences mSecurePrefs;
+
+    public CoinoneHelperApplication() {
+        super();
+        sInstance = this;
+    }
+
+    public static synchronized CoinoneHelperApplication getInstance() {
+        return sInstance;
+    }
+
+    public SharedPreferences getSecurePreferences() {
+        if (mSecurePrefs == null) {
+            mSecurePrefs = new SecurePreferences(this, "C@in@n2H2lp2r", "prefs.xml");
+        }
+
+        return mSecurePrefs;
+    }
 
     @Override
     public void onCreate() {
@@ -46,6 +66,7 @@ public class CoinoneHelperApplication extends Application {
 
         FirebaseApp.initializeApp(this);
     }
+
 
     public class CoinRealmMigration implements RealmMigration {
 

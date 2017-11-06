@@ -31,8 +31,15 @@ public class CoinNotificationAddAlarmFragment
                     mAdapter.getData().get(position).deleteFromRealm();
                     Toast.makeText(getContext(), "알람 삭제", Toast.LENGTH_LONG).show();
                     mAdapter.notifyDataSetChanged();
+
+                    RealmResults<CoinNotification> realmResults =
+                            realm.where(CoinNotification.class)
+                                    .findAll();
+                    mBinding.tvDontHaveAlarm.setVisibility(realmResults.size() == 0 ?
+                            View.VISIBLE : View.GONE);
                 }
             });
+
         }
     };
     private CoinNotificationAddAlarmDialog.OnSaveButtonClick mOnSaveButtonClick =
@@ -41,6 +48,7 @@ public class CoinNotificationAddAlarmFragment
                 public void onSaveButtonClick(final CoinNotification coinNotification) {
                     Toast.makeText(getContext(), "저장에 성공했습니다.", Toast.LENGTH_LONG).show();
                     mAdapter.notifyDataSetChanged();
+                    mBinding.tvDontHaveAlarm.setVisibility(View.GONE);
                 }
             };
     private OnItemClickListener mModifyListener = new OnItemClickListener() {
@@ -99,8 +107,7 @@ public class CoinNotificationAddAlarmFragment
     public void showCoinNotificationList(RealmResults<CoinNotification> realmResults) {
         mAdapter.setData(realmResults);
         mAdapter.notifyDataSetChanged();
-        if (realmResults.size() != 0) {
-            mBinding.tvDontHaveAlarm.setVisibility(View.GONE);
-        }
+        mBinding.tvDontHaveAlarm.setVisibility(realmResults.size() == 0 ?
+                View.VISIBLE : View.GONE);
     }
 }

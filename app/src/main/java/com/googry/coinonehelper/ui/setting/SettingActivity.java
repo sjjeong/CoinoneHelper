@@ -265,9 +265,9 @@ public class SettingActivity extends AppCompatActivity {
                                 public void run() {
                                     marketAccount.set(getString(R.string.register_account));
                                     PrefUtil.saveRegisterAccount(getApplicationContext(), false);
-                                    PrefUtil.saveAccessToken(getApplicationContext(), "");
-                                    PrefUtil.saveSecretKey(getApplicationContext(), "");
-                                    PrefUtil.saveUserInfo(getApplicationContext(), "");
+                                    PrefUtil.saveAccessToken("");
+                                    PrefUtil.saveSecretKey("");
+                                    PrefUtil.saveUserInfo("");
                                 }
                             });
                         }

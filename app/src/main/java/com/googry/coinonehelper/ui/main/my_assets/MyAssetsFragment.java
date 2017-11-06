@@ -89,10 +89,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
     @Override
     public void onResume() {
         super.onResume();
-        if (PrefUtil.loadRegisterAccount(getContext())) {
-            showLoadingDialog();
-            mPresenter.loadBalance();
-        }
+        mPresenter.checkRegisterAccount();
     }
 
     @Override
@@ -174,24 +171,6 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
 
                     PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
 
-
-//                    for (int c : ColorTemplate.VORDIPLOM_COLORS)
-//                        colors.add(c);
-//
-//                    for (int c : ColorTemplate.JOYFUL_COLORS)
-//                        colors.add(c);
-//
-//                    for (int c : ColorTemplate.COLORFUL_COLORS)
-//                        colors.add(c);
-//
-//                    for (int c : ColorTemplate.LIBERTY_COLORS)
-//                        colors.add(c);
-//
-//                    for (int c : ColorTemplate.PASTEL_COLORS)
-//                        colors.add(c);
-//
-//                    colors.add(ColorTemplate.getHoloBlue());
-
                     pieDataSet.setColors(colors);
                     for (int i = 0; i < legendEntries.size(); i++) {
                         legendEntries.get(i).formColor = colors.get(i);
@@ -211,7 +190,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
                     l.setOrientation(Legend.LegendOrientation.VERTICAL);
                     l.setDrawInside(false);
                     l.setYEntrySpace(5f);
-                    l.setYOffset(-20f);
+                    l.setYOffset(-100f);
                     l.setXOffset(10f);
                     l.setCustom(legendEntries);
                     pieChart.getDescription().setEnabled(false);

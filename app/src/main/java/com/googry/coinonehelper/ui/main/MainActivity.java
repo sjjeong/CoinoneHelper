@@ -229,12 +229,12 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
         // Resume the AdView.
         mAdView.resume();
-        isFirstOpen = false;
 
         if (BuildConfig.FLAVOR.equals("coinone")) {
             if (isFirstOpen && PrefUtil.loadRegisterAccount(getApplicationContext())) {
                 onMyAssetsClick();
             }
         }
+        isFirstOpen = false;
     }
 }

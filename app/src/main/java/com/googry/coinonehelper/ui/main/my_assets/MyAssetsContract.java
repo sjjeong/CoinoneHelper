@@ -12,6 +12,8 @@ public interface MyAssetsContract {
 
     interface Presenter extends BasePresenter{
         void loadBalance();
+
+        void checkRegisterAccount();
     }
 
     interface View extends BaseView<Presenter> {

@@ -87,8 +87,8 @@ public class MarketAccountRegisterDialog extends DialogFragment {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                PrefUtil.saveAccessToken(getContext(), accessToken.get());
-                PrefUtil.saveSecretKey(getContext(), secretKey.get());
+                PrefUtil.saveAccessToken(accessToken.get());
+                PrefUtil.saveSecretKey(secretKey.get());
 
                 Call<CoinoneUserInfo> call = CoinonePrivateApiUtil.getUserInfo(getContext());
                 call.enqueue(new Callback<CoinoneUserInfo>() {
@@ -106,7 +106,7 @@ public class MarketAccountRegisterDialog extends DialogFragment {
                             if (mOnRequestResultListener != null) {
                                 mOnRequestResultListener.onRequestResultListener();
                             }
-                            PrefUtil.saveUserInfo(getContext(), new Gson().toJson(userInfo));
+                            PrefUtil.saveUserInfo(new Gson().toJson(userInfo));
                         } else {
                             Toast.makeText(getContext(), R.string.cant_check_account, Toast.LENGTH_SHORT).show();
                         }

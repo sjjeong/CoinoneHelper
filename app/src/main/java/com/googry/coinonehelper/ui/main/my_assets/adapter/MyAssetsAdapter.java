@@ -89,6 +89,7 @@ public class MyAssetsAdapter extends RecyclerView.Adapter<MyAssetsAdapter.MyAsse
                 mBinding.tvAvail.setText(String.format("%,.4f", myAssetsItem.avail));
                 mBinding.tvTrading.setText(String.format("%,.4f", (myAssetsItem.balance - myAssetsItem.avail)));
                 mBinding.tvBalance.setText(String.format("%,.4f", myAssetsItem.balance));
+                mBinding.tvBalance.setVisibility(View.VISIBLE);
                 int max = 1000000;
                 int progress = (int) (myAssetsItem.avail * max / myAssetsItem.balance);
                 mBinding.numberProgressBar.setMax(max);

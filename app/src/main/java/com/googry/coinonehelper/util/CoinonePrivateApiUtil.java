@@ -66,8 +66,8 @@ public class CoinonePrivateApiUtil {
     }
 
     private static String[] getEncryptPayloadAndSignature(Context context) {
-        String accessToken = PrefUtil.loadAccessToken(context);
-        String secretKey = PrefUtil.loadSecretKey(context);
+        String accessToken = PrefUtil.loadAccessToken();
+        String secretKey = PrefUtil.loadSecretKey();
 
         String limitOrdersPayload = getJsonAccount(
                 accessToken, System.currentTimeMillis());
