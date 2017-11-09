@@ -35,6 +35,11 @@ public class DeveloperActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onSendKakaoClick(View v){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.developer_kakao_address)));
+        startActivity(browserIntent);
+    }
+
     public void onDonateClick(View v){
         String link = "";
         switch (v.getId()) {

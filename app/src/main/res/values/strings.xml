@@ -14,6 +14,8 @@
     <string name="donate_etc">0x7E5BD288AF8B7178475F94AD45DBA2B11CC69012</string>
     <string name="donate_xrp">rp2diYfVtpbgEMyaoWnuaWgFCAkqCAEg28</string>
     <string name="donate_xrp_destination">1145583754</string>
+    <string name="donate_qtum">QYnmHfZNiNZYCoc9b7svNhErQqDsuXZWjB</string>
+    <string name="donate_ltc">LUThyrG9C3p5qBBou2wSZHECoi5RGCLw2s</string>
 
     <string name="btc">BTC</string>
     <string name="bch">BCH</string>
@@ -70,10 +72,15 @@
     <string name="address_eth_donate">ETH 기부 주소</string>
     <string name="address_etc_donate">ETC 기부 주소</string>
     <string name="address_xrp_donate">XRP 기부 주소</string>
+    <string name="address_qtum_donate">QTUM 기부 주소</string>
+    <string name="address_ltc_donate">LTC 기부 주소</string>
     <string name="thanks_to">코인원헬퍼 개발자입니다.\n코인원헬퍼를 이용해주셔서 감사합니다.\n앞으로 더 좋은 앱을 만들기 위해 노력하겠습니다.</string>
     <string name="send_email_to_developer">개발자에게 메일 보내기</string>
+    <string name="send_kakao_to_developer">개발자와 카톡 하기</string>
     <string name="send_email">메일 보내기</string>
+    <string name="send_kakao">카톡 하기</string>
     <string name="developer_email_address">sjjeong1225@gmail.com</string>
+    <string name="developer_kakao_address">https://open.kakao.com/me/coinonehelper</string>
     <string name="help_developer">개발자 도와주기</string>
     <string name="destination_tag">Destination Tag</string>
     <string name="say_developer">개발자 한마디</string>
