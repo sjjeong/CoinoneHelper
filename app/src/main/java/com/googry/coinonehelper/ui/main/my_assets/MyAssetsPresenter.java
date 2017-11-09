@@ -4,8 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
+import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneBalance;
+import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 
@@ -39,29 +43,58 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                Call<CoinoneBalance> call = CoinonePrivateApiUtil.getBalance(mContext);
-                call.enqueue(new Callback<CoinoneBalance>() {
+                Call<CoinoneTicker> coinoneTickerCall = CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePublicApi.class).allTicker();
+                coinoneTickerCall.enqueue(new Callback<CoinoneTicker>() {
                     @Override
-                    public void onResponse(Call<CoinoneBalance> call, Response<CoinoneBalance> response) {
-                        CoinoneBalance balance = response.body();
-                        if (balance == null) {
-                            return;
-                        }
-                        if (balance.errorCode.equals("0")) {
+                    public void onResponse(Call<CoinoneTicker> call, Response<CoinoneTicker> response) {
+                        CoinoneTicker ticker = response.body();
+                        if (ticker == null) {
                             mView.hideLoadingDialog();
-                            mView.showBalance(balance);
+                            Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        mView.hideLoadingDialog();
-                        Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                        Gson gson = new Gson();
+                        PrefUtil.saveTicker(mContext, CoinType.BTC, gson.toJson(ticker.btc, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.BCH, gson.toJson(ticker.bch, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.ETH, gson.toJson(ticker.eth, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.ETC, gson.toJson(ticker.etc, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.XRP, gson.toJson(ticker.xrp, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.QTUM, gson.toJson(ticker.qtum, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.LTC, gson.toJson(ticker.ltc, CoinoneTicker.Ticker.class));
+
+                        Call<CoinoneBalance> coinoneBalanceCall = CoinonePrivateApiUtil.getBalance(mContext);
+                        coinoneBalanceCall.enqueue(new Callback<CoinoneBalance>() {
+                            @Override
+                            public void onResponse(Call<CoinoneBalance> call, Response<CoinoneBalance> response) {
+                                CoinoneBalance balance = response.body();
+                                if (balance == null) {
+                                    mView.hideLoadingDialog();
+                                    Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                if (balance.errorCode.equals("0")) {
+                                    mView.hideLoadingDialog();
+                                    mView.showBalance(balance);
+                                    return;
+                                }
+                                mView.hideLoadingDialog();
+                                Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<CoinoneBalance> call, Throwable t) {
+                                mView.hideLoadingDialog();
+                                Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
-                    public void onFailure(Call<CoinoneBalance> call, Throwable t) {
-                        mView.hideLoadingDialog();
-                        Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<CoinoneTicker> call, Throwable t) {
+
                     }
                 });
+
             }
         });
 

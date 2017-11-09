@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -74,6 +75,14 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
         mColorRes.add(R.color.colorQtum);
         mColorRes.add(R.color.colorLtc);
         mColorRes.add(R.color.colorKrw);
+
+
+        mBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.checkRegisterAccount();
+            }
+        });
     }
 
     @Override
@@ -221,6 +230,9 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
     public void hideLoadingDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+        }
+        if (mBinding.swipeRefreshLayout.isRefreshing()) {
+            mBinding.swipeRefreshLayout.setRefreshing(false);
         }
     }
 }
