@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/mainBg"
+                android:visibility="gone"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/admob_banner_id">
             </com.google.android.gms.ads.AdView>

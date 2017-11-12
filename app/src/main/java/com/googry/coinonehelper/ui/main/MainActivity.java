@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity<MainFragment> {
     private SlideMenuCoinTypeAdapter mSlideMenuCoinTypeAdapter;
 
     private boolean isFirstOpen;
+    private long mExitTime;
 
     @Override
     protected int getLayoutId() {
@@ -64,7 +65,10 @@ public class MainActivity extends BaseActivity<MainFragment> {
     protected void initView() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mAdView = (AdView) findViewById(R.id.ad_view);
-        setAdSetting();
+        if (!BuildConfig.DEBUG) {
+            setAdSetting();
+            mAdView.setVisibility(View.VISIBLE);
+        }
 
         isFirstOpen = true;
     }
@@ -209,10 +213,19 @@ public class MainActivity extends BaseActivity<MainFragment> {
             mSlidingRootNav.openMenu();
             return;
         }
-        ExitAdDialog exitAdDialog = new ExitAdDialog();
-        exitAdDialog.setCancelable(false);
-        exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
-
+        if (BuildConfig.DEBUG) {
+            long currentTime = System.currentTimeMillis();
+            if (mExitTime + 1000 > currentTime) {
+                super.onBackPressed();
+            } else {
+                mExitTime = currentTime;
+                Toast.makeText(this, R.string.want_to_exit_plase_one_more_time, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            ExitAdDialog exitAdDialog = new ExitAdDialog();
+            exitAdDialog.setCancelable(false);
+            exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
+        }
     }
 
     @Override

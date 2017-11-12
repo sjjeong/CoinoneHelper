@@ -3,13 +3,13 @@ package com.googry.coinonehelper.ui;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.background.PersistentService;
 import com.googry.coinonehelper.background.RestartReceiver;
@@ -30,49 +30,48 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initData();
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.admob_start_interstitial_id));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                LogUtil.i("onAdLoaded");
-                mInterstitialAd.show();
-            }
+        if (BuildConfig.DEBUG) {
+            startApp();
+        } else {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(getString(R.string.admob_start_interstitial_id));
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    LogUtil.i("onAdClosed");
+                    startApp();
+                }
 
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                LogUtil.i("onAdClosed");
-                startApp();
-            }
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    super.onAdFailedToLoad(i);
+                    LogUtil.i("onAdFailedToLoad");
+                    startApp();
+                }
 
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                LogUtil.i("onAdFailedToLoad");
-                startApp();
-            }
+                @Override
+                public void onAdLeftApplication() {
+                    super.onAdLeftApplication();
+                    LogUtil.i("onAdLeftApplication");
+                }
 
-            @Override
-            public void onAdLeftApplication() {
-                super.onAdLeftApplication();
-                LogUtil.i("onAdLeftApplication");
-            }
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                    LogUtil.i("onAdOpened");
+                }
 
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-                LogUtil.i("onAdOpened");
-            }
-        });
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    LogUtil.i("onAdLoaded");
+                    mInterstitialAd.show();
+                }
+            });
+        }
 
-    }
-
-    private void startApp(){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
     }
 
     @Override
@@ -80,6 +79,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onDestroy();
         //브로드 캐스트 해제
         unregisterReceiver(restartReceiver);
+    }
+
+    private void startApp() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 
     /**

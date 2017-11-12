@@ -121,6 +121,7 @@
     <string name="order_avail">거래가능</string>
     <string name="order">거래중</string>
     <string name="assets">자산</string>
+    <string name="want_to_exit_plase_one_more_time">종료하려면 한번 더 누르세요.</string>
 
 
 </resources>

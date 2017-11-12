@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.databinding.ChartActivityBinding;
 
@@ -37,15 +38,18 @@ public class ChartActivity extends AppCompatActivity {
         webview.getSettings().setDomStorageEnabled(true);
         webview.loadUrl("https://coinone.co.kr/chart");
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.admob_chart_back_interstitial_id));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        if (!BuildConfig.DEBUG) {
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(getString(R.string.admob_chart_back_interstitial_id));
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mInterstitialAd.isLoaded()) {
+        if (mInterstitialAd != null &&
+                mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }
