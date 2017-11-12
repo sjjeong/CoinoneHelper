@@ -13,7 +13,7 @@
 
 
     <string name="market_account">빗썸 계정</string>
-    <string name="developer_kakao_address">https://open.kakao.com/me/bithumhelper</string>
+    <string name="developer_kakao_address">https://open.kakao.com/me/bithumbhelper</string>
     <string name="description_access_token_secret_key">Access Token과 Secret Key를 발급 할 때 \'거래소 조회\'와 \'사용자 조회\' API 권한을 체크 해주세요.\n그 외 권한은 자산에 피해가 발생 할 수 있습니다.\n\n빗썸헬퍼는 채팅 기능 외에 서버를 사용하지 않기 때문에 등록하시는 Access Token과 Secret Key는 현재 사용하시는 기기에 저장되고 개발자가 알지 못합니다.\n또한 개발자는 절대로 유저에게 Access Token과 Secret Key를 요구하지 않습니다.\n\nAccess Token과 Secret Key를 타인에게 노출, 양도, 대여, 위임 등 본인의 관리소홀로 발생한 손해는 빗썸헬퍼에서 책임지지 않습니다.\n\n만약 타인에게 노출 된 경우에 빗썸 홈페이지에서 Key를 삭제한 후 재등록 해주세요.</string>
     <string name="ask_register_account">내 자산을 확인하려면 빗썸 계정을 등록해야 합니다.\n계정 등록 화면으로 이동하시겠습니까?</string>
 </resources>
