@@ -94,12 +94,12 @@ public class CoinVolumeDetailFragment extends BaseFragment<CoinVolumeDetailFragm
                 public void run() {
                     ArrayList<PieEntry> pieEntries = new ArrayList<>();
                     int lastPosition = coinMarkets.size() >= 10 ? 10 : coinMarkets.size();
+                    long volume24 = 0;
                     for (int i = 0; i < lastPosition; i++) {
                         CoinMarket coinMarket = coinMarkets.get(i);
-                        int volume24 = NumberConvertUtil.convertDollarStringToInteger(coinMarket.volume24);
+                        volume24 = NumberConvertUtil.convertDollarStringToLong(coinMarket.volume24);
                         pieEntries.add(new PieEntry(volume24, coinMarket.source));
                     }
-                    long volume24 = 0;
                     for (int i = lastPosition; i < coinMarkets.size(); i++) {
                         CoinMarket coinMarket = coinMarkets.get(i);
                         volume24 += NumberConvertUtil.convertDollarStringToLong(coinMarket.volume24);
