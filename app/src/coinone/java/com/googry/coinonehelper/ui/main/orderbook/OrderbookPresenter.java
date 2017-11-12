@@ -24,10 +24,7 @@ import retrofit2.Response;
  */
 
 public class OrderbookPresenter implements OrderbookContract.Presenter {
-    private static final int ORDERBOOK_CNT = 20;
-    private static final int TRADE_CNT = 20;
     private static final int REFRESH_PERIOD = 5000;
-    private Context mContext;
     private OrderbookContract.View mView;
     private CoinType mCoinType;
 
@@ -78,8 +75,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
         }
     };
 
-    public OrderbookPresenter(Context context, OrderbookContract.View view) {
-        mContext = context;
+    public OrderbookPresenter(OrderbookContract.View view) {
         mView = view;
         mView.setPresenter(this);
     }
@@ -119,7 +115,7 @@ public class OrderbookPresenter implements OrderbookContract.Presenter {
                 requestOrderbook(mCoinType);
             }
         };
-        mTimer.schedule(mTimerTask, 5000, REFRESH_PERIOD);
+        mTimer.schedule(mTimerTask, REFRESH_PERIOD, REFRESH_PERIOD);
     }
 
     private void requestOrderbook(CoinType coinType) {

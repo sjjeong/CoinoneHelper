@@ -12,13 +12,16 @@ import com.googry.coinonehelper.data.CoinType;
 
 public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
     private static final int COIN_CNT = CoinType.values().length;
+    private static final int BASE_DELAY = 250;
     private OrderbookFragment[] mKorbitOrderbookFragments;
+
 
     public OrderbookPagerAdapter(FragmentManager fm) {
         super(fm);
         mKorbitOrderbookFragments = new OrderbookFragment[COIN_CNT];
         for (int i = 0; i < COIN_CNT; i++) {
-            mKorbitOrderbookFragments[i] = OrderbookFragment.newInstance(CoinType.values()[i]);
+            mKorbitOrderbookFragments[i] = OrderbookFragment.newInstance(CoinType.values()[i],
+                    BASE_DELAY * i, BASE_DELAY * COIN_CNT);
         }
     }
 

@@ -27,14 +27,10 @@ public class OrderbookContract {
     public interface Presenter extends BasePresenter {
         void setCoinType(CoinType coinType);
 
+        void setDelayCallDuration(int delay, int callDuration);
+
         void stop();
 
         void load();
-
-        void loadCoinoneOrderbook();
-
-        void loadCoinoneTrade();
-
-        void loadCoinoneTicker();
     }
 }

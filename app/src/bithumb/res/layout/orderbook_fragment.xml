@@ -26,19 +26,28 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_askes"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="1dp"
                 android:layout_weight="2"
-                app:layoutManager="LinearLayoutManager"/>
+                android:background="@android:color/white">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_askes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="LinearLayoutManager"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"/>
 
 
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:padding="2dp">
@@ -123,6 +132,11 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -138,14 +152,23 @@
                 android:background="@color/white"
                 app:layoutManager="LinearLayoutManager"/>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_bides"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
                 android:layout_weight="2"
-                app:layoutManager="LinearLayoutManager"/>
+                android:background="@android:color/white">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_bides"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="LinearLayoutManager"/>
+            </FrameLayout>
 
         </LinearLayout>
 

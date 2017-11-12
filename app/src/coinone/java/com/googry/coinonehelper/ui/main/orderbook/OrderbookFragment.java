@@ -81,7 +81,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
 
     @Override
     protected void newPresenter() {
-        new OrderbookPresenter(getContext(), this);
+        new OrderbookPresenter(this);
     }
 
     @Override
