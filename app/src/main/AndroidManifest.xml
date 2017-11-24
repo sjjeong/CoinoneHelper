@@ -58,6 +58,10 @@
             android:name=".ui.chart.ChartActivity"
             android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.my_assets.trade.TradeActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".background.PersistentService"

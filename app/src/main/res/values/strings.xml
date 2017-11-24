@@ -122,6 +122,7 @@
     <string name="order">거래중</string>
     <string name="assets">자산</string>
     <string name="want_to_exit_plase_one_more_time">종료하려면 한번 더 누르세요.</string>
+    <string name="coin_trade">%1$s 거래하기</string>
 
 
 </resources>

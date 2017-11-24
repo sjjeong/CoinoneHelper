@@ -94,6 +94,7 @@ public class PersistentService extends Service {
                     @Override
                     public void onResponse(Call<CoinoneTicker> call, Response<CoinoneTicker> response) {
                         if (response.body() == null) return;
+                        // TODO: 2017. 11. 22. 각 coinoneTicker.마다 null처리
                         CoinoneTicker coinoneTicker = response.body();
                         Gson gson = new Gson();
                         PrefUtil.saveTicker(

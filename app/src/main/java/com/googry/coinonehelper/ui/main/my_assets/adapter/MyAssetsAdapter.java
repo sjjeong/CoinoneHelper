@@ -1,5 +1,6 @@
 package com.googry.coinonehelper.ui.main.my_assets.adapter;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.databinding.MyAssetsItemBinding;
+import com.googry.coinonehelper.ui.main.my_assets.trade.TradeActivity;
 
 import java.util.ArrayList;
 
@@ -67,9 +69,21 @@ public class MyAssetsAdapter extends RecyclerView.Adapter<MyAssetsAdapter.MyAsse
     public class MyAssetsViewHolder extends RecyclerView.ViewHolder {
         public MyAssetsItemBinding mBinding;
 
-        public MyAssetsViewHolder(View itemView) {
+
+        public MyAssetsViewHolder(final View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mBinding.tvAssetsName.getText().toString().toUpperCase().equals("KRW")) {
+                        return;
+                    }
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(),
+                            TradeActivity.class)
+                            .putExtra(TradeActivity.EXTRA_COIN_TYPE, mBinding.tvAssetsName.getText().toString()));
+                }
+            });
         }
 
         public void bind(MyAssetsItem myAssetsItem) {
