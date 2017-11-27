@@ -20,7 +20,7 @@ public class TradeActivity extends BaseActivity<TradeFragment> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.simple_activity;
+        return R.layout.trade_activity;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class TradeActivity extends BaseActivity<TradeFragment> {
 
     @Override
     protected void initToolbar(@Nullable Bundle savedInstanceState) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

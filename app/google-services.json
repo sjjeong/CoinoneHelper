@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "934192085579-qm9fjfe5qp77pclabc1tkifi5oirk62c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.googry.coinonehelper",
+            "certificate_hash": "0f551b660f24334db8e74327ef71a5eeadb56c6c"
+          }
+        },
+        {
           "client_id": "934192085579-rettir90kmv3pjrouglcbhrdcnlujrcq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -75,6 +83,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "934192085579-k8ql9glqgqru4ckegec9rb1gi35kabs0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.googry.coinonehelper.korbit",
+            "certificate_hash": "0f551b660f24334db8e74327ef71a5eeadb56c6c"
+          }
+        },
+        {
           "client_id": "934192085579-hh7aqhujbam5bm04ltr1iu847l50q54a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -134,6 +150,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "934192085579-q0bnpr2unsqjvhf1d6qu5r3qrcbm7a84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.googry.coinonehelper.bithumb",
+            "certificate_hash": "0f551b660f24334db8e74327ef71a5eeadb56c6c"
+          }
+        },
         {
           "client_id": "934192085579-j9s4v828d7fqqfmokb01mr4e4fhtp25k.apps.googleusercontent.com",
           "client_type": 1,

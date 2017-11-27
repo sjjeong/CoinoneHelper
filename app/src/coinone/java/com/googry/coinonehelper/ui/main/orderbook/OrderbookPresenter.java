@@ -1,17 +1,11 @@
 package com.googry.coinonehelper.ui.main.orderbook;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
-import com.googry.coinonehelper.util.PrefUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 

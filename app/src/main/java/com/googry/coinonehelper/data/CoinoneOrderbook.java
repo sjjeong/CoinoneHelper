@@ -14,9 +14,9 @@ public class CoinoneOrderbook {
     @SerializedName("currency")
     public String currency;
     @SerializedName("ask")
-    public ArrayList<Book> askes;
+    public ArrayList<Book> asks;
     @SerializedName("bid")
-    public ArrayList<Book> bides;
+    public ArrayList<Book> bids;
 
 
     public static class Book {

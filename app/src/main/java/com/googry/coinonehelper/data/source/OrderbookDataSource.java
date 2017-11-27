@@ -16,7 +16,7 @@ public interface OrderbookDataSource {
     void setOnOrderbookCallback(OnOrderbookCallback onOrderbookCallback);
 
     interface OnOrderbookCallback {
-        void onOrderbookLoaded(List<CommonOrderbook> orderbooks);
+        void onOrderbookLoaded(List<CommonOrderbook> asks, List<CommonOrderbook> bids);
 
         void onOrderbookLoadFailed();
     }

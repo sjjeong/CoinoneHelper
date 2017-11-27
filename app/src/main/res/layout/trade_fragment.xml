@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.googry.coinonehelper.ui.main.my_assets.trade.TradeViewModel"/>
+            type="com.googry.coinonehelper.ui.main.my_assets.trade.OrderbookViewModel" />
     </data>
 
     <LinearLayout
@@ -18,20 +19,56 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_ask"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:orderbooks="@{viewModel.orderbooks}"
-                app:layoutManager="LinearLayoutManager"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layoutManager="LinearLayoutManager"
+                bind:orderbooks="@{viewModel.asks}"
+                bind:reverse="@{true}" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_bid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layoutManager="LinearLayoutManager"
+                bind:orderbooks="@{viewModel.bids}" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black" />
+
         <LinearLayout
             android:layout_width="0dp"
+            android:orientation="vertical"
             android:layout_height="match_parent"
             android:layout_weight="2">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 

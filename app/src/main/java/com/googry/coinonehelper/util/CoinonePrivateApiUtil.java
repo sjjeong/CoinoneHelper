@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Base64;
 
 import com.googry.coinonehelper.data.CoinoneBalance;
+import com.googry.coinonehelper.data.CoinoneCompleteOrder;
+import com.googry.coinonehelper.data.CoinoneLimitOrder;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 
@@ -27,6 +29,20 @@ public class CoinonePrivateApiUtil {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", accessToken);
+            jsonObject.put("nonce", nonce);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+    private static String getJsonLimitOrders(String accessToken,
+                                            String currency,
+                                            long nonce) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("access_token", accessToken);
+            jsonObject.put("currency", currency);
             jsonObject.put("nonce", nonce);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -98,5 +114,41 @@ public class CoinonePrivateApiUtil {
                 encryptPayloadAndStignature[0],
                 encryptPayloadAndStignature[1],
                 encryptPayloadAndStignature[0]);
+    }
+
+    public static Call<CoinoneLimitOrder> getLimitOrder(Context context, String coinName) {
+        String accessToken = PrefUtil.loadAccessToken();
+        String secretKey = PrefUtil.loadSecretKey();
+
+        String limitOrdersPayload = getJsonLimitOrders(
+                accessToken, coinName, System.currentTimeMillis());
+        String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
+        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+
+        CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
+                CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
+
+        return coinonePrivateApi.limitOrders(
+                encryptlimitOrdersPayload,
+                limitOrdersSignature,
+                encryptlimitOrdersPayload);
+    }
+
+    public static Call<CoinoneCompleteOrder> getCompleteOrder(Context context, String coinName) {
+        String accessToken = PrefUtil.loadAccessToken();
+        String secretKey = PrefUtil.loadSecretKey();
+
+        String limitOrdersPayload = getJsonLimitOrders(
+                accessToken, coinName, System.currentTimeMillis());
+        String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
+        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+
+        CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
+                CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
+
+        return coinonePrivateApi.completeOrders(
+                encryptlimitOrdersPayload,
+                limitOrdersSignature,
+                encryptlimitOrdersPayload);
     }
 }

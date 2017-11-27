@@ -73,7 +73,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
 
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRvAskes.getLayoutManager();
         layoutManager.setReverseLayout(true);
-        layoutManager.setAutoMeasureEnabled(false);
+        layoutManager.setStackFromEnd(true);
         mRvAskes.setLayoutManager(layoutManager);
 
         mCoinType = (CoinType) getArguments().getSerializable(KEY_COIN_TYPE);
@@ -112,14 +112,14 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
     @Override
     public void showOrderbookList(final CoinoneOrderbook coinoneOrderbook) {
         if (coinoneOrderbook == null) return;
-        if (coinoneOrderbook.askes != null)
-            coinoneOrderbook.askes = new ArrayList<>(coinoneOrderbook.askes.subList(0, coinoneOrderbook.askes.size() < ORDERBOOK_CNT ? coinoneOrderbook.askes.size() : ORDERBOOK_CNT));
-        if (coinoneOrderbook.bides != null)
-            coinoneOrderbook.bides = new ArrayList<>(coinoneOrderbook.bides.subList(0, coinoneOrderbook.bides.size() < ORDERBOOK_CNT ? coinoneOrderbook.bides.size() : ORDERBOOK_CNT));
+        if (coinoneOrderbook.asks != null)
+            coinoneOrderbook.asks = new ArrayList<>(coinoneOrderbook.asks.subList(0, coinoneOrderbook.asks.size() < ORDERBOOK_CNT ? coinoneOrderbook.asks.size() : ORDERBOOK_CNT));
+        if (coinoneOrderbook.bids != null)
+            coinoneOrderbook.bids = new ArrayList<>(coinoneOrderbook.bids.subList(0, coinoneOrderbook.bids.size() < ORDERBOOK_CNT ? coinoneOrderbook.bids.size() : ORDERBOOK_CNT));
 
         ArrayList<CoinoneOrderbook.Book> askes, bides;
-        askes = coinoneOrderbook.askes;
-        bides = coinoneOrderbook.bides;
+        askes = coinoneOrderbook.asks;
+        bides = coinoneOrderbook.bids;
 
         if (askes == null || bides == null) return;
 

@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="orderbook"
+            type="com.googry.coinonehelper.data.CommonOrderbook" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|bottom"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:text='@{String.format("%,d",orderbook.price)}'
+            android:textColor="@{orderbook.isAsk ? @color/colorAsk : @color/colorBid}"
+            bind:autoSizeTextType="uniform" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|top"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:text='@{String.format("%,.4f",orderbook.qty)}'
+            android:textColor="@{orderbook.isAsk ? @color/colorAsk : @color/colorBid}"
+            bind:autoSizeTextType="uniform" />
+
+
+    </LinearLayout>
+</layout>

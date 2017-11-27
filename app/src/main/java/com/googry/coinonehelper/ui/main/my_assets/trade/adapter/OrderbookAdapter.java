@@ -1,5 +1,6 @@
 package com.googry.coinonehelper.ui.main.my_assets.trade.adapter;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CommonOrderbook;
+import com.googry.coinonehelper.databinding.OrderbookSingleItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,18 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
     }
 
     public void replaceOrderbooks(List<CommonOrderbook> orderbooks) {
-        mOrderbooks = orderbooks;
+        mOrderbooks.clear();
+        mOrderbooks.addAll(orderbooks);
         notifyDataSetChanged();
+    }
+
+    public void replaceOrderbook(int position, CommonOrderbook orderbook) {
+        mOrderbooks.set(position, orderbook);
+        notifyItemChanged(position);
+    }
+
+    public CommonOrderbook getOrderbook(int position) {
+        return mOrderbooks.get(position);
     }
 
     @Override
@@ -35,7 +47,7 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.binding.setOrderbook(mOrderbooks.get(position));
     }
 
     @Override
@@ -44,8 +56,11 @@ public class OrderbookAdapter extends RecyclerView.Adapter<OrderbookAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public OrderbookSingleItemBinding binding;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            binding = DataBindingUtil.bind(itemView);
         }
     }
 

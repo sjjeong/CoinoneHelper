@@ -1,6 +1,8 @@
 package com.googry.coinonehelper.data.remote;
 
 import com.googry.coinonehelper.data.CoinoneBalance;
+import com.googry.coinonehelper.data.CoinoneCompleteOrder;
+import com.googry.coinonehelper.data.CoinoneLimitOrder;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
@@ -65,6 +67,18 @@ public class CoinoneApiManager {
 
         @POST("v2/account/user_info/")
         Call<CoinoneUserInfo> userInfo(
+                @Header("X-COINONE-PAYLOAD") String payload,
+                @Header("X-COINONE-SIGNATURE") String signature,
+                @Body String body);
+
+        @POST("v2/order/limit_orders/")
+        Call<CoinoneLimitOrder> limitOrders(
+                @Header("X-COINONE-PAYLOAD") String payload,
+                @Header("X-COINONE-SIGNATURE") String signature,
+                @Body String body);
+
+        @POST("v2/order/complete_orders/")
+        Call<CoinoneCompleteOrder> completeOrders(
                 @Header("X-COINONE-PAYLOAD") String payload,
                 @Header("X-COINONE-SIGNATURE") String signature,
                 @Body String body);

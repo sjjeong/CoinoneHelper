@@ -13,31 +13,35 @@ import java.util.List;
  * Created by seokjunjeong on 2017. 11. 13..
  */
 
-public class TradeViewModel implements OrderbookDataSource.OnOrderbookCallback {
-    public final ObservableList<CommonOrderbook> orderbooks = new ObservableArrayList<>();
+public class OrderbookViewModel implements OrderbookDataSource.OnOrderbookCallback {
+    public final ObservableList<CommonOrderbook> asks = new ObservableArrayList<>();
+    public final ObservableList<CommonOrderbook> bids = new ObservableArrayList<>();
 
 
     private OrderbookDataSource mOrderbookDataSource;
     private String mCoinType;
 
-    public TradeViewModel(String coinType) {
+    public OrderbookViewModel(String coinType) {
         mCoinType = coinType;
         mOrderbookDataSource = new CoinoneOrderbookRepository(coinType);
         mOrderbookDataSource.setOnOrderbookCallback(this);
     }
 
     public void start() {
-
+        mOrderbookDataSource.start();
     }
 
     public void stop() {
-
+        mOrderbookDataSource.stop();
     }
 
+
     @Override
-    public void onOrderbookLoaded(List<CommonOrderbook> orderbooks) {
-        orderbooks.clear();
-        orderbooks.addAll(orderbooks);
+    public void onOrderbookLoaded(List<CommonOrderbook> asks, List<CommonOrderbook> bids) {
+        this.asks.clear();
+        this.asks.addAll(asks);
+        this.bids.clear();
+        this.bids.addAll(bids);
     }
 
     @Override
