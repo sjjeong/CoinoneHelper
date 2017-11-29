@@ -8,6 +8,7 @@ import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.databinding.CoinNotificationAddAlarmFragmentBinding;
 import com.googry.coinonehelper.ui.OnItemClickListener;
+import com.googry.coinonehelper.util.LogUtil;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -18,7 +19,7 @@ import io.realm.RealmResults;
 
 public class CoinNotificationAddAlarmFragment
         extends BaseFragment<CoinNotificationAddAlarmFragmentBinding>
-        implements CoinNotificationAddAlarmContract.View {
+        implements CoinNotificationAddAlarmContract.View, View.OnClickListener {
     private CoinNotificationAddAlarmContract.Presenter mPresenter;
     private CoinNotificationAddAlarmAdapter mAdapter;
     private Realm mRealm;
@@ -81,6 +82,7 @@ public class CoinNotificationAddAlarmFragment
 
         mAdapter = new CoinNotificationAddAlarmAdapter(mDeleteListener, mModifyListener);
         mBinding.rvCoinNotificationList.setAdapter(mAdapter);
+        mBinding.fabAddAlarm.setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +97,7 @@ public class CoinNotificationAddAlarmFragment
 
     @Override
     public void showAddAlarmPopup(CoinNotification coinNotification) {
+        LogUtil.e("show");
         CoinNotificationAddAlarmDialog addAlarmDialog =
                 CoinNotificationAddAlarmDialog.newInstance(coinNotification);
 
@@ -109,5 +112,10 @@ public class CoinNotificationAddAlarmFragment
         mAdapter.notifyDataSetChanged();
         mBinding.tvDontHaveAlarm.setVisibility(realmResults.size() == 0 ?
                 View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        showAddAlarmPopup(null);
     }
 }

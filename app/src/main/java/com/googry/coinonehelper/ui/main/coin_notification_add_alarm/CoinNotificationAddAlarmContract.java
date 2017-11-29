@@ -12,8 +12,6 @@ import io.realm.RealmResults;
 
 public interface CoinNotificationAddAlarmContract {
     interface Presenter extends BasePresenter {
-        void requestAddAlarm();
-
         void loadCoinNotificationList();
     }
 

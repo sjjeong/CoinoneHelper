@@ -1,6 +1,7 @@
 package com.googry.coinonehelper.ui.main.coin_notification_add_alarm;
 
 import com.googry.coinonehelper.data.CoinNotification;
+import com.googry.coinonehelper.util.LogUtil;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,11 +21,6 @@ public class CoinNotificationAddAlarmPresenter implements CoinNotificationAddAla
     @Override
     public void start() {
         loadCoinNotificationList();
-    }
-
-    @Override
-    public void requestAddAlarm() {
-        mView.showAddAlarmPopup(null);
     }
 
     @Override
