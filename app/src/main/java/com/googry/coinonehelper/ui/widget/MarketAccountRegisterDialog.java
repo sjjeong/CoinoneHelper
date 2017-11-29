@@ -17,11 +17,15 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
+import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
 import com.googry.coinonehelper.databinding.MarketAccountRegisterDialogBinding;
+import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,12 +101,25 @@ public class MarketAccountRegisterDialog extends DialogFragment {
                     @Override
                     public void onResponse(Call<CoinoneUserInfo> call, Response<CoinoneUserInfo> response) {
                         dialog.dismiss();
+                        if (response.errorBody() != null) {
+                            try {
+                                String errorJson = response.errorBody().string();
+                                CoinonePrivateError error =
+                                        new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
+                                                CoinonePrivateError.class);
+                                Toast.makeText(getContext(), error.errorMsg, Toast.LENGTH_SHORT).show();
+                                return;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                         CoinoneUserInfo userInfo = response.body();
                         if (userInfo == null) {
                             Toast.makeText(getContext(), R.string.server_error, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        if (userInfo.errorCode.equals("0")) {
+                        if (userInfo.errorCode == 0) {
                             Toast.makeText(getContext(), R.string.description_register_account, Toast.LENGTH_SHORT).show();
                             MarketAccountRegisterDialog.this.dismiss();
                             if (mOnRequestResultListener != null) {

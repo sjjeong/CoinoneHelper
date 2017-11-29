@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.widget.Toast;
 
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CommonOrder;
@@ -24,16 +25,14 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     private String mCoinName;
     private CoinType mCoinType;
+    private final Context mContext;
     private LimitOrderDataSource mLimitOrderDataSource;
-
-    public AskBidViewModel() {
-
-    }
 
     public AskBidViewModel(Context context, String coinName, String price) {
         mCoinName = coinName;
         mCoinType = CoinType.getCoinTypeFromTitle(mCoinName);
         this.price.set(price);
+        mContext = context;
         mLimitOrderDataSource = new CoinoneLimitOrderbookRepository(context, coinName);
         mLimitOrderDataSource.setOnLimitOrderCallback(this);
         mLimitOrderDataSource.call();
@@ -74,7 +73,7 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
     }
 
     @Override
-    public void onLimitOrderLoadFailed(String errorCode) {
-
+    public void onLimitOrderLoadFailed(String errorMsg) {
+        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
     }
 }

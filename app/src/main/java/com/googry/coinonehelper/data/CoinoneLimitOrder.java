@@ -9,8 +9,6 @@ import java.util.List;
  */
 
 public class CoinoneLimitOrder {
-    @SerializedName("errorCode")
-    public String errorCode;
     @SerializedName("limitOrders")
     public List<Order> limitOrders;
 

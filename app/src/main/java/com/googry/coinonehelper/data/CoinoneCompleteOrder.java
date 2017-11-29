@@ -9,8 +9,6 @@ import java.util.List;
  */
 
 public class CoinoneCompleteOrder {
-    @SerializedName("errorCode")
-    public String errorCode;
     @SerializedName("completeOrders")
     public List<Order> completeOrders;
 

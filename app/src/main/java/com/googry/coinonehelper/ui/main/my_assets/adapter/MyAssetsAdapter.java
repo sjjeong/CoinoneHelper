@@ -73,17 +73,17 @@ public class MyAssetsAdapter extends RecyclerView.Adapter<MyAssetsAdapter.MyAsse
         public MyAssetsViewHolder(final View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (mBinding.tvAssetsName.getText().toString().toUpperCase().equals("KRW")) {
-//                        return;
-//                    }
-//                    itemView.getContext().startActivity(new Intent(itemView.getContext(),
-//                            TradeActivity.class)
-//                            .putExtra(TradeActivity.EXTRA_COIN_TYPE, mBinding.tvAssetsName.getText().toString()));
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mBinding.tvAssetsName.getText().toString().toUpperCase().equals("KRW")) {
+                        return;
+                    }
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(),
+                            TradeActivity.class)
+                            .putExtra(TradeActivity.EXTRA_COIN_TYPE, mBinding.tvAssetsName.getText().toString()));
+                }
+            });
         }
 
         public void bind(MyAssetsItem myAssetsItem) {

@@ -3,11 +3,15 @@ package com.googry.coinonehelper.data.source;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinoneLimitOrder;
+import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 import com.googry.coinonehelper.util.LogUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -37,9 +41,22 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
         limitOrderCall.enqueue(new Callback<CoinoneLimitOrder>() {
             @Override
             public void onResponse(Call<CoinoneLimitOrder> call, Response<CoinoneLimitOrder> response) {
+                if (response.errorBody() != null) {
+                    try {
+                        String errorJson = response.errorBody().string();
+                        CoinonePrivateError error =
+                                new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
+                                        CoinonePrivateError.class);
+                        mOnLimitOrderCallback.onLimitOrderLoadFailed(error.errorMsg);
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 CoinoneLimitOrder limitOrder = response.body();
                 if (limitOrder == null) {
-                    mOnLimitOrderCallback.onLimitOrderLoadFailed("null");
+                    mOnLimitOrderCallback.onLimitOrderLoadFailed(mContext.getString(R.string.server_error));
                     return;
                 }
 
@@ -49,13 +66,11 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
                 ArrayList<CommonOrder> asks = new ArrayList<>();
                 ArrayList<CommonOrder> bids = new ArrayList<>();
 
-                if (limitOrder.errorCode.equals("0")) {
+                if (limitOrder.errorCode == 0) {
                     ArrayList<CoinoneLimitOrder.Order> coinoneLimitOrders = new ArrayList<>(limitOrder.limitOrders);
 
                     for (CoinoneLimitOrder.Order coinoneLimitOrder : coinoneLimitOrders) {
-                        LogUtil.e(coinoneLimitOrder.type);
                         if (coinoneLimitOrder.type.equals("ask")) {
-                            LogUtil.i("add ask");
                             asks.add(new CommonOrder(
                                     coinoneLimitOrder.index,
                                     coinoneLimitOrder.price,
@@ -63,7 +78,6 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
                                     true)
                             );
                         } else {
-                            LogUtil.i("add bid");
                             bids.add(new CommonOrder(
                                     coinoneLimitOrder.index,
                                     coinoneLimitOrder.price,
@@ -80,12 +94,13 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
 
                     return;
                 }
-                mOnLimitOrderCallback.onLimitOrderLoadFailed(limitOrder.errorCode);
+                mOnLimitOrderCallback.onLimitOrderLoadFailed(
+                        CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(limitOrder.errorCode));
             }
 
             @Override
             public void onFailure(Call<CoinoneLimitOrder> call, Throwable t) {
-                mOnLimitOrderCallback.onLimitOrderLoadFailed("404");
+                mOnLimitOrderCallback.onLimitOrderLoadFailed(mContext.getString(R.string.server_error));
             }
         });
     }

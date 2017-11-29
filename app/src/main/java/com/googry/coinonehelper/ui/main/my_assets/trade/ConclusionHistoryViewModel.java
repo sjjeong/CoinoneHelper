@@ -3,6 +3,7 @@ package com.googry.coinonehelper.ui.main.my_assets.trade;
 import android.content.Context;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.widget.Toast;
 
 import com.googry.coinonehelper.data.CommonOrder;
 import com.googry.coinonehelper.data.source.CoinoneCompleteCorderRepository;
@@ -19,10 +20,12 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
 
 
     private final String mCoinName;
+    private final Context mContext;
     private CompleteOrderDataSource mCompleteOrderDataSource;
 
     public ConclusionHistoryViewModel(Context context, String coinName) {
         mCoinName = coinName;
+        mContext = context;
         mCompleteOrderDataSource = new CoinoneCompleteCorderRepository(context, coinName);
         mCompleteOrderDataSource.setOnCompleteOrderCallback(this);
         mCompleteOrderDataSource.call();
@@ -39,7 +42,7 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
     }
 
     @Override
-    public void onCompleteOrderLoadFailed(String errorCode) {
-
+    public void onCompleteOrderLoadFailed(String errorMsg) {
+        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
     }
 }

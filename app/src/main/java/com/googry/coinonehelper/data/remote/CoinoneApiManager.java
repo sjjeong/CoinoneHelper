@@ -1,5 +1,6 @@
 package com.googry.coinonehelper.data.remote;
 
+import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.data.CoinoneBalance;
 import com.googry.coinonehelper.data.CoinoneCompleteOrder;
 import com.googry.coinonehelper.data.CoinoneLimitOrder;
@@ -8,6 +9,8 @@ import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,8 +31,18 @@ public class CoinoneApiManager {
 
     public static Retrofit getApiManager() {
         if (mInstance == null) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(BuildConfig.DEBUG ?
+                    HttpLoggingInterceptor.Level.BODY
+                    : HttpLoggingInterceptor.Level.NONE);
+
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            OkHttpClient client = httpClient
+                    .addInterceptor(loggingInterceptor)
+                    .build();
             mInstance = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

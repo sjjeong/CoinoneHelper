@@ -8,10 +8,15 @@ import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneBalance;
+import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
+import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
+import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,25 +66,36 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
                         PrefUtil.saveTicker(mContext, CoinType.XRP, gson.toJson(ticker.xrp, CoinoneTicker.Ticker.class));
                         PrefUtil.saveTicker(mContext, CoinType.QTUM, gson.toJson(ticker.qtum, CoinoneTicker.Ticker.class));
                         PrefUtil.saveTicker(mContext, CoinType.LTC, gson.toJson(ticker.ltc, CoinoneTicker.Ticker.class));
-//                        PrefUtil.saveTicker(mContext, CoinType.IOTA, gson.toJson(ticker.iota, CoinoneTicker.Ticker.class));
+                        PrefUtil.saveTicker(mContext, CoinType.IOTA, gson.toJson(ticker.iota, CoinoneTicker.Ticker.class));
 
                         Call<CoinoneBalance> coinoneBalanceCall = CoinonePrivateApiUtil.getBalance(mContext);
                         coinoneBalanceCall.enqueue(new Callback<CoinoneBalance>() {
                             @Override
                             public void onResponse(Call<CoinoneBalance> call, Response<CoinoneBalance> response) {
+                                mView.hideLoadingDialog();
+                                if (response.errorBody() != null) {
+                                    try {
+                                        String errorJson = response.errorBody().string();
+                                        CoinonePrivateError error =
+                                                new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
+                                                        CoinonePrivateError.class);
+                                        Toast.makeText(mContext, error.errorMsg, Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
                                 CoinoneBalance balance = response.body();
                                 if (balance == null) {
-                                    mView.hideLoadingDialog();
-                                    Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, "오잉", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                if (balance.errorCode.equals("0")) {
-                                    mView.hideLoadingDialog();
+                                if (balance.errorCode == 0) {
                                     mView.showBalance(balance);
                                     return;
                                 }
-                                mView.hideLoadingDialog();
-                                Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(balance.errorCode), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override

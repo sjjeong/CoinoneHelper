@@ -7,8 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class CoinoneUserInfo {
-    @SerializedName("errorCode")
-    public String errorCode;
     @SerializedName("userInfo")
     public UserInfo userInfo;
 

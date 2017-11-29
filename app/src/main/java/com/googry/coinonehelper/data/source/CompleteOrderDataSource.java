@@ -17,6 +17,6 @@ public interface CompleteOrderDataSource {
     interface OnCompleteOrderCallback {
         void onCompleteOrderLoaded(List<CommonOrder> completeOrders);
 
-        void onCompleteOrderLoadFailed(String errorCode);
+        void onCompleteOrderLoadFailed(String errorMsg);
     }
 }
