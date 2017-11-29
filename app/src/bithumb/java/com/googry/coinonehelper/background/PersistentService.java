@@ -95,6 +95,19 @@ public class PersistentService extends Service {
                     public void onResponse(Call<BithumbTicker> call, Response<BithumbTicker> response) {
                         if (response.body() == null) return;
                         BithumbTicker.Data ticker = response.body().data;
+                        if (ticker.btc == null ||
+                                ticker.bch == null ||
+                                ticker.eth == null ||
+                                ticker.etc == null ||
+                                ticker.xrp == null ||
+                                ticker.dash == null ||
+                                ticker.ltc == null ||
+                                ticker.xmr == null ||
+                                ticker.zec == null ||
+                                ticker.qtum == null ||
+                                ticker.btg == null) {
+                            return;
+                        }
                         Gson gson = new Gson();
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
@@ -145,6 +158,11 @@ public class PersistentService extends Service {
                                 getApplicationContext(),
                                 CoinType.QTUM,
                                 gson.toJson(ticker.qtum, BithumbTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.BTG,
+                                gson.toJson(ticker.btg, BithumbTicker.Ticker.class)
                         );
 
                         // 코인 가격 설정 조건 체크
@@ -214,6 +232,11 @@ public class PersistentService extends Service {
                                 case QTUM: {
                                     targetPrice = ticker.qtum.last;
                                     id += 10;
+                                }
+                                break;
+                                case BTG: {
+                                    targetPrice = ticker.btg.last;
+                                    id += 11;
                                 }
                                 break;
                             }
@@ -286,6 +309,10 @@ public class PersistentService extends Service {
                                 break;
                                 case QTUM: {
                                     targetPrice = ticker.qtum.last;
+                                }
+                                break;
+                                case BTG: {
+                                    targetPrice = ticker.btg.last;
                                 }
                                 break;
                             }

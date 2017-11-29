@@ -21,7 +21,7 @@ public class OrderbookPagerAdapter extends FragmentStatePagerAdapter {
         mKorbitOrderbookFragments = new OrderbookFragment[COIN_CNT];
         for (int i = 0; i < COIN_CNT; i++) {
             mKorbitOrderbookFragments[i] = OrderbookFragment.newInstance(CoinType.values()[i],
-                    BASE_DELAY * i, BASE_DELAY * COIN_CNT);
+                    BASE_DELAY * i, BASE_DELAY * COIN_CNT * 2);
         }
     }
 

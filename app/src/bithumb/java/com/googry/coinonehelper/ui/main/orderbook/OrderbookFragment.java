@@ -78,7 +78,7 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
 
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRvAskes.getLayoutManager();
         layoutManager.setReverseLayout(true);
-        layoutManager.setAutoMeasureEnabled(false);
+        layoutManager.setStackFromEnd(true);
         mRvAskes.setLayoutManager(layoutManager);
 
         mCoinType = (CoinType) getArguments().getSerializable(KEY_COIN_TYPE);

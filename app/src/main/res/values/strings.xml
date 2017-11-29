@@ -28,6 +28,7 @@
     <string name="dash">DASH</string>
     <string name="xmr">XMR</string>
     <string name="zec">ZEC</string>
+    <string name="btg">BTG</string>
     <string name="empty"></string>
     <string name="server_down">코인원 서버가 다운됐습니다. 잠시만 기다려주세요.</string>
     <string name="last_price">현재가</string>

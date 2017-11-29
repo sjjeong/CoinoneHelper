@@ -61,7 +61,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
                         PrefUtil.saveTicker(mContext, CoinType.XRP, gson.toJson(ticker.xrp, CoinoneTicker.Ticker.class));
                         PrefUtil.saveTicker(mContext, CoinType.QTUM, gson.toJson(ticker.qtum, CoinoneTicker.Ticker.class));
                         PrefUtil.saveTicker(mContext, CoinType.LTC, gson.toJson(ticker.ltc, CoinoneTicker.Ticker.class));
-                        PrefUtil.saveTicker(mContext, CoinType.IOTA, gson.toJson(ticker.iota, CoinoneTicker.Ticker.class));
+//                        PrefUtil.saveTicker(mContext, CoinType.IOTA, gson.toJson(ticker.iota, CoinoneTicker.Ticker.class));
 
                         Call<CoinoneBalance> coinoneBalanceCall = CoinonePrivateApiUtil.getBalance(mContext);
                         coinoneBalanceCall.enqueue(new Callback<CoinoneBalance>() {

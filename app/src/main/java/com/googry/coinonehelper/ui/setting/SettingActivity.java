@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.databinding.SettingActivityBinding;
 import com.googry.coinonehelper.ui.setting.adapter.CoinUnitAlarmAdapter;
@@ -67,10 +68,14 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initMarketAccount() {
-        if (PrefUtil.loadRegisterAccount(getApplicationContext())) {
-            marketAccount.set(getString(R.string.unregister_account));
+        if (BuildConfig.FLAVOR.equals("coinone")) {
+            if (PrefUtil.loadRegisterAccount(getApplicationContext())) {
+                marketAccount.set(getString(R.string.unregister_account));
+            } else {
+                marketAccount.set(getString(R.string.register_account));
+            }
         } else {
-            marketAccount.set(getString(R.string.register_account));
+            findViewById(R.id.ll_market_account).setVisibility(View.GONE);
         }
     }
 

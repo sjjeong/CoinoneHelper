@@ -31,6 +31,8 @@ public class BithumbTicker {
         public Ticker zec;
         @SerializedName("QTUM")
         public Ticker qtum;
+        @SerializedName("BTG")
+        public Ticker btg;
     }
 
     public class Ticker {

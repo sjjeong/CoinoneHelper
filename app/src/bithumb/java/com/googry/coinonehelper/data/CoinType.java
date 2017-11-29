@@ -20,7 +20,8 @@ public enum CoinType {
     BCH,
     XMR,
     ZEC,
-    QTUM;
+    QTUM,
+    BTG;
 
     @StringRes
     public static int getCoinTitleRes(CoinType coinType) {
@@ -45,6 +46,8 @@ public enum CoinType {
                 return R.string.zec;
             case QTUM:
                 return R.string.qtum;
+            case BTG:
+                return R.string.btg;
             default:
                 return R.string.empty;
         }
@@ -73,6 +76,8 @@ public enum CoinType {
                 return ZEC;
             case "QTUM":
                 return QTUM;
+            case "BTG":
+                return BTG;
             default:
                 return null;
         }
@@ -101,6 +106,8 @@ public enum CoinType {
                 return R.drawable.zcash;
             case QTUM:
                 return R.drawable.qtum;
+            case BTG:
+                return R.drawable.bitcoingold;
             default:
                 return R.drawable.bitcoin;
         }
@@ -128,6 +135,8 @@ public enum CoinType {
                 return 50;
             case QTUM:
                 return 5;
+            case BTG:
+                return 100;
             default:
                 return 1;
         }
