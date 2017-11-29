@@ -17,7 +17,8 @@ public enum CoinType {
     ETC,
     XRP,
     QTUM,
-    LTC;
+    LTC,
+    IOTA;
 
     @StringRes
     public static int getCoinTitleRes(CoinType coinType) {
@@ -36,6 +37,8 @@ public enum CoinType {
                 return R.string.qtum;
             case LTC:
                 return R.string.ltc;
+            case IOTA:
+                return R.string.iota;
             default:
                 return R.string.empty;
         }
@@ -58,6 +61,8 @@ public enum CoinType {
                 return QTUM;
             case "LTC":
                 return LTC;
+            case "IOTA":
+                return IOTA;
             default:
                 return null;
         }
@@ -80,6 +85,8 @@ public enum CoinType {
                 return R.drawable.qtum;
             case LTC:
                 return R.drawable.litecoin;
+            case IOTA:
+                return R.drawable.iota;
             default:
                 return R.drawable.bitcoin;
         }
@@ -101,6 +108,8 @@ public enum CoinType {
                 return 10;
             case LTC:
                 return 50;
+            case IOTA:
+                return 1;
             default:
                 return 1;
         }

@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.googry.coinonehelper.data.CoinMarketCap;
 import com.googry.coinonehelper.data.CoinType;
-import com.googry.coinonehelper.util.LogUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,10 +53,10 @@ public class CoinVolumePresenter implements CoinVolumeContract.Presenter {
 
                     CoinType[] coinTypes = CoinType.values();
 
+
                     for (Element table : tables) {
                         Elements elements = table.getElementsByTag("td");
                         CoinMarketCap coinMarketCap = new CoinMarketCap();
-                        coinMarketCap.name = elements.get(1).text().split(" ")[0].toUpperCase();
                         coinMarketCap.marketCap = elements.get(2).text();
                         coinMarketCap.price = elements.get(3).text();
                         coinMarketCap.circulatingSupply = elements.get(4).text();
@@ -68,9 +67,12 @@ public class CoinVolumePresenter implements CoinVolumeContract.Presenter {
                         mCoinMarketCaps.add(coinMarketCap);
 
                         for (CoinType coinType : coinTypes) {
-                            if (coinType.name().equals(coinMarketCap.name.toUpperCase())) {
+                            if (coinType.name().toUpperCase().equals(elements.get(1).text().split(" ")[0].toUpperCase())) {
+                                coinMarketCap.name = elements.get(1).text().split(" ")[0].toUpperCase();
                                 mTargetCoinMarketCaps.add(coinMarketCap);
-                                LogUtil.i(coinMarketCap.marketsUrl);
+                            } else if (coinType.name().toUpperCase().equals(elements.get(1).text().split(" ")[1].toUpperCase())) {
+                                coinMarketCap.name = elements.get(1).text().split(" ")[1].toUpperCase();
+                                mTargetCoinMarketCaps.add(coinMarketCap);
                             }
                         }
 

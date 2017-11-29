@@ -110,6 +110,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.LTC;
                 }
                 break;
+                case IOTA: {
+                    mBinding.rbIota.setChecked(true);
+                    mCoinType = CoinType.IOTA;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }

@@ -132,6 +132,11 @@ public class PersistentService extends Service {
                                 CoinType.LTC,
                                 gson.toJson(coinoneTicker.ltc, CoinoneTicker.Ticker.class)
                         );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.IOTA,
+                                gson.toJson(coinoneTicker.iota, CoinoneTicker.Ticker.class)
+                        );
 
                         // 코인 가격 설정 조건 체크
                         Realm realm = Realm.getDefaultInstance();
@@ -184,7 +189,12 @@ public class PersistentService extends Service {
                                 break;
                                 case LTC: {
                                     targetPrice = coinoneTicker.ltc.last;
-                                    id += 6;
+                                    id += 7;
+                                }
+                                break;
+                                case IOTA: {
+                                    targetPrice = coinoneTicker.ltc.last;
+                                    id += 8;
                                 }
                                 break;
                             }
@@ -245,6 +255,10 @@ public class PersistentService extends Service {
                                 break;
                                 case LTC: {
                                     targetPrice = coinoneTicker.ltc.last;
+                                }
+                                break;
+                                case IOTA: {
+                                    targetPrice = coinoneTicker.iota.last;
                                 }
                                 break;
                             }

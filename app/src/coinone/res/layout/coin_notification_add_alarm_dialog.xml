@@ -92,6 +92,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ltc"/>
+                <RadioButton
+                    android:id="@+id/rb_iota"
+                    android:drawableEnd="@drawable/iota"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iota"/>
             </RadioGroup>
 
             <TextView

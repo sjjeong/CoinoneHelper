@@ -23,6 +23,8 @@ public class CoinoneTicker {
     public Ticker qtum;
     @SerializedName("ltc")
     public Ticker ltc;
+    @SerializedName("iota")
+    public Ticker iota;
 
 
     public class Ticker {
