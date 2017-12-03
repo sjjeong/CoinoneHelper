@@ -2,17 +2,15 @@ package com.googry.coinonehelper.ui.main.chatting;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.ChatMessage;
 import com.googry.coinonehelper.databinding.ChattingMessageItemBinding;
-import com.googry.coinonehelper.util.UIUtils;
+import com.googry.coinonehelper.util.UIUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,7 +66,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.Chatti
                 mBinding.cvMyMessage.setVisibility(View.VISIBLE);
                 mBinding.tvMyTime.setVisibility(View.VISIBLE);
                 mBinding.tvMyMessage.setText(chatMessage.message);
-                mBinding.tvMyTime.setText(UIUtils.formatTime(new Date(chatMessage.time)));
+                mBinding.tvMyTime.setText(UIUtil.formatTime(new Date(chatMessage.time)));
             } else {
                 mBinding.cvYourMessage.setVisibility(View.VISIBLE);
                 mBinding.tvYourTime.setVisibility(View.VISIBLE);
@@ -76,7 +74,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.Chatti
                 mBinding.tvMyTime.setVisibility(View.GONE);
                 mBinding.tvUserName.setText(chatMessage.name);
                 mBinding.tvYourMessage.setText(chatMessage.message);
-                mBinding.tvYourTime.setText(UIUtils.formatTime(new Date(chatMessage.time)));
+                mBinding.tvYourTime.setText(UIUtil.formatTime(new Date(chatMessage.time)));
             }
         }
     }

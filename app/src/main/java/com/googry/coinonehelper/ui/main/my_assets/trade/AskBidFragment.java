@@ -36,7 +36,9 @@ public class AskBidFragment extends BaseFragment<AskBidFragmentBinding> {
     protected void initView() {
         mIsAsk = getArguments().getBoolean(KEY_IS_ASK);
         mBinding.setIsAsk(mIsAsk);
-        mBinding.rvContent.setAdapter(new AskBidAdapter());
+        AskBidAdapter askBidAdapter = new AskBidAdapter();
+        askBidAdapter.setAskBidViewModel(mAskBidViewModel);
+        mBinding.rvContent.setAdapter(askBidAdapter);
     }
 
     @Override

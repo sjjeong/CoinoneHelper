@@ -5,6 +5,7 @@ import com.googry.coinonehelper.data.CoinoneBalance;
 import com.googry.coinonehelper.data.CoinoneCompleteOrder;
 import com.googry.coinonehelper.data.CoinoneLimitOrder;
 import com.googry.coinonehelper.data.CoinoneOrderbook;
+import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneTicker;
 import com.googry.coinonehelper.data.CoinoneTrade;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
@@ -18,7 +19,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -92,6 +92,12 @@ public class CoinoneApiManager {
 
         @POST("v2/order/complete_orders/")
         Call<CoinoneCompleteOrder> completeOrders(
+                @Header("X-COINONE-PAYLOAD") String payload,
+                @Header("X-COINONE-SIGNATURE") String signature,
+                @Body String body);
+
+        @POST("v2/order/cancel/")
+        Call<CoinonePrivateError> cancelOrder(
                 @Header("X-COINONE-PAYLOAD") String payload,
                 @Header("X-COINONE-SIGNATURE") String signature,
                 @Body String body);

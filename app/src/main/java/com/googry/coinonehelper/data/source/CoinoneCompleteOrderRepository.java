@@ -1,7 +1,6 @@
 package com.googry.coinonehelper.data.source;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
@@ -22,14 +21,14 @@ import retrofit2.Response;
  * Created by seokjunjeong on 2017. 11. 28..
  */
 
-public class CoinoneCompleteCorderRepository implements CompleteOrderDataSource {
+public class CoinoneCompleteOrderRepository implements CompleteOrderDataSource {
     private OnCompleteOrderCallback mOnCompleteOrderCallback;
 
     private Context mContext;
 
     private String mCoinName;
 
-    public CoinoneCompleteCorderRepository(Context context, String coinName) {
+    public CoinoneCompleteOrderRepository(Context context, String coinName) {
         mContext = context;
         mCoinName = coinName;
     }
@@ -64,8 +63,10 @@ public class CoinoneCompleteCorderRepository implements CompleteOrderDataSource 
                 if (coinoneCompleteOrder.errorCode == 0) {
                     for (CoinoneCompleteOrder.Order completeOrder : coinoneCompleteOrder.completeOrders) {
                         orders.add(new CommonOrder(completeOrder.index,
+                                completeOrder.timestamp * 1000,
                                 completeOrder.price,
                                 completeOrder.qty,
+                                completeOrder.orderId,
                                 completeOrder.type.equals("ask")));
                     }
                     mOnCompleteOrderCallback.onCompleteOrderLoaded(orders);

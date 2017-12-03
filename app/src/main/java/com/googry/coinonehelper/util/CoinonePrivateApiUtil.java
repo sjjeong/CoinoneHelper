@@ -6,7 +6,9 @@ import android.util.Base64;
 import com.googry.coinonehelper.data.CoinoneBalance;
 import com.googry.coinonehelper.data.CoinoneCompleteOrder;
 import com.googry.coinonehelper.data.CoinoneLimitOrder;
+import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
+import com.googry.coinonehelper.data.CommonOrder;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 
 import org.json.JSONException;
@@ -37,11 +39,33 @@ public class CoinonePrivateApiUtil {
     }
 
     private static String getJsonLimitOrders(String accessToken,
+                                             String currency,
+                                             long nonce) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("access_token", accessToken);
+            jsonObject.put("currency", currency);
+            jsonObject.put("nonce", nonce);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+    public static String getJsonCancelOrder(String accessToken,
+                                            String orderId,
+                                            long price,
+                                            double qty,
+                                            int isAsk,
                                             String currency,
                                             long nonce) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("access_token", accessToken);
+            jsonObject.put("order_id", orderId);
+            jsonObject.put("price", price);
+            jsonObject.put("qty", qty);
+            jsonObject.put("is_ask", isAsk);
             jsonObject.put("currency", currency);
             jsonObject.put("nonce", nonce);
         } catch (JSONException e) {
@@ -147,6 +171,30 @@ public class CoinonePrivateApiUtil {
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
 
         return coinonePrivateApi.completeOrders(
+                encryptlimitOrdersPayload,
+                limitOrdersSignature,
+                encryptlimitOrdersPayload);
+    }
+
+    public static Call<CoinonePrivateError> getCancelOrder(Context context, CommonOrder order, String coinName) {
+        String accessToken = PrefUtil.loadAccessToken();
+        String secretKey = PrefUtil.loadSecretKey();
+
+        String limitOrdersPayload = getJsonCancelOrder(
+                accessToken,
+                order.orderId,
+                order.price,
+                order.qty,
+                order.isAsk ? 1 : 0,
+                coinName,
+                System.currentTimeMillis());
+        String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
+        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+
+        CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
+                CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
+
+        return coinonePrivateApi.cancelOrder(
                 encryptlimitOrdersPayload,
                 limitOrdersSignature,
                 encryptlimitOrdersPayload);

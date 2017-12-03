@@ -43,16 +43,24 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="end"
+                    android:hint="@{isAsk ? @string/ask_amount : @string/bid_amount}"
                     android:inputType="numberDecimal"
                     android:text="@={viewModel.amount}" />
 
-                <Button
+                <android.support.v4.widget.Space
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:onClick="@{() -> viewModel.onMaxAmountClick()}"
-                    android:text="@string/max" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
 
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.onUpPriceClick()}"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_up" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,14 +83,10 @@
                     android:inputType="number"
                     android:text="@={viewModel.price}" />
 
-                <ImageView
+                <android.support.v4.widget.Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:onClick="@{() -> viewModel.onUpPriceClick()}"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_up" />
+                    android:layout_weight="0.5" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -96,11 +100,42 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/order_price" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="end"
+                    android:text="@{viewModel.orderPrice}" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5" />
+
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:onClick="@{() -> viewModel.onDoOrderClick()}">
+                android:onClick="@{() -> viewModel.onDoOrderClick(isAsk)}">
 
                 <Button
                     android:layout_width="match_parent"

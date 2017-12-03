@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CommonOrder;
 import com.googry.coinonehelper.databinding.AskBidItemBinding;
+import com.googry.coinonehelper.ui.main.my_assets.trade.AskBidViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,13 @@ import java.util.List;
 
 public class AskBidAdapter extends RecyclerView.Adapter<AskBidAdapter.ViewHolder> {
     private ArrayList<CommonOrder> mLimitOrders = new ArrayList<>();
+    private AskBidViewModel mAskBidViewModel;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.ask_bid_item, parent, false));
+                parent.getContext()).inflate(R.layout.ask_bid_item, parent, false),
+                mAskBidViewModel);
     }
 
     @Override
@@ -42,12 +45,17 @@ public class AskBidAdapter extends RecyclerView.Adapter<AskBidAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void setAskBidViewModel(AskBidViewModel askBidViewModel) {
+        mAskBidViewModel = askBidViewModel;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public AskBidItemBinding mBinding;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, AskBidViewModel askBidViewModel) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
+            mBinding.setViewModel(askBidViewModel);
         }
     }
 }

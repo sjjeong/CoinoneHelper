@@ -8,7 +8,7 @@ import java.util.List;
  * Created by seokjunjeong on 2017. 9. 4..
  */
 
-public class CoinoneLimitOrder {
+public class CoinoneLimitOrder extends CoinonePrivateError{
     @SerializedName("limitOrders")
     public List<Order> limitOrders;
 

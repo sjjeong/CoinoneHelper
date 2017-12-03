@@ -6,7 +6,7 @@ import android.databinding.ObservableList;
 import android.widget.Toast;
 
 import com.googry.coinonehelper.data.CommonOrder;
-import com.googry.coinonehelper.data.source.CoinoneCompleteCorderRepository;
+import com.googry.coinonehelper.data.source.CoinoneCompleteOrderRepository;
 import com.googry.coinonehelper.data.source.CompleteOrderDataSource;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
     public ConclusionHistoryViewModel(Context context, String coinName) {
         mCoinName = coinName;
         mContext = context;
-        mCompleteOrderDataSource = new CoinoneCompleteCorderRepository(context, coinName);
+        mCompleteOrderDataSource = new CoinoneCompleteOrderRepository(context, coinName);
         mCompleteOrderDataSource.setOnCompleteOrderCallback(this);
         mCompleteOrderDataSource.call();
     }

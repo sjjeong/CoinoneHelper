@@ -8,7 +8,7 @@ import java.util.List;
  * Created by seokjunjeong on 2017. 9. 4..
  */
 
-public class CoinoneCompleteOrder {
+public class CoinoneCompleteOrder extends CoinonePrivateError{
     @SerializedName("completeOrders")
     public List<Order> completeOrders;
 

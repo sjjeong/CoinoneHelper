@@ -6,14 +6,18 @@ package com.googry.coinonehelper.data;
 
 public class CommonOrder {
     public int index;
+    public long timestamp;
     public long price;
     public double qty;
+    public String orderId;
     public boolean isAsk;
 
-    public CommonOrder(int index, long price, double qty, boolean isAsk) {
+    public CommonOrder(int index, long timestamp, long price, double qty, String orderId, boolean isAsk) {
         this.index = index;
+        this.timestamp = timestamp;
         this.price = price;
         this.qty = qty;
+        this.orderId = orderId;
         this.isAsk = isAsk;
     }
 }

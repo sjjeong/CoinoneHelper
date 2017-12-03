@@ -73,15 +73,19 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
                         if (coinoneLimitOrder.type.equals("ask")) {
                             asks.add(new CommonOrder(
                                     coinoneLimitOrder.index,
+                                    coinoneLimitOrder.timestamp,
                                     coinoneLimitOrder.price,
                                     coinoneLimitOrder.qty,
+                                    coinoneLimitOrder.orderId,
                                     true)
                             );
                         } else {
                             bids.add(new CommonOrder(
                                     coinoneLimitOrder.index,
+                                    coinoneLimitOrder.timestamp,
                                     coinoneLimitOrder.price,
                                     coinoneLimitOrder.qty,
+                                    coinoneLimitOrder.orderId,
                                     false)
                             );
 
