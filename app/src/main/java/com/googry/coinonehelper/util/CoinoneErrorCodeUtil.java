@@ -1,12 +1,5 @@
 package com.googry.coinonehelper.util;
 
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.googry.coinonehelper.data.CoinonePrivateError;
-
-import java.io.IOException;
-
 /**
  * Created by seokjunjeong on 2017. 11. 30..
  */
@@ -126,7 +119,7 @@ public final class CoinoneErrorCodeUtil {
         }
     }
 
-    public static String replaceBadQuotes(String badQuotes){
+    public static String replaceBadQuotes(String badQuotes) {
         return badQuotes.replaceAll("[\u201C\u201D\u201E\u201F\u2033\u2036]", "\"");
     }
 }

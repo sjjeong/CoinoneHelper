@@ -39,13 +39,16 @@ public class CoinoneCompleteOrderRepository implements CompleteOrderDataSource {
         completeOrderCall.enqueue(new Callback<CoinoneCompleteOrder>() {
             @Override
             public void onResponse(Call<CoinoneCompleteOrder> call, Response<CoinoneCompleteOrder> response) {
+                if (mOnCompleteOrderCallback == null) {
+                    return;
+                }
                 if (response.errorBody() != null) {
                     try {
                         String errorJson = response.errorBody().string();
                         CoinonePrivateError error =
                                 new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
                                         CoinonePrivateError.class);
-                        mOnCompleteOrderCallback.onCompleteOrderLoadFailed(error.errorMsg);
+                        mOnCompleteOrderCallback.onCompleteOrderLoadFailed(error.errorCode);
                         return;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -54,7 +57,7 @@ public class CoinoneCompleteOrderRepository implements CompleteOrderDataSource {
 
                 CoinoneCompleteOrder coinoneCompleteOrder = response.body();
                 if (coinoneCompleteOrder == null) {
-                    mOnCompleteOrderCallback.onCompleteOrderLoadFailed(mContext.getString(R.string.server_error));
+                    mOnCompleteOrderCallback.onCompleteOrderLoadFailed(405);
                     return;
                 }
 
@@ -72,13 +75,12 @@ public class CoinoneCompleteOrderRepository implements CompleteOrderDataSource {
                     mOnCompleteOrderCallback.onCompleteOrderLoaded(orders);
                     return;
                 }
-                mOnCompleteOrderCallback.onCompleteOrderLoadFailed(
-                        CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(coinoneCompleteOrder.errorCode));
+                mOnCompleteOrderCallback.onCompleteOrderLoadFailed(coinoneCompleteOrder.errorCode);
             }
 
             @Override
             public void onFailure(Call<CoinoneCompleteOrder> call, Throwable t) {
-                mOnCompleteOrderCallback.onCompleteOrderLoadFailed(mContext.getString(R.string.server_error));
+                mOnCompleteOrderCallback.onCompleteOrderLoadFailed(405);
             }
         });
     }

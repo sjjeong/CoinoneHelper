@@ -12,7 +12,7 @@ public class CoinoneLimitOrder extends CoinonePrivateError{
     @SerializedName("limitOrders")
     public List<Order> limitOrders;
 
-    public class Order {
+    public class Order extends CoinonePrivateError{
         @SerializedName("index")
         public int index;
         @SerializedName("timestamp")

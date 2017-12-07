@@ -73,6 +73,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
                             @Override
                             public void onResponse(Call<CoinoneBalance> call, Response<CoinoneBalance> response) {
                                 mView.hideLoadingDialog();
+
                                 if (response.errorBody() != null) {
                                     try {
                                         String errorJson = response.errorBody().string();
@@ -88,7 +89,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
 
                                 CoinoneBalance balance = response.body();
                                 if (balance == null) {
-                                    Toast.makeText(mContext, "오잉", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                                 if (balance.errorCode == 0) {

@@ -137,12 +137,16 @@
                 android:background="?attr/selectableItemBackground"
                 android:onClick="@{() -> viewModel.onDoOrderClick(isAsk)}">
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@{isAsk ? @color/colorAsk : @color/colorBid}"
+                    android:gravity="center"
+                    android:padding="8dp"
                     android:text="@string/do_order"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
@@ -161,6 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
+                android:onClick="@{() -> viewModel.onPriceSort(isAsk)}"
                 android:text="@string/price" />
 
             <TextView

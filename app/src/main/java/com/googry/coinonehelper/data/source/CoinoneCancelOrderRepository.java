@@ -1,7 +1,6 @@
 package com.googry.coinonehelper.data.source;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinonePrivateError;
@@ -39,24 +38,36 @@ public class CoinoneCancelOrderRepository implements CancelOrderDataSource {
                 if (mOnCancelOrderCallback == null) {
                     return;
                 }
-                try {
-                    if (response.errorBody() != null) {
+                if (response.errorBody() != null) {
+                    try {
                         String errorJson = response.errorBody().string();
                         CoinonePrivateError error =
                                 new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
                                         CoinonePrivateError.class);
-                        mOnCancelOrderCallback.onCancelFailed(error.errorMsg);
+                        mOnCancelOrderCallback.onCancelFailed(error.errorCode);
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    if (response.body() != null) {
+                }
+                if (response.body() != null) {
+                    CoinonePrivateError error = response.body();
+                    if (error.errorCode == 0) {
                         mOnCancelOrderCallback.onCancelSuccess(commonOrder);
+                        return;
+                    } else {
+                        mOnCancelOrderCallback.onCancelFailed(error.errorCode);
+                        return;
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<CoinonePrivateError> call, Throwable t) {
+                if (mOnCancelOrderCallback == null) {
+                    return;
+                }
+                mOnCancelOrderCallback.onCancelFailed(405);
             }
         });
     }

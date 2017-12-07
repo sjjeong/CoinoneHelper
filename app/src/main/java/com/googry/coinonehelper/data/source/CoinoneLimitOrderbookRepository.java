@@ -41,13 +41,16 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
         limitOrderCall.enqueue(new Callback<CoinoneLimitOrder>() {
             @Override
             public void onResponse(Call<CoinoneLimitOrder> call, Response<CoinoneLimitOrder> response) {
+                if (mOnLimitOrderCallback == null) {
+                    return;
+                }
                 if (response.errorBody() != null) {
                     try {
                         String errorJson = response.errorBody().string();
                         CoinonePrivateError error =
                                 new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
                                         CoinonePrivateError.class);
-                        mOnLimitOrderCallback.onLimitOrderLoadFailed(error.errorMsg);
+                        mOnLimitOrderCallback.onLimitOrderLoadFailed(error.errorCode);
                         return;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -56,7 +59,7 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
 
                 CoinoneLimitOrder limitOrder = response.body();
                 if (limitOrder == null) {
-                    mOnLimitOrderCallback.onLimitOrderLoadFailed(mContext.getString(R.string.server_error));
+                    mOnLimitOrderCallback.onLimitOrderLoadFailed(405);
                     return;
                 }
 
@@ -98,13 +101,12 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
 
                     return;
                 }
-                mOnLimitOrderCallback.onLimitOrderLoadFailed(
-                        CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(limitOrder.errorCode));
+                mOnLimitOrderCallback.onLimitOrderLoadFailed(limitOrder.errorCode);
             }
 
             @Override
             public void onFailure(Call<CoinoneLimitOrder> call, Throwable t) {
-                mOnLimitOrderCallback.onLimitOrderLoadFailed(mContext.getString(R.string.server_error));
+                mOnLimitOrderCallback.onLimitOrderLoadFailed(405);
             }
         });
     }

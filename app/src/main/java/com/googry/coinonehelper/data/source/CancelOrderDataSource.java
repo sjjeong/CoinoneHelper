@@ -15,6 +15,6 @@ public interface CancelOrderDataSource {
     interface OnCancelOrderCallback{
         void onCancelSuccess(CommonOrder commonOrder);
 
-        void onCancelFailed(String errorMsg);
+        void onCancelFailed(int errorCode);
     }
 }

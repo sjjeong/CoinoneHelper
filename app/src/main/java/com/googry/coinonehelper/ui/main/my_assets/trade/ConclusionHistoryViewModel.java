@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.googry.coinonehelper.data.CommonOrder;
 import com.googry.coinonehelper.data.source.CoinoneCompleteOrderRepository;
 import com.googry.coinonehelper.data.source.CompleteOrderDataSource;
+import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
     private final String mCoinName;
     private final Context mContext;
     private CompleteOrderDataSource mCompleteOrderDataSource;
+    private TradeFragment.OnTradeEventListener mOnTradeEventListener;
 
     public ConclusionHistoryViewModel(Context context, String coinName) {
         mCoinName = coinName;
@@ -39,10 +41,16 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
     public void onCompleteOrderLoaded(List<CommonOrder> completeOrders) {
         conclusionHistories.clear();
         conclusionHistories.addAll(completeOrders);
+        mOnTradeEventListener.onLoadFinishListener();
     }
 
     @Override
-    public void onCompleteOrderLoadFailed(String errorMsg) {
-        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
+    public void onCompleteOrderLoadFailed(int errorCode) {
+        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_SHORT).show();
+        mOnTradeEventListener.onLoadFinishListener();
+    }
+
+    public void setOnTradeEventListener(TradeFragment.OnTradeEventListener onTradeEventListener) {
+        mOnTradeEventListener = onTradeEventListener;
     }
 }

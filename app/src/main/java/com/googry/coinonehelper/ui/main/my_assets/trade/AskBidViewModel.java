@@ -10,11 +10,15 @@ import android.widget.Toast;
 
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.source.BuySellOrderDataSource;
 import com.googry.coinonehelper.data.source.CancelOrderDataSource;
+import com.googry.coinonehelper.data.source.CoinoneBuySellOrderRepository;
 import com.googry.coinonehelper.data.source.CoinoneCancelOrderRepository;
 import com.googry.coinonehelper.data.source.CoinoneLimitOrderbookRepository;
 import com.googry.coinonehelper.data.source.LimitOrderDataSource;
+import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,12 +26,15 @@ import java.util.List;
  */
 
 public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallback,
-        CancelOrderDataSource.OnCancelOrderCallback {
+        CancelOrderDataSource.OnCancelOrderCallback, BuySellOrderDataSource.OnBuySellOrderCallback {
     public final ObservableField<String> amount = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> orderPrice = new ObservableField<>("0");
     public final ObservableList<CommonOrder> limitOrderAsks = new ObservableArrayList<>();
     public final ObservableList<CommonOrder> limitOrderBids = new ObservableArrayList<>();
+
+    private final CommonOrder.AscendingPrice mAscendingPrice = new CommonOrder.AscendingPrice();
+    private final CommonOrder.DescendingPrice mDescendingPrice = new CommonOrder.DescendingPrice();
 
     private final Context mContext;
     private final String mCoinName;
@@ -35,12 +42,15 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     private LimitOrderDataSource mLimitOrderDataSource;
     private CancelOrderDataSource mCancelOrderDataSource;
+    private BuySellOrderDataSource mBuySellOrderDataSource;
+
+    private boolean mIsAskAscending, mIsBidAscending;
 
     private Observable.OnPropertyChangedCallback mAmountCallback = new Observable.OnPropertyChangedCallback() {
         @Override
         public void onPropertyChanged(Observable observable, int i) {
             String _amount = amount.get();
-            if (!TextUtils.isEmpty(_amount)) {
+            if (!TextUtils.isEmpty(_amount) && !_amount.startsWith(".")) {
                 double __amount = Double.parseDouble(_amount);
                 if (__amount - (Math.floor(__amount * 10000)) / 10000 > 0) {
                     amount.set(String.format("%.4f", Double.parseDouble(_amount)));
@@ -63,6 +73,7 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
             setOrderPrice();
         }
     };
+    private TradeFragment.OnTradeEventListener mOnTradeEventListener;
 
     public AskBidViewModel(Context context, String coinName, String price) {
         mCoinName = coinName;
@@ -74,6 +85,8 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
         mLimitOrderDataSource.call();
         mCancelOrderDataSource = new CoinoneCancelOrderRepository(context, coinName);
         mCancelOrderDataSource.setOnCancelOrderCallback(this);
+        mBuySellOrderDataSource = new CoinoneBuySellOrderRepository(context, coinName);
+        mBuySellOrderDataSource.setOnBuySellOrderCallback(this);
 
         this.amount.addOnPropertyChangedCallback(mAmountCallback);
         this.price.addOnPropertyChangedCallback(mPriceCallback);
@@ -97,7 +110,7 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     // databinding
     public void onDoOrderClick(boolean isAsk) {
-
+        mBuySellOrderDataSource.call(isAsk, Long.parseLong(price.get()), Double.parseDouble(amount.get()));
     }
 
     // databinding
@@ -111,17 +124,19 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
         limitOrderAsks.addAll(asks);
         limitOrderBids.clear();
         limitOrderBids.addAll(bids);
+        mOnTradeEventListener.onLoadFinishListener();
     }
 
     @Override
-    public void onLimitOrderLoadFailed(String errorMsg) {
-        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
+    public void onLimitOrderLoadFailed(int errorCode) {
+        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
+        mOnTradeEventListener.onLoadFinishListener();
     }
 
     private void setOrderPrice() {
         String _amount = this.amount.get();
         String _price = this.price.get();
-        if (!TextUtils.isEmpty(_amount) && !TextUtils.isEmpty(_price)) {
+        if (!TextUtils.isEmpty(_amount) && !TextUtils.isEmpty(_price) && !_amount.startsWith(".")) {
             long _orderPrice = (long) (Long.parseLong(_price) * Double.parseDouble(_amount));
             this.orderPrice.set(String.format("%,d", _orderPrice));
         } else {
@@ -136,10 +151,44 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
         } else {
             limitOrderBids.remove(commonOrder);
         }
+        mOnTradeEventListener.onLoadFinishListener();
     }
 
     @Override
-    public void onCancelFailed(String errorMsg) {
-        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
+    public void onCancelFailed(int errorCode) {
+        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
+        mOnTradeEventListener.onLoadFinishListener();
     }
+
+    @Override
+    public void onBuySellOrderSuccess(CommonOrder commonOrder) {
+        if (commonOrder.isAsk) {
+            limitOrderAsks.add(0, commonOrder);
+        } else {
+            limitOrderBids.add(0, commonOrder);
+        }
+        mOnTradeEventListener.onLoadFinishListener();
+    }
+
+    @Override
+    public void onBuySellOrderFailed(int errorCode) {
+        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
+        mOnTradeEventListener.onLoadFinishListener();
+    }
+
+    public void setOnTradeEventListener(TradeFragment.OnTradeEventListener onTradeEventListener) {
+        mOnTradeEventListener = onTradeEventListener;
+    }
+
+    // databinding
+    public void onPriceSort(boolean isAsk) {
+        if (isAsk) {
+            Collections.sort(limitOrderAsks, mIsAskAscending ? mAscendingPrice : mDescendingPrice);
+            mIsAskAscending = !mIsAskAscending;
+        } else {
+            Collections.sort(limitOrderBids, mIsBidAscending ? mAscendingPrice : mDescendingPrice);
+            mIsBidAscending = !mIsBidAscending;
+        }
+    }
+
 }

@@ -26,6 +26,12 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding> implements
     private ConclusionHistoryViewModel mConclusionHistoryViewModel;
 
     private TradePagerAdapter mTradePagerAdapter;
+    private OnTradeEventListener mOnTradeEventListener = new OnTradeEventListener() {
+        @Override
+        public void onLoadFinishListener() {
+
+        }
+    };
 
     public static TradeFragment newInstance(String coinName) {
 
@@ -72,8 +78,10 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding> implements
                         String.valueOf(new Gson().fromJson(PrefUtil.loadTicker(getContext(),
                                 CoinType.getCoinTypeFromTitle(coinName)),
                                 CoinoneTicker.Ticker.class).last));
+        mAskBidViewModel.setOnTradeEventListener(mOnTradeEventListener);
         mTradePagerAdapter.setAskBidViewModel(mAskBidViewModel);
         mConclusionHistoryViewModel = new ConclusionHistoryViewModel(getContext(), coinName);
+        mConclusionHistoryViewModel.setOnTradeEventListener(mOnTradeEventListener);
         mTradePagerAdapter.setConclusionHistoryViewModel(mConclusionHistoryViewModel);
     }
 
@@ -104,4 +112,9 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding> implements
             break;
         }
     }
+
+    public interface OnTradeEventListener {
+        void onLoadFinishListener();
+    }
+
 }

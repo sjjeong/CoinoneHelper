@@ -19,6 +19,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -98,6 +99,13 @@ public class CoinoneApiManager {
 
         @POST("v2/order/cancel/")
         Call<CoinonePrivateError> cancelOrder(
+                @Header("X-COINONE-PAYLOAD") String payload,
+                @Header("X-COINONE-SIGNATURE") String signature,
+                @Body String body);
+
+        @POST("v2/order/limit_{buysell}/")
+        Call<CoinoneLimitOrder.Order> buysell(
+                @Path("buysell") String buysell,
                 @Header("X-COINONE-PAYLOAD") String payload,
                 @Header("X-COINONE-SIGNATURE") String signature,
                 @Body String body);

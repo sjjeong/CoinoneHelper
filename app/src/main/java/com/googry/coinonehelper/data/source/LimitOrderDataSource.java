@@ -17,7 +17,7 @@ public interface LimitOrderDataSource {
     interface OnLimitOrderCallback {
         void onLimitOrderLoaded(List<CommonOrder> asks, List<CommonOrder> bids);
 
-        void onLimitOrderLoadFailed(String errorMsg);
+        void onLimitOrderLoadFailed(int errorCode);
     }
 
 }

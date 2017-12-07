@@ -18,6 +18,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -52,7 +54,7 @@ public class CoinonePrivateApiUtil {
         return jsonObject.toString();
     }
 
-    public static String getJsonCancelOrder(String accessToken,
+    private static String getJsonCancelOrder(String accessToken,
                                             String orderId,
                                             long price,
                                             double qty,
@@ -66,6 +68,24 @@ public class CoinonePrivateApiUtil {
             jsonObject.put("price", price);
             jsonObject.put("qty", qty);
             jsonObject.put("is_ask", isAsk);
+            jsonObject.put("currency", currency);
+            jsonObject.put("nonce", nonce);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+    private static String getJsonOrderBuy(String accessToken,
+                                         long price,
+                                         double qty,
+                                         String currency,
+                                         long nonce) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("access_token", accessToken);
+            jsonObject.put("price", price);
+            jsonObject.put("qty", qty);
             jsonObject.put("currency", currency);
             jsonObject.put("nonce", nonce);
         } catch (JSONException e) {
@@ -195,6 +215,31 @@ public class CoinonePrivateApiUtil {
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
 
         return coinonePrivateApi.cancelOrder(
+                encryptlimitOrdersPayload,
+                limitOrdersSignature,
+                encryptlimitOrdersPayload);
+    }
+
+    public static Call<CoinoneLimitOrder.Order> getBuySellOrder(Context context, String coinName,
+                                                                final long price, final double sellAmount,
+                                                                boolean isAsk) {
+        String accessToken = PrefUtil.loadAccessToken();
+        String secretKey = PrefUtil.loadSecretKey();
+
+        String orderBuyPayload = getJsonOrderBuy(accessToken,
+                price,
+                sellAmount,
+                coinName,
+                System.currentTimeMillis());
+
+        String encryptlimitOrdersPayload = getEncyptPayload(orderBuyPayload);
+        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+
+        CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
+                CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
+
+        return coinonePrivateApi.buysell(
+                isAsk ? "sell" : "buy",
                 encryptlimitOrdersPayload,
                 limitOrdersSignature,
                 encryptlimitOrdersPayload);
