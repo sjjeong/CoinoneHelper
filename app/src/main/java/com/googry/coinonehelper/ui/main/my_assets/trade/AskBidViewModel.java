@@ -73,16 +73,15 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
             setOrderPrice();
         }
     };
-    private TradeFragment.OnTradeEventListener mOnTradeEventListener;
+    private OnTradeEventListener mOnTradeEventListener;
 
-    public AskBidViewModel(Context context, String coinName, String price) {
+    public AskBidViewModel(Context context, String coinName, String price, OnTradeEventListener onTradeEventListener) {
         mCoinName = coinName;
         mCoinType = CoinType.getCoinTypeFromTitle(mCoinName);
         this.price.set(price);
         mContext = context;
         mLimitOrderDataSource = new CoinoneLimitOrderbookRepository(context, coinName);
         mLimitOrderDataSource.setOnLimitOrderCallback(this);
-        mLimitOrderDataSource.call();
         mCancelOrderDataSource = new CoinoneCancelOrderRepository(context, coinName);
         mCancelOrderDataSource.setOnCancelOrderCallback(this);
         mBuySellOrderDataSource = new CoinoneBuySellOrderRepository(context, coinName);
@@ -90,9 +89,13 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
         this.amount.addOnPropertyChangedCallback(mAmountCallback);
         this.price.addOnPropertyChangedCallback(mPriceCallback);
+        mOnTradeEventListener = onTradeEventListener;
+
+        call();
     }
 
     public void call() {
+        mOnTradeEventListener.onCallRequest();
         mLimitOrderDataSource.call();
     }
 
@@ -110,11 +113,13 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     // databinding
     public void onDoOrderClick(boolean isAsk) {
+        mOnTradeEventListener.onCallRequest();
         mBuySellOrderDataSource.call(isAsk, Long.parseLong(price.get()), Double.parseDouble(amount.get()));
     }
 
     // databinding
     public void onCancelOrderClick(final CommonOrder order) {
+        mOnTradeEventListener.onCallRequest();
         mCancelOrderDataSource.call(order);
     }
 
@@ -124,13 +129,13 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
         limitOrderAsks.addAll(asks);
         limitOrderBids.clear();
         limitOrderBids.addAll(bids);
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
     @Override
     public void onLimitOrderLoadFailed(int errorCode) {
         Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
     private void setOrderPrice() {
@@ -151,13 +156,13 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
         } else {
             limitOrderBids.remove(commonOrder);
         }
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
     @Override
     public void onCancelFailed(int errorCode) {
         Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
     @Override
@@ -167,17 +172,13 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
         } else {
             limitOrderBids.add(0, commonOrder);
         }
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
     @Override
     public void onBuySellOrderFailed(int errorCode) {
         Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
-        mOnTradeEventListener.onLoadFinishListener();
-    }
-
-    public void setOnTradeEventListener(TradeFragment.OnTradeEventListener onTradeEventListener) {
-        mOnTradeEventListener = onTradeEventListener;
+        mOnTradeEventListener.onLoadFinish();
     }
 
     // databinding

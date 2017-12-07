@@ -1,6 +1,8 @@
 package com.googry.coinonehelper.ui.main.my_assets.trade;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,17 +21,22 @@ import com.googry.coinonehelper.util.PrefUtil;
  * Created by seokjunjeong on 2017. 11. 13..
  */
 
-public class TradeFragment extends BaseFragment<TradeFragmentBinding> implements View.OnClickListener {
+public class TradeFragment extends BaseFragment<TradeFragmentBinding>
+        implements View.OnClickListener, OnTradeEventListener {
     private static final String KEY_COIN_NAME = "KEY_COIN_NAME";
+    private static final int REQUEST_TIME = 1000;
+
     private OrderbookViewModel mOrderbookViewModel;
     private AskBidViewModel mAskBidViewModel;
     private ConclusionHistoryViewModel mConclusionHistoryViewModel;
 
     private TradePagerAdapter mTradePagerAdapter;
-    private OnTradeEventListener mOnTradeEventListener = new OnTradeEventListener() {
+    private ProgressDialog mProgressDialog;
+    private Handler dialogHideHandler = new Handler();
+    private Runnable dialogHideRunnable = new Runnable() {
         @Override
-        public void onLoadFinishListener() {
-
+        public void run() {
+            hideLoadingDialog();
         }
     };
 
@@ -77,11 +84,9 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding> implements
                 new AskBidViewModel(getContext(), coinName,
                         String.valueOf(new Gson().fromJson(PrefUtil.loadTicker(getContext(),
                                 CoinType.getCoinTypeFromTitle(coinName)),
-                                CoinoneTicker.Ticker.class).last));
-        mAskBidViewModel.setOnTradeEventListener(mOnTradeEventListener);
+                                CoinoneTicker.Ticker.class).last), this);
         mTradePagerAdapter.setAskBidViewModel(mAskBidViewModel);
-        mConclusionHistoryViewModel = new ConclusionHistoryViewModel(getContext(), coinName);
-        mConclusionHistoryViewModel.setOnTradeEventListener(mOnTradeEventListener);
+        mConclusionHistoryViewModel = new ConclusionHistoryViewModel(getContext(), coinName, this);
         mTradePagerAdapter.setConclusionHistoryViewModel(mConclusionHistoryViewModel);
     }
 
@@ -113,8 +118,31 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding> implements
         }
     }
 
-    public interface OnTradeEventListener {
-        void onLoadFinishListener();
+    @Override
+    public void onCallRequest() {
+        showLoadingDialog();
     }
 
+    @Override
+    public void onLoadFinish() {
+        dialogHideHandler.removeCallbacks(dialogHideRunnable);
+        dialogHideHandler.postDelayed(dialogHideRunnable, REQUEST_TIME);
+    }
+
+    private void showLoadingDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new android.app.ProgressDialog(getContext());
+            mProgressDialog.setMessage(getString(R.string.requesting));
+            mProgressDialog.setCancelable(false);
+        }
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+
+    private void hideLoadingDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
 }

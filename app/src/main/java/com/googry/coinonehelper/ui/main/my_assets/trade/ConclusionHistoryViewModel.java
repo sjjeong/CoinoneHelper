@@ -23,17 +23,20 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
     private final String mCoinName;
     private final Context mContext;
     private CompleteOrderDataSource mCompleteOrderDataSource;
-    private TradeFragment.OnTradeEventListener mOnTradeEventListener;
+    private OnTradeEventListener mOnTradeEventListener;
 
-    public ConclusionHistoryViewModel(Context context, String coinName) {
+    public ConclusionHistoryViewModel(Context context, String coinName, OnTradeEventListener onTradeEventListener) {
         mCoinName = coinName;
         mContext = context;
         mCompleteOrderDataSource = new CoinoneCompleteOrderRepository(context, coinName);
         mCompleteOrderDataSource.setOnCompleteOrderCallback(this);
-        mCompleteOrderDataSource.call();
+
+        mOnTradeEventListener = onTradeEventListener;
+        call();
     }
 
     public void call() {
+        mOnTradeEventListener.onCallRequest();
         mCompleteOrderDataSource.call();
     }
 
@@ -41,16 +44,13 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
     public void onCompleteOrderLoaded(List<CommonOrder> completeOrders) {
         conclusionHistories.clear();
         conclusionHistories.addAll(completeOrders);
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
     @Override
     public void onCompleteOrderLoadFailed(int errorCode) {
         Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_SHORT).show();
-        mOnTradeEventListener.onLoadFinishListener();
+        mOnTradeEventListener.onLoadFinish();
     }
 
-    public void setOnTradeEventListener(TradeFragment.OnTradeEventListener onTradeEventListener) {
-        mOnTradeEventListener = onTradeEventListener;
-    }
 }
