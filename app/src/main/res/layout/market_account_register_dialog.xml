@@ -31,14 +31,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:background="?attr/selectableItemBackground"
                 android:onClick="@{ () -> dialog.onShowMakeTokenKeyClick()}">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_web"
+                    android:layout_height="wrap_content" />
+
                 <TextView
+                    android:layout_marginStart="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:padding="5dp"
                     android:text="@string/how_to_make_token_and_key"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"/>
