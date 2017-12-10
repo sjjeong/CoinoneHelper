@@ -134,7 +134,7 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     @Override
     public void onLimitOrderLoadFailed(int errorCode) {
-        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
+        CoinoneErrorCodeUtil.handleErrorCode(mContext, errorCode);
         mOnTradeEventListener.onLoadFinish();
     }
 
@@ -161,7 +161,7 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     @Override
     public void onCancelFailed(int errorCode) {
-        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
+        CoinoneErrorCodeUtil.handleErrorCode(mContext, errorCode);
         mOnTradeEventListener.onLoadFinish();
     }
 
@@ -177,7 +177,7 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     @Override
     public void onBuySellOrderFailed(int errorCode) {
-        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_LONG).show();
+        CoinoneErrorCodeUtil.handleErrorCode(mContext, errorCode);
         mOnTradeEventListener.onLoadFinish();
     }
 

@@ -49,7 +49,7 @@ public class ConclusionHistoryViewModel implements CompleteOrderDataSource.OnCom
 
     @Override
     public void onCompleteOrderLoadFailed(int errorCode) {
-        Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(errorCode), Toast.LENGTH_SHORT).show();
+        CoinoneErrorCodeUtil.handleErrorCode(mContext, errorCode);
         mOnTradeEventListener.onLoadFinish();
     }
 

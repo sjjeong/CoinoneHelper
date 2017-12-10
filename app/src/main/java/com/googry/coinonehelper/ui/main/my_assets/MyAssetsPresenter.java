@@ -80,7 +80,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
                                         CoinonePrivateError error =
                                                 new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
                                                         CoinonePrivateError.class);
-                                        Toast.makeText(mContext, error.errorMsg, Toast.LENGTH_SHORT).show();
+                                        CoinoneErrorCodeUtil.handleErrorCode(mContext, error.errorCode);
                                         return;
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -96,20 +96,20 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
                                     mView.showBalance(balance);
                                     return;
                                 }
-                                Toast.makeText(mContext, CoinoneErrorCodeUtil.getErrorMsgWithErrorCode(balance.errorCode), Toast.LENGTH_SHORT).show();
+                                CoinoneErrorCodeUtil.handleErrorCode(mContext, balance.errorCode);
                             }
 
                             @Override
                             public void onFailure(Call<CoinoneBalance> call, Throwable t) {
                                 mView.hideLoadingDialog();
-                                Toast.makeText(mContext, R.string.server_error, Toast.LENGTH_SHORT).show();
+                                CoinoneErrorCodeUtil.handleErrorCode(mContext, 405);
                             }
                         });
                     }
 
                     @Override
                     public void onFailure(Call<CoinoneTicker> call, Throwable t) {
-
+                        CoinoneErrorCodeUtil.handleErrorCode(mContext, 405);
                     }
                 });
 
