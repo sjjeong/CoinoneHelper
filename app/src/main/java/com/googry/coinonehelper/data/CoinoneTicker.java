@@ -25,6 +25,8 @@ public class CoinoneTicker {
     public Ticker ltc;
     @SerializedName("iota")
     public Ticker iota;
+    @SerializedName("btg")
+    public Ticker btg;
 
 
     public class Ticker {

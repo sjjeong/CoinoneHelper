@@ -137,6 +137,11 @@ public class PersistentService extends Service {
                                 CoinType.IOTA,
                                 gson.toJson(coinoneTicker.iota, CoinoneTicker.Ticker.class)
                         );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.BTG,
+                                gson.toJson(coinoneTicker.btg, CoinoneTicker.Ticker.class)
+                        );
 
                         // 코인 가격 설정 조건 체크
                         Realm realm = Realm.getDefaultInstance();
@@ -195,6 +200,11 @@ public class PersistentService extends Service {
                                 case IOTA: {
                                     targetPrice = coinoneTicker.iota.last;
                                     id += 8;
+                                }
+                                break;
+                                case BTG: {
+                                    targetPrice = coinoneTicker.iota.last;
+                                    id += 9;
                                 }
                                 break;
                             }
@@ -259,6 +269,10 @@ public class PersistentService extends Service {
                                 break;
                                 case IOTA: {
                                     targetPrice = coinoneTicker.iota.last;
+                                }
+                                break;
+                                case BTG: {
+                                    targetPrice = coinoneTicker.btg.last;
                                 }
                                 break;
                             }

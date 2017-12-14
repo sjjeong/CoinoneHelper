@@ -75,6 +75,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
         mColorRes.add(R.color.colorQtum);
         mColorRes.add(R.color.colorLtc);
         mColorRes.add(R.color.colorIota);
+        mColorRes.add(R.color.colorBtg);
         mColorRes.add(R.color.colorKrw);
 
 
@@ -133,6 +134,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
                     balances.add(balance.balanceQtum);
                     balances.add(balance.balanceLtc);
                     balances.add(balance.balanceIota);
+                    balances.add(balance.balanceBtg);
                     ArrayList<PieEntry> pieEntries = new ArrayList<>();
                     Gson gson = new Gson();
 

@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">코인원헬퍼</string>
+    <string name="app_name">코인헬퍼 for 코인원</string>
     <string name="admob_app_id">ca-app-pub-3455486566753347~3951777717</string>
     <string name="admob_banner_id">ca-app-pub-3455486566753347/9858710514</string>
     <string name="admob_exit_banner_id">ca-app-pub-3455486566753347/9881743310</string>
     <string name="admob_compare_trade_site">ca-app-pub-3455486566753347/9153276114</string>
-    <string name="admob_start_interstitial_id">ca-app-pub-3455486566753347/4498510575</string>
+    <string name="admob_start_interstitial_id">ca-app-pub-9365227460160858/2190929205</string>
     <string name="admob_chart_back_interstitial_id">ca-app-pub-3455486566753347/3338219912</string>
     <string name="auth_google_web_client_id">934192085579-qsk08cm75ea0mon73qthnglf3j6fpg9p.apps.googleusercontent.com</string>
 
@@ -37,7 +37,7 @@
     <string name="low_price">저가</string>
     <string name="volume">거래량</string>
     <string name="rate_before_price">전일대비</string>
-    <string name="question_exit_coinonehelper">코인원헬퍼를 종료할까요?</string>
+    <string name="question_exit_coinonehelper">코인헬퍼 for 코인원를 종료할까요?</string>
     <string name="cancel">취소</string>
     <string name="exit">종료</string>
     <string name="compare_another_exchange">거래소 별 가격</string>
@@ -76,7 +76,7 @@
     <string name="address_xrp_donate">XRP 기부 주소</string>
     <string name="address_qtum_donate">QTUM 기부 주소</string>
     <string name="address_ltc_donate">LTC 기부 주소</string>
-    <string name="thanks_to">코인원헬퍼 개발자입니다.\n코인원헬퍼를 이용해주셔서 감사합니다.\n앞으로 더 좋은 앱을 만들기 위해 노력하겠습니다.</string>
+    <string name="thanks_to">코인헬퍼 for 코인원 개발자입니다.\n코인헬퍼 for 코인원를 이용해주셔서 감사합니다.\n앞으로 더 좋은 앱을 만들기 위해 노력하겠습니다.</string>
     <string name="send_email_to_developer">개발자에게 메일 보내기</string>
     <string name="send_kakao_to_developer">개발자와 카톡 하기</string>
     <string name="send_email">메일 보내기</string>
@@ -105,7 +105,7 @@
     <string name="price_unit_alarm">가격 단위 알람</string>
     <string name="how_to_make_token_and_key">Token과 Key 생성 방법 보러가기</string>
     <string name="precaution">주의사항(필독)</string>
-    <string name="description_access_token_secret_key">Access Token과 Secret Key를 발급 할 때 \'거래소 조회\'와 \'사용자 조회\' API 권한을 체크 해주세요.\n그 외 권한은 자산에 피해가 발생 할 수 있습니다.\n\n코인원헬퍼는 채팅 기능 외에 서버를 사용하지 않기 때문에 등록하시는 Access Token과 Secret Key는 현재 사용하시는 기기에 저장되고 개발자가 알지 못합니다.\n또한 개발자는 절대로 유저에게 Access Token과 Secret Key를 요구하지 않습니다.\n\nAccess Token과 Secret Key를 타인에게 노출, 양도, 대여, 위임 등 본인의 관리소홀로 발생한 손해는 코인원헬퍼에서 책임지지 않습니다.\n\n만약 타인에게 노출 된 경우에 코인원 홈페이지에서 Key를 삭제한 후 재등록 해주세요.</string>
+    <string name="description_access_token_secret_key">Access Token과 Secret Key를 발급 할 때 \'거래소 조회\'와 \'사용자 조회\' API 권한을 체크 해주세요.\n그 외 권한은 자산에 피해가 발생 할 수 있습니다.\n\n코인헬퍼 for 코인원는 채팅 기능 외에 서버를 사용하지 않기 때문에 등록하시는 Access Token과 Secret Key는 현재 사용하시는 기기에 저장되고 개발자가 알지 못합니다.\n또한 개발자는 절대로 유저에게 Access Token과 Secret Key를 요구하지 않습니다.\n\nAccess Token과 Secret Key를 타인에게 노출, 양도, 대여, 위임 등 본인의 관리소홀로 발생한 손해는 코인헬퍼 for 코인원에서 책임지지 않습니다.\n\n만약 타인에게 노출 된 경우에 코인원 홈페이지에서 Key를 삭제한 후 재등록 해주세요.</string>
     <string name="ask_register_account">내 자산을 확인하려면 코인원 계정을 등록해야 합니다.\n계정 등록 화면으로 이동하시겠습니까?</string>
     <string name="move">이동</string>
     <string name="no">아니요</string>
