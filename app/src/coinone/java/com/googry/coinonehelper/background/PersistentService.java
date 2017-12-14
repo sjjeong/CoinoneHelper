@@ -203,7 +203,7 @@ public class PersistentService extends Service {
                                 }
                                 break;
                                 case BTG: {
-                                    targetPrice = coinoneTicker.iota.last;
+                                    targetPrice = coinoneTicker.btg.last;
                                     id += 9;
                                 }
                                 break;
