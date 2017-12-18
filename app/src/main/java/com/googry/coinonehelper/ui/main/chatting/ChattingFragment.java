@@ -43,8 +43,6 @@ public class ChattingFragment extends BaseFragment<ChattingFragmentBinding> impl
 
     @Override
     protected void initView() {
-        mBinding.setPresenter(mPresenter);
-
         mChatMessages = new ArrayList<>();
         mChatLoding = new ProgressDialog(getContext());
         mChatLoding.setMessage("채팅을 불러오는 중입니다.");
@@ -65,6 +63,7 @@ public class ChattingFragment extends BaseFragment<ChattingFragmentBinding> impl
     @Override
     protected void startPresenter() {
         mPresenter.start();
+        mBinding.setPresenter(mPresenter);
     }
 
     @Override
