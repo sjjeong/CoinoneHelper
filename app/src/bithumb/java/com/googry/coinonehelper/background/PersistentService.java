@@ -105,7 +105,8 @@ public class PersistentService extends Service {
                                 ticker.xmr == null ||
                                 ticker.zec == null ||
                                 ticker.qtum == null ||
-                                ticker.btg == null) {
+                                ticker.btg == null||
+                                ticker.eos == null) {
                             return;
                         }
                         Gson gson = new Gson();
@@ -163,6 +164,11 @@ public class PersistentService extends Service {
                                 getApplicationContext(),
                                 CoinType.BTG,
                                 gson.toJson(ticker.btg, BithumbTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.EOS,
+                                gson.toJson(ticker.eos, BithumbTicker.Ticker.class)
                         );
 
                         // 코인 가격 설정 조건 체크
@@ -239,6 +245,11 @@ public class PersistentService extends Service {
                                     id += 11;
                                 }
                                 break;
+                                case EOS: {
+                                    targetPrice = ticker.eos.last;
+                                    id += 12;
+                                }
+                                break;
                             }
 
                             msg += coinType.name() + " " +
@@ -313,6 +324,10 @@ public class PersistentService extends Service {
                                 break;
                                 case BTG: {
                                     targetPrice = ticker.btg.last;
+                                }
+                                break;
+                                case EOS: {
+                                    targetPrice = ticker.eos.last;
                                 }
                                 break;
                             }

@@ -130,6 +130,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.BTG;
                 }
                 break;
+                case EOS: {
+                    mBinding.rbEos.setChecked(true);
+                    mCoinType = CoinType.EOS;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }

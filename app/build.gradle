@@ -44,8 +44,8 @@ android {
         }
         bithumb {
             applicationId 'com.googry.coinonehelper.bithumb'
-            versionCode 9
-            versionName '1.0.4'
+            versionCode 10
+            versionName '1.0.5'
         }
         korbit {
             applicationId 'com.googry.coinonehelper.korbit'

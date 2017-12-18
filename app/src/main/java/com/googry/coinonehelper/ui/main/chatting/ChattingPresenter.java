@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.googry.coinonehelper.data.ChatMessage;
+import com.googry.coinonehelper.util.LogUtil;
 
 import java.util.Date;
 
