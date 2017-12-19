@@ -2,6 +2,7 @@ package com.googry.coinonehelper.background;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -9,6 +10,8 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -44,14 +47,61 @@ public class PersistentService extends Service {
 
     private CountDownTimer countDownTimer;
 
-    private Context mContext;
-
     private Realm mRealm;
 
     @Override
     public void onCreate() {
         unregisterRestartAlarm();
         super.onCreate();
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel(getString(R.string.package_name),
+                    getString(R.string.noti_channel_coinhelper), NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setShowBadge(true);
+            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            notificationManager.createNotificationChannel(notificationChannel);
+
+            NotificationChannel notificationChannel2 = new NotificationChannel(getString(R.string.package_name_manager),
+                    getString(R.string.noti_channel_coinhelper_manager), NotificationManager.IMPORTANCE_NONE);
+            notificationManager.createNotificationChannel(notificationChannel2);
+
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            // 알림 데이터 모델 생성 및 데이터 셋팅
+            stackBuilder.addParentStack(SplashActivity.class);
+            Intent intent = new Intent(this, SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            stackBuilder.addNextIntent(intent);
+
+            PendingIntent contentIntent =
+                    PendingIntent.getActivity(this, 1,
+                            intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this, getString(R.string.package_name_manager))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setLargeIcon(BitmapFactory.decodeResource(
+                                    this.getResources(), R.mipmap.ic_launcher))
+                            .setContentTitle(getString(R.string.app_name))
+                            .setTicker(getString(R.string.app_name))
+                            .setDefaults(Notification.DEFAULT_ALL)
+                            .setPriority(NotificationCompat.PRIORITY_MIN)
+                            .setAutoCancel(true)
+                            .setWhen(0)
+                            .setContentText("코인헬퍼 매니저가 동작 중입니다...");
+            mBuilder.setContentIntent(contentIntent);
+            startForeground(
+                    1,
+                    mBuilder.build()
+            );
+        }
+
+
 
         initData();
     }
@@ -76,7 +126,6 @@ public class PersistentService extends Service {
      * 데이터 초기화
      */
     private void initData() {
-        mContext = this;
         mRealm = Realm.getDefaultInstance();
 
         countDownTimer();
@@ -295,7 +344,7 @@ public class PersistentService extends Service {
                             showNofi(msg, (int) coinNotification.getCreatedTs());
 
                             // 팝업 띄우기
-                            mContext.startActivity(new Intent(mContext, PopupActivity.class)
+                            startActivity(new Intent(getApplicationContext(), PopupActivity.class)
                                     .putExtra(PopupActivity.EXTRA_ALARM_ID, coinNotification.getCreatedTs())
                                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
@@ -317,35 +366,36 @@ public class PersistentService extends Service {
 
 
     private void showNofi(String msg, int createTs) {
-        NotificationManager mNotificationManager;
-        mNotificationManager =
-                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
         // 알림 데이터 모델 생성 및 데이터 셋팅
         stackBuilder.addParentStack(SplashActivity.class);
-        Intent intent = new Intent(mContext, SplashActivity.class);
+        Intent intent = new Intent(this, SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         stackBuilder.addNextIntent(intent);
 
         PendingIntent contentIntent =
-                PendingIntent.getActivity(mContext, createTs,
+                PendingIntent.getActivity(this, createTs,
                         intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
 
         // 노티 띄우기
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(mContext)
+                new NotificationCompat.Builder(this, getString(R.string.package_name))
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setLargeIcon(BitmapFactory.decodeResource(
-                                mContext.getResources(), R.mipmap.ic_launcher))
-                        .setContentTitle(mContext.getString(R.string.app_name))
-                        .setTicker(mContext.getString(R.string.app_name))
+                                getResources(), R.mipmap.ic_launcher))
+                        .setContentTitle(getString(R.string.app_name))
+                        .setTicker(getString(R.string.app_name))
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setContentText(msg)
                         .setAutoCancel(true);
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(createTs, mBuilder.build());
+        notificationManager.notify(createTs, mBuilder.build());
+
     }
 
     /**

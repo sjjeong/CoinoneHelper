@@ -3,6 +3,7 @@ package com.googry.coinonehelper.background;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.googry.coinonehelper.util.LogUtil;
 
@@ -22,7 +23,11 @@ public class RestartReceiver extends BroadcastReceiver {
             LogUtil.i("ACTION.RESTART.PersistentService ");
 
             Intent i = new Intent(context, PersistentService.class);
-            context.startService(i);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(i);
+            }else{
+                context.startService(i);
+            }
         }
 
         /**
@@ -31,7 +36,12 @@ public class RestartReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             LogUtil.i("ACTION_BOOT_COMPLETED");
             Intent i = new Intent(context, PersistentService.class);
-            context.startService(i);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(i);
+            }else{
+                context.startService(i);
+            }
 
         }
 

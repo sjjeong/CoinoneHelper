@@ -141,5 +141,9 @@
     <string name="server_error_retry">서버 오류가 발생 했습니다.\n다시 시도해주세요.</string>
     <string name="lack_of_amount">주문수량이 너무 적습니다.</string>
     <string name="lack_of_money">거래 가능한 돈이 부족합니다.</string>
+    <string name="noti_channel_coinhelper">CoinHelper</string>
+    <string name="noti_channel_coinhelper_manager">CoinHelperManager</string>
+    <string name="package_name">com.googry.coinonehelper</string>
+    <string name="package_name_manager">com.googry.coinonehelper.manager</string>
 
 </resources>
