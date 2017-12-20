@@ -102,11 +102,11 @@ public enum CoinType {
     public static long getCoinDivider(CoinType coinType){
         switch (coinType) {
             case BTC:
-                return 500;
+                return 1000;
             case BCH:
-                return 100;
+                return 500;
             case ETH:
-                return 50;
+                return 100;
             case ETC:
                 return 10;
             case XRP:
@@ -116,7 +116,7 @@ public enum CoinType {
             case LTC:
                 return 50;
             case IOTA:
-                return 1;
+                return 10;
             case BTG:
                 return 50;
             default:
