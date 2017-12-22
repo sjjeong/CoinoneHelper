@@ -280,7 +280,7 @@ public class PersistentService extends Service {
                                 }
                                 break;
                                 case ZEC: {
-                                    targetPrice = ticker.xmr.last;
+                                    targetPrice = ticker.zec.last;
                                     id += 9;
                                 }
                                 break;
