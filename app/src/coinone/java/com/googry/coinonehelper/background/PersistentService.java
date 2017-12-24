@@ -19,6 +19,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.BuildConfig;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinNotification;
 import com.googry.coinonehelper.data.CoinType;
@@ -126,7 +127,7 @@ public class PersistentService extends Service {
      * 데이터 초기화
      */
     private void initData() {
-        mRealm = Realm.getDefaultInstance();
+        mRealm = Injection.getSecureRealm();
 
         countDownTimer();
         countDownTimer.start();
@@ -136,7 +137,6 @@ public class PersistentService extends Service {
 
         countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             public void onTick(long millisUntilFinished) {
-                LogUtil.i(BuildConfig.FLAVOR + " service");
                 CoinoneApiManager.CoinonePublicApi api = CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePublicApi.class);
                 Call<CoinoneTicker> call = api.allTicker();
                 call.enqueue(new Callback<CoinoneTicker>() {

@@ -7,6 +7,7 @@ import com.google.firebase.FirebaseApp;
 import com.securepreferences.SecurePreferences;
 
 import java.io.FileNotFoundException;
+import java.security.SecureRandom;
 
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;
@@ -28,8 +29,12 @@ public class CoinoneHelperApplication extends Application {
      * unit alarm의 스키마 추가로 버전 1
      */
     private static final long REALM_SCHEMA_UNIT_ALARM = 1;
+    /**
+     *
+     */
+    private static final long REALM_SCHEMA_MARKET_ACCOUNT = 2;
     private static CoinoneHelperApplication sInstance;
-    private SecurePreferences mSecurePrefs;
+//    private SecurePreferences mSecurePrefs;
 
     public CoinoneHelperApplication() {
         super();
@@ -40,23 +45,29 @@ public class CoinoneHelperApplication extends Application {
         return sInstance;
     }
 
-    public SharedPreferences getSecurePreferences() {
-        if (mSecurePrefs == null) {
-            mSecurePrefs = new SecurePreferences(this, "C@in@n2H2lp2r", "prefs.xml");
-        }
-
-        return mSecurePrefs;
-    }
+//    public SharedPreferences getSecurePreferences() {
+//        if (mSecurePrefs == null) {
+//            mSecurePrefs = new SecurePreferences(this, "C@in@n2H2lp2r", "prefs.xml");
+//        }
+//
+//        return mSecurePrefs;
+//    }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+        byte[] key = new byte[64];
+        new SecureRandom().nextBytes(key);
+
         Realm.init(this);
+
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                .schemaVersion(REALM_SCHEMA_UNIT_ALARM)
+//                .encryptionKey(key)
+                .schemaVersion(REALM_SCHEMA_MARKET_ACCOUNT)
                 .migration(new CoinRealmMigration())
                 .build();
+        Realm.deleteRealm(realmConfiguration);
         try {
             Realm.migrateRealm(realmConfiguration);
         } catch (FileNotFoundException e) {
@@ -82,13 +93,22 @@ public class CoinoneHelperApplication extends Application {
              * public long prevPrice;
              * public boolean runFlag;
              */
-            if (oldVersion == 0) {
+            if (oldVersion == REALM_SCHEMA_INIT) {
                 schema.create("UnitAlarm")
                         .addField("coinType", String.class, FieldAttribute.PRIMARY_KEY)
                         .addField("divider", long.class)
                         .addField("prevPrice", long.class)
                         .addField("runFlag", boolean.class);
 
+
+                oldVersion++;
+            }
+
+            if (oldVersion == REALM_SCHEMA_UNIT_ALARM) {
+                schema.create("MarketAccount")
+                        .addField("id", String.class, FieldAttribute.PRIMARY_KEY)
+                        .addField("accessToken", String.class)
+                        .addField("secretKey", String.class);
 
                 oldVersion++;
             }

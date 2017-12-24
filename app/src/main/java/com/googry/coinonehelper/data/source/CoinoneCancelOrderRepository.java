@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 
@@ -23,15 +24,17 @@ public class CoinoneCancelOrderRepository implements CancelOrderDataSource {
     private OnCancelOrderCallback mOnCancelOrderCallback;
     private Context mContext;
     private String mCoinName;
+    private MarketAccount mAccount;
 
-    public CoinoneCancelOrderRepository(Context context, String coinName) {
+    public CoinoneCancelOrderRepository(Context context, String coinName, MarketAccount account) {
         mContext = context;
-        this.mCoinName = coinName;
+        mCoinName = coinName;
+        mAccount = account;
     }
 
     @Override
     public void call(final CommonOrder commonOrder) {
-        Call<CoinonePrivateError> call = CoinonePrivateApiUtil.getCancelOrder(mContext, commonOrder, mCoinName);
+        Call<CoinonePrivateError> call = CoinonePrivateApiUtil.getCancelOrder(mAccount, commonOrder, mCoinName);
         call.enqueue(new Callback<CoinonePrivateError>() {
             @Override
             public void onResponse(Call<CoinonePrivateError> call, Response<CoinonePrivateError> response) {

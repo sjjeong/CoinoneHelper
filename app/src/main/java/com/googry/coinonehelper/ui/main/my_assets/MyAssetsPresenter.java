@@ -10,6 +10,7 @@ import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneBalance;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
@@ -31,11 +32,15 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
 
     private Context mContext;
 
+    private MarketAccount mAccount;
+
     public MyAssetsPresenter(MyAssetsContract.View view,
-                             Context context) {
+                             Context context,
+                             MarketAccount account) {
         mView = view;
         mView.setPresenter(this);
         mContext = context;
+        mAccount = account;
     }
 
     @Override
@@ -69,7 +74,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
                         PrefUtil.saveTicker(mContext, CoinType.IOTA, gson.toJson(ticker.iota, CoinoneTicker.Ticker.class));
                         PrefUtil.saveTicker(mContext, CoinType.BTG, gson.toJson(ticker.btg, CoinoneTicker.Ticker.class));
 
-                        Call<CoinoneBalance> coinoneBalanceCall = CoinonePrivateApiUtil.getBalance(mContext);
+                        Call<CoinoneBalance> coinoneBalanceCall = CoinonePrivateApiUtil.getBalance(mAccount);
                         coinoneBalanceCall.enqueue(new Callback<CoinoneBalance>() {
                             @Override
                             public void onResponse(Call<CoinoneBalance> call, Response<CoinoneBalance> response) {
@@ -121,7 +126,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
 
     @Override
     public void checkRegisterAccount() {
-        if (PrefUtil.loadRegisterAccount(mContext)) {
+        if (mAccount != null) {
             mView.showLoadingDialog();
             loadBalance();
         } else {

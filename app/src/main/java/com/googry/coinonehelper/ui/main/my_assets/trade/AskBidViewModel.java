@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.data.source.BuySellOrderDataSource;
 import com.googry.coinonehelper.data.source.CancelOrderDataSource;
 import com.googry.coinonehelper.data.source.CoinoneBuySellOrderRepository;
@@ -75,16 +76,17 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
     };
     private OnTradeEventListener mOnTradeEventListener;
 
-    public AskBidViewModel(Context context, String coinName, String price, OnTradeEventListener onTradeEventListener) {
+    public AskBidViewModel(Context context, String coinName, String price,
+                           OnTradeEventListener onTradeEventListener, MarketAccount marketAccount) {
         mCoinName = coinName;
         mCoinType = CoinType.getCoinTypeFromTitle(mCoinName);
         this.price.set(price);
         mContext = context;
-        mLimitOrderDataSource = new CoinoneLimitOrderbookRepository(context, coinName);
+        mLimitOrderDataSource = new CoinoneLimitOrderbookRepository(context, coinName, marketAccount);
         mLimitOrderDataSource.setOnLimitOrderCallback(this);
-        mCancelOrderDataSource = new CoinoneCancelOrderRepository(context, coinName);
+        mCancelOrderDataSource = new CoinoneCancelOrderRepository(context, coinName, marketAccount);
         mCancelOrderDataSource.setOnCancelOrderCallback(this);
-        mBuySellOrderDataSource = new CoinoneBuySellOrderRepository(context, coinName);
+        mBuySellOrderDataSource = new CoinoneBuySellOrderRepository(context, coinName, marketAccount);
         mBuySellOrderDataSource.setOnBuySellOrderCallback(this);
 
         this.amount.addOnPropertyChangedCallback(mAmountCallback);

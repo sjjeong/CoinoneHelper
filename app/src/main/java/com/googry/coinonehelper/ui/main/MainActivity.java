@@ -16,9 +16,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.googry.coinonehelper.BuildConfig;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseActivity;
 import com.googry.coinonehelper.data.CoinType;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.databinding.MainNavigationDrawerBinding;
 import com.googry.coinonehelper.ui.chart.ChartActivity;
 import com.googry.coinonehelper.ui.main.chatting.ChattingFragment;
@@ -33,6 +35,8 @@ import com.googry.coinonehelper.util.ui.FragmentUtil;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import com.yarolegovich.slidingrootnav.callback.DragStateListener;
+
+import io.realm.Realm;
 
 public class MainActivity extends BaseActivity<MainFragment> {
     private MainNavigationDrawerBinding mBinding;
@@ -244,9 +248,11 @@ public class MainActivity extends BaseActivity<MainFragment> {
         mAdView.resume();
 
         if (BuildConfig.FLAVOR.equals("coinone")) {
-            if (isFirstOpen && PrefUtil.loadRegisterAccount(getApplicationContext())) {
+            Realm realm = Injection.getSecureRealm();
+            if (isFirstOpen && realm.where(MarketAccount.class).findFirst() != null) {
                 onMyAssetsClick();
             }
+            realm.close();
         }
         isFirstOpen = false;
     }

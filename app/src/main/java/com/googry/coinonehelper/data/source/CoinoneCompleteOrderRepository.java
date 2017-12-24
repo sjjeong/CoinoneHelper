@@ -7,6 +7,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinoneCompleteOrder;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 
@@ -28,14 +29,17 @@ public class CoinoneCompleteOrderRepository implements CompleteOrderDataSource {
 
     private String mCoinName;
 
-    public CoinoneCompleteOrderRepository(Context context, String coinName) {
+    private MarketAccount mAccount;
+
+    public CoinoneCompleteOrderRepository(Context context, String coinName, MarketAccount account) {
         mContext = context;
         mCoinName = coinName;
+        mAccount = account;
     }
 
     @Override
     public void call() {
-        Call<CoinoneCompleteOrder> completeOrderCall = CoinonePrivateApiUtil.getCompleteOrder(mContext, mCoinName);
+        Call<CoinoneCompleteOrder> completeOrderCall = CoinonePrivateApiUtil.getCompleteOrder(mAccount, mCoinName);
         completeOrderCall.enqueue(new Callback<CoinoneCompleteOrder>() {
             @Override
             public void onResponse(Call<CoinoneCompleteOrder> call, Response<CoinoneCompleteOrder> response) {

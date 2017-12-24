@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,11 +33,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.googry.coinonehelper.BuildConfig;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.databinding.SettingActivityBinding;
 import com.googry.coinonehelper.ui.setting.adapter.CoinUnitAlarmAdapter;
 import com.googry.coinonehelper.ui.widget.MarketAccountRegisterDialog;
-import com.googry.coinonehelper.util.PrefUtil;
+
+import io.realm.Realm;
 
 /**
  * Created by seokjunjeong on 2017. 8. 19..
@@ -51,6 +53,8 @@ public class SettingActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private GoogleApiClient mGoogleApiClient;
+    private Realm mRealm;
+    private MarketAccount mAccount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class SettingActivity extends AppCompatActivity {
         setSupportActionBar(mBinding.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         mBinding.setActivity(this);
+        mRealm = Injection.getSecureRealm();
+        mAccount = mRealm.where(MarketAccount.class).findFirst();
+
 
         createGoogleApiClient();
         initFirebaseUser();
@@ -67,9 +74,15 @@ public class SettingActivity extends AppCompatActivity {
         initMarketAccount();
     }
 
+    @Override
+    protected void onDestroy() {
+        mRealm.close();
+        super.onDestroy();
+    }
+
     private void initMarketAccount() {
         if (BuildConfig.FLAVOR.equals("coinone")) {
-            if (PrefUtil.loadRegisterAccount(getApplicationContext())) {
+            if (mAccount != null) {
                 marketAccount.set(getString(R.string.unregister_account));
             } else {
                 marketAccount.set(getString(R.string.register_account));
@@ -80,7 +93,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initCoinUnitAlarm() {
-        CoinUnitAlarmAdapter adapter = new CoinUnitAlarmAdapter();
+        CoinUnitAlarmAdapter adapter = new CoinUnitAlarmAdapter(mRealm);
         mBinding.rvCoinPriceUnitAlarm.setAdapter(adapter);
     }
 
@@ -253,9 +266,14 @@ public class SettingActivity extends AppCompatActivity {
             MarketAccountRegisterDialog dialog = MarketAccountRegisterDialog.newInstance();
             dialog.setOnRequestResultListener(new MarketAccountRegisterDialog.OnRequestResultListener() {
                 @Override
-                public void onRequestResultListener() {
+                public void onRequestResultListener(final MarketAccount account) {
                     marketAccount.set(getString(R.string.unregister_account));
-                    PrefUtil.saveRegisterAccount(getApplicationContext(), true);
+                    mRealm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealm(account);
+                        }
+                    });
                 }
             });
             dialog.show(getSupportFragmentManager(), dialog.getTag());
@@ -265,14 +283,12 @@ public class SettingActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.unregister, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            AsyncTask.execute(new Runnable() {
+                            mRealm.executeTransaction(new Realm.Transaction() {
                                 @Override
-                                public void run() {
-                                    marketAccount.set(getString(R.string.register_account));
-                                    PrefUtil.saveRegisterAccount(getApplicationContext(), false);
-                                    PrefUtil.saveAccessToken("");
-                                    PrefUtil.saveSecretKey("");
-                                    PrefUtil.saveUserInfo("");
+                                public void execute(Realm realm) {
+                                    if (mAccount != null) {
+                                        mAccount.deleteFromRealm();
+                                    }
                                 }
                             });
                         }
