@@ -1,11 +1,16 @@
 package com.googry.coinonehelper.ui;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -25,10 +30,24 @@ public class SplashActivity extends AppCompatActivity {
     private RestartReceiver restartReceiver;
     private InterstitialAd mInterstitialAd;
 
+    private IInAppBillingService mIInAppBillingService;
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mIInAppBillingService = IInAppBillingService.Stub.asInterface(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mIInAppBillingService = null;
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+        initInAppBillingService();
 
         if (BuildConfig.DEBUG) {
             startApp();
@@ -74,11 +93,19 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    private void initInAppBillingService() {
+        Intent serviceIntent =
+                new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        serviceIntent.setPackage("com.android.vending");
+        bindService(serviceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         //브로드 캐스트 해제
         unregisterReceiver(restartReceiver);
+        unbindService(mServiceConnection);
     }
 
     private void startApp() {

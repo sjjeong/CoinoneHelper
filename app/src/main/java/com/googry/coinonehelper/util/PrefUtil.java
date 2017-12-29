@@ -53,7 +53,7 @@ public class PrefUtil {
     public static void saveAccessToken(String accessToken) {
         SharedPreferences.Editor editor = getSecureEditor();
         editor.putString(KEY_ACCESS_TOKEN, accessToken);
-        apply(editor);
+        commit(editor);
     }
 
     public static String loadAccessToken() {
@@ -63,7 +63,7 @@ public class PrefUtil {
     public static void saveSecretKey(String secretKey) {
         SharedPreferences.Editor editor = getSecureEditor();
         editor.putString(KEY_SECRET_KEY, secretKey);
-        apply(editor);
+        commit(editor);
     }
 
     public static String loadSecretKey() {
@@ -73,7 +73,7 @@ public class PrefUtil {
     public static void saveUserInfo(String userInfo) {
         SharedPreferences.Editor editor = getSecureEditor();
         editor.putString(KEY_USER_INFO, userInfo);
-        apply(editor);
+        commit(editor);
     }
 
     public static String loadUserInfo() {

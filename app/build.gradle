@@ -8,8 +8,8 @@ android {
         applicationId "com.googry.coinonehelper"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 36
-        versionName "1.1.400"
+        versionCode 37
+        versionName "1.1.401"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
