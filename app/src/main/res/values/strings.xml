@@ -145,5 +145,6 @@
     <string name="noti_channel_coinhelper_manager">CoinHelperManager</string>
     <string name="package_name">com.googry.coinonehelper</string>
     <string name="package_name_manager">com.googry.coinonehelper.manager</string>
+    <string name="need_amount_price">수량과 가격은 필수 입니다</string>
 
 </resources>

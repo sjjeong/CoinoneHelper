@@ -8,6 +8,7 @@ import android.databinding.ObservableList;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CommonOrder;
 import com.googry.coinonehelper.data.source.BuySellOrderDataSource;
@@ -113,6 +114,10 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     // databinding
     public void onDoOrderClick(boolean isAsk) {
+        if (TextUtils.isEmpty(price.get()) || TextUtils.isEmpty(amount.get())) {
+            Toast.makeText(mContext, R.string.need_amount_price, Toast.LENGTH_SHORT).show();
+            return;
+        }
         mOnTradeEventListener.onCallRequest();
         mBuySellOrderDataSource.call(isAsk, Long.parseLong(price.get()), Double.parseDouble(amount.get()));
     }
