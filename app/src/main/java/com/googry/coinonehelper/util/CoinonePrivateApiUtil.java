@@ -9,6 +9,7 @@ import com.googry.coinonehelper.data.CoinoneLimitOrder;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.data.remote.CoinoneApiManager;
 
 import org.json.JSONException;
@@ -125,19 +126,17 @@ public class CoinonePrivateApiUtil {
         return new String(hexChars).toLowerCase();
     }
 
-    private static String[] getEncryptPayloadAndSignature(Context context) {
-        String accessToken = PrefUtil.loadAccessToken();
-        String secretKey = PrefUtil.loadSecretKey();
+    private static String[] getEncryptPayloadAndSignature(MarketAccount account) {
 
         String limitOrdersPayload = getJsonAccount(
-                accessToken, System.currentTimeMillis());
+                account.accessToken, System.currentTimeMillis());
         String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
-        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+        String limitOrdersSignature = getSignature(account.secretKey, encryptlimitOrdersPayload);
         return new String[]{encryptlimitOrdersPayload, limitOrdersSignature};
     }
 
-    public static Call<CoinoneBalance> getBalance(Context context) {
-        String[] encryptPayloadAndStignature = getEncryptPayloadAndSignature(context);
+    public static Call<CoinoneBalance> getBalance(MarketAccount account) {
+        String[] encryptPayloadAndStignature = getEncryptPayloadAndSignature(account);
 
         CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
@@ -148,8 +147,8 @@ public class CoinonePrivateApiUtil {
                 encryptPayloadAndStignature[0]);
     }
 
-    public static Call<CoinoneUserInfo> getUserInfo(Context context) {
-        String[] encryptPayloadAndStignature = getEncryptPayloadAndSignature(context);
+    public static Call<CoinoneUserInfo> getUserInfo(MarketAccount account) {
+        String[] encryptPayloadAndStignature = getEncryptPayloadAndSignature(account);
 
         CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
@@ -160,14 +159,12 @@ public class CoinonePrivateApiUtil {
                 encryptPayloadAndStignature[0]);
     }
 
-    public static Call<CoinoneLimitOrder> getLimitOrder(Context context, String coinName) {
-        String accessToken = PrefUtil.loadAccessToken();
-        String secretKey = PrefUtil.loadSecretKey();
+    public static Call<CoinoneLimitOrder> getLimitOrder(MarketAccount account, String coinName) {
 
         String limitOrdersPayload = getJsonLimitOrders(
-                accessToken, coinName, System.currentTimeMillis());
+                account.accessToken, coinName, System.currentTimeMillis());
         String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
-        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+        String limitOrdersSignature = getSignature(account.secretKey, encryptlimitOrdersPayload);
 
         CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
@@ -178,14 +175,12 @@ public class CoinonePrivateApiUtil {
                 encryptlimitOrdersPayload);
     }
 
-    public static Call<CoinoneCompleteOrder> getCompleteOrder(Context context, String coinName) {
-        String accessToken = PrefUtil.loadAccessToken();
-        String secretKey = PrefUtil.loadSecretKey();
+    public static Call<CoinoneCompleteOrder> getCompleteOrder(MarketAccount account, String coinName) {
 
         String limitOrdersPayload = getJsonLimitOrders(
-                accessToken, coinName, System.currentTimeMillis());
+                account.accessToken, coinName, System.currentTimeMillis());
         String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
-        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+        String limitOrdersSignature = getSignature(account.secretKey, encryptlimitOrdersPayload);
 
         CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
@@ -196,12 +191,10 @@ public class CoinonePrivateApiUtil {
                 encryptlimitOrdersPayload);
     }
 
-    public static Call<CoinonePrivateError> getCancelOrder(Context context, CommonOrder order, String coinName) {
-        String accessToken = PrefUtil.loadAccessToken();
-        String secretKey = PrefUtil.loadSecretKey();
+    public static Call<CoinonePrivateError> getCancelOrder(MarketAccount account, CommonOrder order, String coinName) {
 
         String limitOrdersPayload = getJsonCancelOrder(
-                accessToken,
+                account.accessToken,
                 order.orderId,
                 order.price,
                 order.qty,
@@ -209,7 +202,7 @@ public class CoinonePrivateApiUtil {
                 coinName,
                 System.currentTimeMillis());
         String encryptlimitOrdersPayload = getEncyptPayload(limitOrdersPayload);
-        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+        String limitOrdersSignature = getSignature(account.secretKey, encryptlimitOrdersPayload);
 
         CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);
@@ -220,20 +213,18 @@ public class CoinonePrivateApiUtil {
                 encryptlimitOrdersPayload);
     }
 
-    public static Call<CoinoneLimitOrder.Order> getBuySellOrder(Context context, String coinName,
+    public static Call<CoinoneLimitOrder.Order> getBuySellOrder(MarketAccount account, String coinName,
                                                                 final long price, final double sellAmount,
                                                                 boolean isAsk) {
-        String accessToken = PrefUtil.loadAccessToken();
-        String secretKey = PrefUtil.loadSecretKey();
 
-        String orderBuyPayload = getJsonOrderBuy(accessToken,
+        String orderBuyPayload = getJsonOrderBuy(account.accessToken,
                 price,
                 sellAmount,
                 coinName,
                 System.currentTimeMillis());
 
         String encryptlimitOrdersPayload = getEncyptPayload(orderBuyPayload);
-        String limitOrdersSignature = getSignature(secretKey, encryptlimitOrdersPayload);
+        String limitOrdersSignature = getSignature(account.secretKey, encryptlimitOrdersPayload);
 
         CoinoneApiManager.CoinonePrivateApi coinonePrivateApi =
                 CoinoneApiManager.getApiManager().create(CoinoneApiManager.CoinonePrivateApi.class);

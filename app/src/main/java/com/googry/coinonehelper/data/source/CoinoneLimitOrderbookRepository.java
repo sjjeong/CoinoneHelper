@@ -7,6 +7,7 @@ import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinoneLimitOrder;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 import com.googry.coinonehelper.util.LogUtil;
@@ -30,14 +31,17 @@ public class CoinoneLimitOrderbookRepository implements LimitOrderDataSource {
 
     private String mCoinName;
 
-    public CoinoneLimitOrderbookRepository(Context context, String coinName) {
+    private MarketAccount mAccount;
+
+    public CoinoneLimitOrderbookRepository(Context context, String coinName, MarketAccount account) {
         mContext = context;
         mCoinName = coinName;
+        mAccount = account;
     }
 
     @Override
     public void call() {
-        Call<CoinoneLimitOrder> limitOrderCall = CoinonePrivateApiUtil.getLimitOrder(mContext, mCoinName);
+        Call<CoinoneLimitOrder> limitOrderCall = CoinonePrivateApiUtil.getLimitOrder(mAccount, mCoinName);
         limitOrderCall.enqueue(new Callback<CoinoneLimitOrder>() {
             @Override
             public void onResponse(Call<CoinoneLimitOrder> call, Response<CoinoneLimitOrder> response) {

@@ -19,17 +19,21 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneBalance;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.databinding.MyAssetsFragmentBinding;
 import com.googry.coinonehelper.ui.main.my_assets.adapter.MyAssetsAdapter;
 import com.googry.coinonehelper.ui.setting.SettingActivity;
 import com.googry.coinonehelper.util.PrefUtil;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
 
 /**
  * Created by seokjunjeong on 2017. 10. 28..
@@ -42,6 +46,8 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
     private ProgressDialog mProgressDialog;
 
     private ArrayList<Integer> mColorRes;
+
+    private Realm mRealm;
 
     public static MyAssetsFragment newInstance() {
 
@@ -89,7 +95,14 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
 
     @Override
     protected void newPresenter() {
-        new MyAssetsPresenter(this, getContext());
+        mRealm = Injection.getSecureRealm();
+        new MyAssetsPresenter(this, getContext(), mRealm.where(MarketAccount.class).findFirst());
+    }
+
+    @Override
+    public void onDestroyView() {
+        mRealm.close();
+        super.onDestroyView();
     }
 
     @Override

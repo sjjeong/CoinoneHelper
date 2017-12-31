@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.googry.coinonehelper.data.CoinoneLimitOrder;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CommonOrder;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
 
@@ -27,15 +28,18 @@ public class CoinoneBuySellOrderRepository implements BuySellOrderDataSource {
 
     private String mCoinName;
 
-    public CoinoneBuySellOrderRepository(Context context, String coinName) {
+    private MarketAccount mAccount;
+
+    public CoinoneBuySellOrderRepository(Context context, String coinName, MarketAccount account) {
         mContext = context;
         mCoinName = coinName;
+        mAccount = account;
     }
 
     @Override
     public void call(final boolean isAsk, final long price, final double amount) {
         Call<CoinoneLimitOrder.Order> call =
-                CoinonePrivateApiUtil.getBuySellOrder(mContext, mCoinName, price, amount, isAsk);
+                CoinonePrivateApiUtil.getBuySellOrder(mAccount, mCoinName, price, amount, isAsk);
         call.enqueue(new Callback<CoinoneLimitOrder.Order>() {
             @Override
             public void onResponse(Call<CoinoneLimitOrder.Order> call, Response<CoinoneLimitOrder.Order> response) {

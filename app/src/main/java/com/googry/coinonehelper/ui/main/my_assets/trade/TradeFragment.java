@@ -8,14 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneTicker;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.databinding.TradeFragmentBinding;
 import com.googry.coinonehelper.ui.main.my_assets.trade.adapter.OrderbookAdapter;
 import com.googry.coinonehelper.ui.main.my_assets.trade.adapter.TradePagerAdapter;
 import com.googry.coinonehelper.util.PrefUtil;
+
+import io.realm.Realm;
 
 /**
  * Created by seokjunjeong on 2017. 11. 13..
@@ -39,6 +43,8 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding>
             hideLoadingDialog();
         }
     };
+
+    private Realm mRealm;
 
     public static TradeFragment newInstance(String coinName) {
 
@@ -79,14 +85,19 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding>
         String coinName = getArguments().getString(KEY_COIN_NAME);
         mOrderbookViewModel = new OrderbookViewModel(coinName);
         mBinding.setViewModel(mOrderbookViewModel);
+        mRealm = Injection.getSecureRealm();
+
+        MarketAccount account = mRealm.where(MarketAccount.class).findFirst();
 
         mAskBidViewModel =
                 new AskBidViewModel(getContext(), coinName,
                         String.valueOf(new Gson().fromJson(PrefUtil.loadTicker(getContext(),
                                 CoinType.getCoinTypeFromTitle(coinName)),
-                                CoinoneTicker.Ticker.class).last), this);
+                                CoinoneTicker.Ticker.class).last), this,
+                        account);
         mTradePagerAdapter.setAskBidViewModel(mAskBidViewModel);
-        mConclusionHistoryViewModel = new ConclusionHistoryViewModel(getContext(), coinName, this);
+        mConclusionHistoryViewModel = new ConclusionHistoryViewModel(getContext(), coinName,
+                this, account);
         mTradePagerAdapter.setConclusionHistoryViewModel(mConclusionHistoryViewModel);
     }
 
@@ -105,6 +116,12 @@ public class TradeFragment extends BaseFragment<TradeFragmentBinding>
     public void onPause() {
         super.onPause();
         mOrderbookViewModel.stop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        mRealm.close();
+        super.onDestroyView();
     }
 
     @Override

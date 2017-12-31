@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -19,13 +18,13 @@ import com.google.gson.Gson;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinonePrivateError;
 import com.googry.coinonehelper.data.CoinoneUserInfo;
+import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.databinding.MarketAccountRegisterDialogBinding;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
 import com.googry.coinonehelper.util.CoinonePrivateApiUtil;
-import com.googry.coinonehelper.util.LogUtil;
-import com.googry.coinonehelper.util.PrefUtil;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,10 +41,6 @@ public class MarketAccountRegisterDialog extends DialogFragment {
 
     private OnRequestResultListener mOnRequestResultListener;
 
-    public void setOnRequestResultListener(OnRequestResultListener onRequestResultListener) {
-        mOnRequestResultListener = onRequestResultListener;
-    }
-
     public static MarketAccountRegisterDialog newInstance() {
 
         Bundle args = new Bundle();
@@ -53,6 +48,10 @@ public class MarketAccountRegisterDialog extends DialogFragment {
         MarketAccountRegisterDialog fragment = new MarketAccountRegisterDialog();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public void setOnRequestResultListener(OnRequestResultListener onRequestResultListener) {
+        mOnRequestResultListener = onRequestResultListener;
     }
 
     @Nullable
@@ -90,53 +89,47 @@ public class MarketAccountRegisterDialog extends DialogFragment {
         dialog.setMessage(getString(R.string.checking_account));
         dialog.show();
 
-        AsyncTask.execute(new Runnable() {
+        final MarketAccount account =
+                new MarketAccount(UUID.randomUUID().toString(), accessToken.get(), secretKey.get());
+
+        Call<CoinoneUserInfo> call = CoinonePrivateApiUtil.getUserInfo(account);
+        call.enqueue(new Callback<CoinoneUserInfo>() {
             @Override
-            public void run() {
-                PrefUtil.saveAccessToken(accessToken.get());
-                PrefUtil.saveSecretKey(secretKey.get());
-
-                Call<CoinoneUserInfo> call = CoinonePrivateApiUtil.getUserInfo(getContext());
-                call.enqueue(new Callback<CoinoneUserInfo>() {
-                    @Override
-                    public void onResponse(Call<CoinoneUserInfo> call, Response<CoinoneUserInfo> response) {
-                        dialog.dismiss();
-                        if (response.errorBody() != null) {
-                            try {
-                                String errorJson = response.errorBody().string();
-                                CoinonePrivateError error =
-                                        new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
-                                                CoinonePrivateError.class);
-                                Toast.makeText(getContext(), error.errorMsg, Toast.LENGTH_SHORT).show();
-                                return;
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        CoinoneUserInfo userInfo = response.body();
-                        if (userInfo == null) {
-                            Toast.makeText(getContext(), R.string.server_error, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (userInfo.errorCode == 0) {
-                            Toast.makeText(getContext(), R.string.description_register_account, Toast.LENGTH_SHORT).show();
-                            MarketAccountRegisterDialog.this.dismiss();
-                            if (mOnRequestResultListener != null) {
-                                mOnRequestResultListener.onRequestResultListener();
-                            }
-                            PrefUtil.saveUserInfo(new Gson().toJson(userInfo));
-                        } else {
-                            Toast.makeText(getContext(), R.string.cant_check_account, Toast.LENGTH_SHORT).show();
-                        }
+            public void onResponse(Call<CoinoneUserInfo> call, Response<CoinoneUserInfo> response) {
+                dialog.dismiss();
+                if (response.errorBody() != null) {
+                    try {
+                        String errorJson = response.errorBody().string();
+                        CoinonePrivateError error =
+                                new Gson().fromJson(CoinoneErrorCodeUtil.replaceBadQuotes(errorJson),
+                                        CoinonePrivateError.class);
+                        Toast.makeText(getContext(), error.errorMsg, Toast.LENGTH_SHORT).show();
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<CoinoneUserInfo> call, Throwable t) {
-                        dialog.dismiss();
-                        Toast.makeText(getContext(), R.string.server_error, Toast.LENGTH_SHORT).show();
+                CoinoneUserInfo userInfo = response.body();
+                if (userInfo == null) {
+                    Toast.makeText(getContext(), R.string.server_error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (userInfo.errorCode == 0) {
+                    Toast.makeText(getContext(), R.string.description_register_account, Toast.LENGTH_SHORT).show();
+                    MarketAccountRegisterDialog.this.dismiss();
+                    if (mOnRequestResultListener != null) {
+                        mOnRequestResultListener.onRequestResultListener(account);
                     }
-                });
+                } else {
+                    Toast.makeText(getContext(), R.string.cant_check_account, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CoinoneUserInfo> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(getContext(), R.string.server_error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -147,7 +140,7 @@ public class MarketAccountRegisterDialog extends DialogFragment {
         startActivity(browserIntent);
     }
 
-    public interface OnRequestResultListener{
-        void onRequestResultListener();
+    public interface OnRequestResultListener {
+        void onRequestResultListener(MarketAccount account);
     }
 }

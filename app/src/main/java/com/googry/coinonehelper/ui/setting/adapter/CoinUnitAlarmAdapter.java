@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googry.coinonehelper.BuildConfig;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.BithumbSoloTicker;
 import com.googry.coinonehelper.data.CoinType;
@@ -38,9 +39,9 @@ public class CoinUnitAlarmAdapter extends RecyclerView.Adapter<CoinUnitAlarmAdap
     private List<CoinType> mCoinTypes;
     private Realm mRealm;
 
-    public CoinUnitAlarmAdapter() {
+    public CoinUnitAlarmAdapter(Realm realm) {
         mCoinTypes = Arrays.asList(CoinType.values());
-        mRealm = Realm.getDefaultInstance();
+        mRealm = realm;
     }
 
     @Override
