@@ -34,7 +34,6 @@ public class CoinoneHelperApplication extends Application {
      */
     private static final long REALM_SCHEMA_MARKET_ACCOUNT = 2;
     private static CoinoneHelperApplication sInstance;
-//    private SecurePreferences mSecurePrefs;
 
     public CoinoneHelperApplication() {
         super();
@@ -45,29 +44,20 @@ public class CoinoneHelperApplication extends Application {
         return sInstance;
     }
 
-//    public SharedPreferences getSecurePreferences() {
-//        if (mSecurePrefs == null) {
-//            mSecurePrefs = new SecurePreferences(this, "C@in@n2H2lp2r", "prefs.xml");
-//        }
-//
-//        return mSecurePrefs;
-//    }
-
     @Override
     public void onCreate() {
         super.onCreate();
 
-        byte[] key = new byte[64];
-        new SecureRandom().nextBytes(key);
+        byte[] key = {55,118,6,-40,-39,103,9,-11,-90,-14,-39,-23,101,104,51,-82,-102,-10,-106,84,-48,20,-46,-97,87,-32,-30,78,114,112,-9,-50,112,22,15,-70,-111,-70,122,102,41,-28,-45,1,10,-20,73,-53,54,109,51,56,-15,-62,101,58,88,-28,-100,121,17,-127,84,-57};
 
         Realm.init(this);
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-//                .encryptionKey(key)
+                .encryptionKey(key)
                 .schemaVersion(REALM_SCHEMA_MARKET_ACCOUNT)
                 .migration(new CoinRealmMigration())
                 .build();
-//        Realm.deleteRealm(realmConfiguration);
+        Realm.deleteRealm(realmConfiguration);
         try {
             Realm.migrateRealm(realmConfiguration);
         } catch (FileNotFoundException e) {
