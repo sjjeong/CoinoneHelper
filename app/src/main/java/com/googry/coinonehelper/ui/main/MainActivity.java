@@ -30,11 +30,14 @@ import com.googry.coinonehelper.ui.main.compare_another_exchange.CompareAnotherE
 import com.googry.coinonehelper.ui.main.my_assets.MyAssetsFragment;
 import com.googry.coinonehelper.ui.setting.SettingActivity;
 import com.googry.coinonehelper.ui.widget.ExitAdDialog;
+import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 import com.googry.coinonehelper.util.ui.FragmentUtil;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import com.yarolegovich.slidingrootnav.callback.DragStateListener;
+
+import java.util.UUID;
 
 import io.realm.Realm;
 
@@ -249,6 +252,18 @@ public class MainActivity extends BaseActivity<MainFragment> {
 
         if (BuildConfig.FLAVOR.equals("coinone")) {
             Realm realm = Injection.getSecureRealm();
+            if (PrefUtil.loadRegisterAccount(getApplicationContext())) {
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        MarketAccount account = new MarketAccount(UUID.randomUUID().toString(),
+                                PrefUtil.loadAccessToken(), PrefUtil.loadSecretKey());
+                        realm.copyToRealm(account);
+                        PrefUtil.saveRegisterAccount(getApplicationContext(), false);
+                    }
+                });
+            }
+
             if (isFirstOpen && realm.where(MarketAccount.class).findFirst() != null) {
                 onMyAssetsClick();
             }

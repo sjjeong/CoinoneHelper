@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.data.CoinType;
 import com.googry.coinonehelper.data.CoinoneBalance;
@@ -19,6 +20,7 @@ import com.googry.coinonehelper.util.PrefUtil;
 
 import java.io.IOException;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,16 +33,16 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
     private MyAssetsContract.View mView;
 
     private Context mContext;
+    private Realm mRealm;
 
     private MarketAccount mAccount;
 
     public MyAssetsPresenter(MyAssetsContract.View view,
-                             Context context,
-                             MarketAccount account) {
+                             Context context, Realm realm) {
         mView = view;
         mView.setPresenter(this);
         mContext = context;
-        mAccount = account;
+        mRealm = realm;
     }
 
     @Override
@@ -126,6 +128,7 @@ public class MyAssetsPresenter implements MyAssetsContract.Presenter {
 
     @Override
     public void checkRegisterAccount() {
+        mAccount = mRealm.where(MarketAccount.class).findFirst();
         if (mAccount != null) {
             mView.showLoadingDialog();
             loadBalance();

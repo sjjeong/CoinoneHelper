@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MyAssetsAdapter extends RecyclerView.Adapter<MyAssetsAdapter.MyAssetsViewHolder> {
     private ArrayList<MyAssetsItem> mMyAssetsItems;
     private ArrayList<Integer> mProgressBarColors = new ArrayList<>();
+    private boolean isAccessible;
 
     public MyAssetsAdapter() {
         mProgressBarColors.add(R.drawable.drawableBtc);
@@ -29,6 +30,10 @@ public class MyAssetsAdapter extends RecyclerView.Adapter<MyAssetsAdapter.MyAsse
         mProgressBarColors.add(R.drawable.drawableXrp);
         mProgressBarColors.add(R.drawable.drawableQtum);
         mProgressBarColors.add(R.drawable.drawableLtc);
+    }
+
+    public void setAccessible(boolean accessible) {
+        isAccessible = accessible;
     }
 
     public void setMyAssetsItems(ArrayList<MyAssetsItem> myAssetsItems) {
@@ -76,7 +81,8 @@ public class MyAssetsAdapter extends RecyclerView.Adapter<MyAssetsAdapter.MyAsse
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mBinding.tvAssetsName.getText().toString().toUpperCase().equals("KRW")) {
+                    if (mBinding.tvAssetsName.getText().toString().toUpperCase().equals("KRW")
+                            || !isAccessible) {
                         return;
                     }
                     itemView.getContext().startActivity(new Intent(itemView.getContext(),

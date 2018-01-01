@@ -96,7 +96,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
     @Override
     protected void newPresenter() {
         mRealm = Injection.getSecureRealm();
-        new MyAssetsPresenter(this, getContext(), mRealm.where(MarketAccount.class).findFirst());
+        new MyAssetsPresenter(this, getContext(), mRealm);
     }
 
     @Override
@@ -118,6 +118,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
 
     @Override
     public void showSettingUi() {
+        mMyAssetsAdapter.setAccessible(false);
         new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.ask_register_account)
                 .setPositiveButton(R.string.move, new DialogInterface.OnClickListener() {
@@ -128,6 +129,12 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
                     }
                 })
                 .setNegativeButton(R.string.no, null)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        hideLoadingDialog();
+                    }
+                })
                 .show();
     }
 
@@ -234,6 +241,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
 
     @Override
     public void showLoadingDialog() {
+        mMyAssetsAdapter.setAccessible(true);
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(getContext());
             mProgressDialog.setMessage(getString(R.string.description_load_my_assets_to_coinone));

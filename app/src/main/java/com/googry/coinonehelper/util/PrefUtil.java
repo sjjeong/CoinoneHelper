@@ -17,6 +17,10 @@ public class PrefUtil {
     private static final String KEY_PREFIX = "key_";
     private static final String KEY_SUFFIX_TICKER = "_ticker";
 
+    private static final String KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN";
+    private static final String KEY_SECRET_KEY = "KEY_SECRET_KEY";
+    private static final String KEY_REGISTER_ACCOUNT = "KEY_REGISTER_ACCOUNT";
+
     public static void saveTicker(Context context, CoinType coinType, String value) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putString(getKey(coinType, KEY_SUFFIX_TICKER), value);
@@ -53,5 +57,27 @@ public class PrefUtil {
     private static String getKey(CoinType coinType, String suffix) {
         return KEY_PREFIX + coinType.name() + suffix;
 
+    }
+
+    public static void saveRegisterAccount(Context context, boolean isRegister) {
+        SharedPreferences.Editor editor = getEditor(context);
+        editor.putBoolean(KEY_REGISTER_ACCOUNT, isRegister);
+        apply(editor);
+    }
+
+    public static boolean loadRegisterAccount(Context context) {
+        return getSharedPrefs(context).getBoolean(KEY_REGISTER_ACCOUNT, false);
+    }
+
+    public static String loadAccessToken() {
+        return getSecureSharedPrefs().getString(KEY_ACCESS_TOKEN, null);
+    }
+
+    public static String loadSecretKey() {
+        return getSecureSharedPrefs().getString(KEY_SECRET_KEY, null);
+    }
+
+    private static SharedPreferences getSecureSharedPrefs() {
+        return CoinoneHelperApplication.getInstance().getSecurePreferences();
     }
 }

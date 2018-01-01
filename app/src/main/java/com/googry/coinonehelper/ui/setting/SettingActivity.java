@@ -268,6 +268,7 @@ public class SettingActivity extends AppCompatActivity {
                 @Override
                 public void onRequestResultListener(final MarketAccount account) {
                     marketAccount.set(getString(R.string.unregister_account));
+                    mAccount = account;
                     mRealm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
@@ -287,7 +288,9 @@ public class SettingActivity extends AppCompatActivity {
                                 @Override
                                 public void execute(Realm realm) {
                                     if (mAccount != null) {
+                                        marketAccount.set(getString(R.string.register_account));
                                         mAccount.deleteFromRealm();
+                                        mAccount = null;
                                     }
                                 }
                             });
