@@ -19,7 +19,9 @@ import com.googry.coinonehelper.data.source.CoinoneCancelOrderRepository;
 import com.googry.coinonehelper.data.source.CoinoneLimitOrderbookRepository;
 import com.googry.coinonehelper.data.source.LimitOrderDataSource;
 import com.googry.coinonehelper.util.CoinoneErrorCodeUtil;
+import com.googry.coinonehelper.util.LogUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -190,11 +192,19 @@ public class AskBidViewModel implements LimitOrderDataSource.OnLimitOrderCallbac
 
     // databinding
     public void onPriceSort(boolean isAsk) {
+        LogUtil.e("isAsk : " + isAsk + ", mIsAskAscending : " + mIsAskAscending);
+        ArrayList<CommonOrder> commonOrders = new ArrayList<>();
         if (isAsk) {
-            Collections.sort(limitOrderAsks, mIsAskAscending ? mAscendingPrice : mDescendingPrice);
+            commonOrders.addAll(limitOrderAsks);
+            Collections.sort(commonOrders, mIsAskAscending ? mAscendingPrice : mDescendingPrice);
+            limitOrderAsks.clear();
+            limitOrderAsks.addAll(commonOrders);
             mIsAskAscending = !mIsAskAscending;
         } else {
+            commonOrders.addAll(limitOrderBids);
             Collections.sort(limitOrderBids, mIsBidAscending ? mAscendingPrice : mDescendingPrice);
+            limitOrderBids.clear();
+            limitOrderBids.addAll(commonOrders);
             mIsBidAscending = !mIsBidAscending;
         }
     }
