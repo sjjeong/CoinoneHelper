@@ -32,6 +32,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
@@ -39,6 +47,12 @@ import com.googry.coinonehelper.data.MarketAccount;
 import com.googry.coinonehelper.databinding.SettingActivityBinding;
 import com.googry.coinonehelper.ui.setting.adapter.CoinUnitAlarmAdapter;
 import com.googry.coinonehelper.ui.widget.MarketAccountRegisterDialog;
+import com.googry.coinonehelper.util.LogUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import io.realm.Realm;
 
@@ -55,6 +69,58 @@ public class SettingActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private Realm mRealm;
     private MarketAccount mAccount;
+    private DatabaseReference mDatabaseReference;
+    private Query mQuery;
+    private ArrayList<String> mRemoveKeys = new ArrayList<>();
+    private ValueEventListener mValueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                LogUtil.e(snapshot.getKey());
+                mRemoveKeys.add(snapshot.getKey());
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+    private ChildEventListener mChlidEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            LogUtil.e("onChildAdded : " + dataSnapshot.getKey());
+            dataSnapshot.getRef().removeValue();
+
+//            Map<String, Object> childUpdates = new HashMap<>();
+//            Map<String, Object> postValues = null;
+//            childUpdates.put("/messages/" + dataSnapshot.getKey(), postValues);
+//            mDatabaseReference.updateChildren(childUpdates);
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            LogUtil.e("onChildChanged : " + dataSnapshot.getKey() + " s");
+
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            LogUtil.e("onChildRemoved : " + dataSnapshot.getKey());
+
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            LogUtil.e("onChildMoved : " + dataSnapshot.getKey() + " s");
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,9 +130,13 @@ public class SettingActivity extends AppCompatActivity {
         setSupportActionBar(mBinding.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         mBinding.setActivity(this);
+        mBinding.setDebug(BuildConfig.DEBUG);
         mRealm = Injection.getSecureRealm();
         mAccount = mRealm.where(MarketAccount.class).findFirst();
 
+        mDatabaseReference = FirebaseDatabase
+                .getInstance()
+                .getReference();
 
         createGoogleApiClient();
         initFirebaseUser();
@@ -77,6 +147,9 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         mRealm.close();
+//        if (mChlidEventListener != null) {
+//        mQuery.removeEventListener(mChlidEventListener);
+//        }
         super.onDestroy();
     }
 
@@ -147,7 +220,6 @@ public class SettingActivity extends AppCompatActivity {
                 });
         noUser();
     }
-
 
     private void noUser() {
         mBinding.llAccount.setVisibility(View.GONE);
@@ -309,6 +381,27 @@ public class SettingActivity extends AppCompatActivity {
 
     public void onDeveloperPageClick(View v) {
         startActivity(new Intent(getApplicationContext(), DeveloperActivity.class));
+    }
+
+    public void onDbRemoveClick(View v) {
+        Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
+
+        if (mRemoveKeys.size() != 0) {
+            Map<String, Object> childUpdates = new HashMap<>();
+            for (String removeKey : mRemoveKeys) {
+                childUpdates.put("/messages/" + removeKey, null);
+                LogUtil.e("remove : " + removeKey);
+            }
+            mDatabaseReference.updateChildren(childUpdates);
+            mRemoveKeys.clear();
+        }
+        getRemoveData();
+    }
+
+    private void getRemoveData() {
+        mQuery = mDatabaseReference.child("messages")
+                .limitToFirst(100);
+        mQuery.addListenerForSingleValueEvent(mValueEventListener);
     }
 
 }

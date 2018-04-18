@@ -2,7 +2,9 @@ package com.googry.coinonehelper.ui.main.chatting;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -11,7 +13,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.googry.coinonehelper.data.ChatMessage;
+import com.googry.coinonehelper.util.LogUtil;
 
 import java.util.Date;
 
@@ -82,7 +86,7 @@ public class ChattingPresenter implements ChattingContract.Presenter {
                 .getInstance()
                 .getReference();
         mQuery = mDatabaseReference.child(MESSAGES_CHILD)
-                .limitToLast(50);
+                .limitToLast(500);
     }
 
     private boolean checkUserSignin() {

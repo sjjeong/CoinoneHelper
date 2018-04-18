@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.database.ServerValue;
 import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
@@ -37,6 +38,8 @@ import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import com.yarolegovich.slidingrootnav.callback.DragStateListener;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import io.realm.Realm;

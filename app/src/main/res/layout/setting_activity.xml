@@ -5,10 +5,15 @@
 
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="activity"
             type="com.googry.coinonehelper.ui.setting.SettingActivity" />
+
+        <variable
+            name="debug"
+            type="Boolean" />
     </data>
 
     <LinearLayout
@@ -190,6 +195,13 @@
                     android:padding="10dp"
                     android:text="@string/developer_page"
                     android:textColor="@drawable/text_selector" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:onClick="@{(v) -> activity.onDbRemoveClick(v)}"
+                    android:text="DB REMOVE"
+                    android:visibility="@{debug ? View.VISIBLE : View.INVISIBLE}"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
 
