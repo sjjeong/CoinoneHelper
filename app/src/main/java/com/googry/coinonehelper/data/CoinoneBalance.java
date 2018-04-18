@@ -25,6 +25,8 @@ public class CoinoneBalance extends CoinonePrivateError {
     public Balance balanceIota;
     @SerializedName("btg")
     public Balance balanceBtg;
+    @SerializedName("omg")
+    public Balance balanceOmg;
     @SerializedName("krw")
     public Balance balanceKrw;
 

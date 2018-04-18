@@ -22,6 +22,7 @@
     <color name="colorLtc">#5F6879</color>
     <color name="colorIota">#5C53AB</color>
     <color name="colorBtg">#BE9645</color>
+    <color name="colorOmg">#2E57E7</color>
     <color name="colorKrw">#CA7E57</color>
 
     <drawable name="drawableBtc">#3868D5</drawable>

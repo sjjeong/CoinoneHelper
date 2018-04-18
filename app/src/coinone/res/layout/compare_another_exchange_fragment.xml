@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="coinoneTicker"
-            type="com.googry.coinonehelper.data.CoinoneTicker"/>
+            type="com.googry.coinonehelper.data.CoinoneTicker" />
 
         <variable
             name="bithumbTicker"
-            type="com.googry.coinonehelper.data.BithumbTicker"/>
+            type="com.googry.coinonehelper.data.BithumbTicker" />
 
         <variable
             name="korbitTicker"
-            type="com.googry.coinonehelper.data.KorbitTicker"/>
+            type="com.googry.coinonehelper.data.KorbitTicker" />
 
         <variable
             name="poloniexTicker"
-            type="com.googry.coinonehelper.data.PoloniexTicker"/>
+            type="com.googry.coinonehelper.data.PoloniexTicker" />
     </data>
 
     <LinearLayout
@@ -57,7 +57,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/btc"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -75,7 +75,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.btc.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.btc.last)}' />
 
 
                             </LinearLayout>
@@ -88,7 +88,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -96,7 +96,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.btc.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.btc.last)}' />
 
                             </LinearLayout>
 
@@ -108,7 +108,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/korbit"/>
+                                    android:text="@string/korbit" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -116,7 +116,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", korbitTicker.btc.last)}'/>
+                                    android:text='@{String.format("%,d", korbitTicker.btc.last)}' />
 
                             </LinearLayout>
 
@@ -128,7 +128,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -136,7 +136,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtBtc.last)}'/>
+                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtBtc.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -158,7 +158,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/bch"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -176,7 +176,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.bch.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.bch.last)}' />
 
                             </LinearLayout>
 
@@ -188,7 +188,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -196,7 +196,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.bch.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.bch.last)}' />
 
                             </LinearLayout>
 
@@ -208,7 +208,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/korbit"/>
+                                    android:text="@string/korbit" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -216,7 +216,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", korbitTicker.bch.last)}'/>
+                                    android:text='@{String.format("%,d", korbitTicker.bch.last)}' />
 
                             </LinearLayout>
 
@@ -228,7 +228,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex_to_coinone_btc"/>
+                                    android:text="@string/poloniex_to_coinone_btc" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -236,7 +236,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcBch.last * coinoneTicker.btc.last))}'/>
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcBch.last * coinoneTicker.btc.last))}' />
 
                             </LinearLayout>
 
@@ -248,7 +248,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -256,7 +256,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtBch.last)}'/>
+                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtBch.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -278,7 +278,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/eth"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -288,7 +288,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -296,7 +296,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.eth.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.eth.last)}' />
 
                             </LinearLayout>
 
@@ -308,7 +308,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -316,7 +316,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.eth.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.eth.last)}' />
 
                             </LinearLayout>
 
@@ -328,7 +328,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/korbit"/>
+                                    android:text="@string/korbit" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -336,7 +336,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", korbitTicker.eth.last)}'/>
+                                    android:text='@{String.format("%,d", korbitTicker.eth.last)}' />
 
                             </LinearLayout>
 
@@ -348,7 +348,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex_to_coinone_btc"/>
+                                    android:text="@string/poloniex_to_coinone_btc" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -356,7 +356,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcEth.last * coinoneTicker.btc.last))}'/>
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcEth.last * coinoneTicker.btc.last))}' />
 
                             </LinearLayout>
 
@@ -368,7 +368,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -376,7 +376,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtEth.last)}'/>
+                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtEth.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -398,7 +398,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/etc"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -408,7 +408,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -416,7 +416,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.etc.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.etc.last)}' />
 
                             </LinearLayout>
 
@@ -428,7 +428,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -436,7 +436,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.etc.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.etc.last)}' />
 
                             </LinearLayout>
 
@@ -448,7 +448,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/korbit"/>
+                                    android:text="@string/korbit" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -456,7 +456,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", korbitTicker.etc.last)}'/>
+                                    android:text='@{String.format("%,d", korbitTicker.etc.last)}' />
 
                             </LinearLayout>
 
@@ -469,7 +469,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex_to_coinone_btc"/>
+                                    android:text="@string/poloniex_to_coinone_btc" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -477,7 +477,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcEtc.last * coinoneTicker.btc.last))}'/>
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcEtc.last * coinoneTicker.btc.last))}' />
 
                             </LinearLayout>
 
@@ -489,7 +489,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -497,7 +497,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtEtc.last)}'/>
+                                    android:text='@{String.format("%,.1f", poloniexTicker.usdtEtc.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -519,7 +519,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/xrp"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -529,7 +529,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -537,7 +537,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.xrp.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.xrp.last)}' />
 
                             </LinearLayout>
 
@@ -549,7 +549,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -557,7 +557,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.xrp.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.xrp.last)}' />
 
                             </LinearLayout>
 
@@ -569,7 +569,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/korbit"/>
+                                    android:text="@string/korbit" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -577,7 +577,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", korbitTicker.xrp.last)}'/>
+                                    android:text='@{String.format("%,d", korbitTicker.xrp.last)}' />
 
                             </LinearLayout>
 
@@ -590,7 +590,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex_to_coinone_btc"/>
+                                    android:text="@string/poloniex_to_coinone_btc" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -598,7 +598,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcXrp.last * coinoneTicker.btc.last))}'/>
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcXrp.last * coinoneTicker.btc.last))}' />
 
                             </LinearLayout>
 
@@ -610,7 +610,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -618,7 +618,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtXrp.last)}'/>
+                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtXrp.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -640,7 +640,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/qtum"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -650,7 +650,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -658,7 +658,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.qtum.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.qtum.last)}' />
 
                             </LinearLayout>
 
@@ -670,7 +670,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -678,7 +678,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.qtum.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.qtum.last)}' />
 
                             </LinearLayout>
 
@@ -701,7 +701,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/ltc"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -711,7 +711,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -719,7 +719,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.ltc.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.ltc.last)}' />
 
                             </LinearLayout>
 
@@ -731,7 +731,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -739,7 +739,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.ltc.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.ltc.last)}' />
 
                             </LinearLayout>
 
@@ -751,7 +751,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex_to_coinone_btc"/>
+                                    android:text="@string/poloniex_to_coinone_btc" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -759,7 +759,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcLtc.last * coinoneTicker.btc.last))}'/>
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcLtc.last * coinoneTicker.btc.last))}' />
 
                             </LinearLayout>
 
@@ -771,7 +771,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -779,7 +779,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtLtc.last)}'/>
+                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtLtc.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -801,7 +801,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/iota"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -811,7 +811,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -819,12 +819,13 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.iota.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.iota.last)}' />
 
                             </LinearLayout>
 
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
                         style="@style/CoinTickerCardView"
                         app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
@@ -841,7 +842,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/btg"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -851,7 +852,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/coinone"/>
+                                    android:text="@string/coinone" />
 
                                 <TextView
                                     android:id="@+id/tv_coinone_btg_price"
@@ -860,9 +861,10 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",coinoneTicker.btg.last)}'/>
+                                    android:text='@{String.format("%,d",coinoneTicker.btg.last)}' />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -871,7 +873,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:id="@+id/tv_bithumb_btg_price"
@@ -880,7 +882,68 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.btg.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.btg.last)}' />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        style="@style/CoinTickerCardView"
+                        app:cardCornerRadius="@dimen/compare_cardview_cardCornerRadius"
+                        app:cardElevation="@dimen/compare_cardview_cardElevation"
+                        app:contentPadding="@dimen/compare_cardview_contentPadding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/omg"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/coinone" />
+
+                                <TextView
+                                    android:id="@+id/tv_coinone_omg_price"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableRight="@drawable/ic_krw"
+                                    android:gravity="right"
+                                    android:text='@{String.format("%,d",coinoneTicker.omg.last)}' />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/poloniex_to_coinone_btc" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableRight="@drawable/ic_krw"
+                                    android:gravity="right"
+                                    android:text='@{String.format("%,d", (int)(poloniexTicker.btcOmg.last * coinoneTicker.btc.last))}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -902,7 +965,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/dash"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -912,7 +975,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -920,7 +983,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.dash.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.dash.last)}' />
 
                             </LinearLayout>
 
@@ -932,7 +995,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -940,7 +1003,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtDash.last)}'/>
+                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtDash.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -962,7 +1025,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/xmr"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -972,7 +1035,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bithumb"/>
+                                    android:text="@string/bithumb" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -980,7 +1043,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_krw"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,d",bithumbTicker.data.xmr.last)}'/>
+                                    android:text='@{String.format("%,d",bithumbTicker.data.xmr.last)}' />
 
                             </LinearLayout>
 
@@ -992,7 +1055,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/poloniex"/>
+                                    android:text="@string/poloniex" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -1000,7 +1063,7 @@
                                     android:layout_weight="1"
                                     android:drawableRight="@drawable/ic_dollar"
                                     android:gravity="right"
-                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtXmr.last)}'/>
+                                    android:text='@{String.format("%,.6f", poloniexTicker.usdtXmr.last)}' />
 
                             </LinearLayout>
                         </LinearLayout>

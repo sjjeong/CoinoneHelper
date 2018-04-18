@@ -82,6 +82,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
         mColorRes.add(R.color.colorLtc);
         mColorRes.add(R.color.colorIota);
         mColorRes.add(R.color.colorBtg);
+        mColorRes.add(R.color.colorOmg);
         mColorRes.add(R.color.colorKrw);
 
 
@@ -155,6 +156,8 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
                     balances.add(balance.balanceLtc);
                     balances.add(balance.balanceIota);
                     balances.add(balance.balanceBtg);
+                    balances.add(balance.balanceOmg);
+                    balances.add(balance.balanceKrw);
                     ArrayList<PieEntry> pieEntries = new ArrayList<>();
                     Gson gson = new Gson();
 
@@ -223,7 +226,7 @@ public class MyAssetsFragment extends BaseFragment<MyAssetsFragmentBinding> impl
                     l.setOrientation(Legend.LegendOrientation.VERTICAL);
                     l.setDrawInside(false);
                     l.setYEntrySpace(5f);
-                    l.setYOffset(-100f);
+                    l.setYOffset(-50f);
                     l.setXOffset(10f);
                     l.setCustom(legendEntries);
                     pieChart.getDescription().setEnabled(false);

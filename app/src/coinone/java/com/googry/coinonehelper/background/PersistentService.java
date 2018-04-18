@@ -143,9 +143,11 @@ public class PersistentService extends Service {
                     @Override
                     public void onResponse(Call<CoinoneTicker> call, Response<CoinoneTicker> response) {
                         if (response.body() == null) return;
-                        // TODO: 2017. 11. 22. 각 coinoneTicker.마다 null처리
                         CoinoneTicker coinoneTicker = response.body();
                         Gson gson = new Gson();
+                        if (coinoneTicker == null) {
+                            return;
+                        }
                         PrefUtil.saveTicker(
                                 getApplicationContext(),
                                 CoinType.BTC,
@@ -190,6 +192,11 @@ public class PersistentService extends Service {
                                 getApplicationContext(),
                                 CoinType.BTG,
                                 gson.toJson(coinoneTicker.btg, CoinoneTicker.Ticker.class)
+                        );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.OMG,
+                                gson.toJson(coinoneTicker.omg, CoinoneTicker.Ticker.class)
                         );
 
                         // 코인 가격 설정 조건 체크
@@ -254,6 +261,11 @@ public class PersistentService extends Service {
                                 case BTG: {
                                     targetPrice = coinoneTicker.btg.last;
                                     id += 9;
+                                }
+                                break;
+                                case OMG: {
+                                    targetPrice = coinoneTicker.omg.last;
+                                    id += 10;
                                 }
                                 break;
                             }
@@ -322,6 +334,10 @@ public class PersistentService extends Service {
                                 break;
                                 case BTG: {
                                     targetPrice = coinoneTicker.btg.last;
+                                }
+                                break;
+                                case OMG: {
+                                    targetPrice = coinoneTicker.omg.last;
                                 }
                                 break;
                             }

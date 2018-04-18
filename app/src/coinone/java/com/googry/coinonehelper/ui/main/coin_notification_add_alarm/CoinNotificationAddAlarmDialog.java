@@ -120,6 +120,11 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                     mCoinType = CoinType.BTG;
                 }
                 break;
+                case OMG: {
+                    mBinding.rbBtg.setChecked(true);
+                    mCoinType = CoinType.OMG;
+                }
+                break;
             }
             mBinding.setPrice(mCoinNotification.getTargetPrice());
         }
