@@ -8,9 +8,10 @@ android {
         applicationId "com.googry.coinonehelper"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 39
-        versionName "1.1.403"
+        versionCode 40
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -60,7 +61,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
 
     // Retrofit
@@ -69,12 +70,12 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
     // Firebase
-    compile 'com.google.firebase:firebase-ads:11.6.0'
-    compile 'com.google.firebase:firebase-crash:11.6.0'
-    compile 'com.google.firebase:firebase-auth:11.6.0'
-    compile 'com.google.android.gms:play-services-auth:11.6.0'
-    compile 'com.google.firebase:firebase-database:11.6.0'
-    compile 'com.google.firebase:firebase-storage:11.6.0'
+    compile 'com.google.firebase:firebase-ads:15.0.0'
+    compile 'com.google.firebase:firebase-crash:15.0.0'
+    compile 'com.google.firebase:firebase-auth:15.0.0'
+    compile 'com.google.android.gms:play-services-auth:15.0.0'
+    compile 'com.google.firebase:firebase-database:15.0.0'
+    compile 'com.google.firebase:firebase-storage:15.0.0'
 
     // Sliding Root Nav
     compile 'com.yarolegovich:sliding-root-nav:1.0.2'
@@ -94,6 +95,8 @@ dependencies {
 
     // number progress bar
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
+
+    compile 'com.android.support:multidex:1.0.3'
 }
 
 

@@ -1,13 +1,12 @@
 package com.googry.coinonehelper;
 
-import android.app.Application;
 import android.content.SharedPreferences;
+import android.support.multidex.MultiDexApplication;
 
 import com.google.firebase.FirebaseApp;
 import com.securepreferences.SecurePreferences;
 
 import java.io.FileNotFoundException;
-import java.security.SecureRandom;
 
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;
@@ -20,7 +19,7 @@ import io.realm.RealmSchema;
  * Created by seokjunjeong on 2017. 8. 6..
  */
 
-public class CoinoneHelperApplication extends Application {
+public class CoinoneHelperApplication extends MultiDexApplication {
     /**
      * 초기 버전
      */
@@ -41,16 +40,16 @@ public class CoinoneHelperApplication extends Application {
         sInstance = this;
     }
 
+    public static synchronized CoinoneHelperApplication getInstance() {
+        return sInstance;
+    }
+
     public SharedPreferences getSecurePreferences() {
         if (mSecurePrefs == null) {
             mSecurePrefs = new SecurePreferences(this, "C@in@n2H2lp2r", "prefs.xml");
         }
 
         return mSecurePrefs;
-    }
-
-    public static synchronized CoinoneHelperApplication getInstance() {
-        return sInstance;
     }
 
     @Override
