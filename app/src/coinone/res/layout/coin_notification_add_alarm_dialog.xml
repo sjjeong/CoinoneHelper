@@ -113,6 +113,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/omg"/>
+                <RadioButton
+                    android:id="@+id/rb_eos"
+                    android:drawableEnd="@drawable/eos"
+                    android:drawablePadding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eos"/>
             </RadioGroup>
 
             <TextView

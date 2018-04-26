@@ -121,8 +121,13 @@ public class CoinNotificationAddAlarmDialog extends DialogFragment {
                 }
                 break;
                 case OMG: {
-                    mBinding.rbBtg.setChecked(true);
+                    mBinding.rbOmg.setChecked(true);
                     mCoinType = CoinType.OMG;
+                }
+                break;
+                case EOS: {
+                    mBinding.rbBtg.setChecked(true);
+                    mCoinType = CoinType.EOS;
                 }
                 break;
             }

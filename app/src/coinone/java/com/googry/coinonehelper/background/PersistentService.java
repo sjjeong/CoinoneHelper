@@ -198,6 +198,11 @@ public class PersistentService extends Service {
                                 CoinType.OMG,
                                 gson.toJson(coinoneTicker.omg, CoinoneTicker.Ticker.class)
                         );
+                        PrefUtil.saveTicker(
+                                getApplicationContext(),
+                                CoinType.EOS,
+                                gson.toJson(coinoneTicker.eos, CoinoneTicker.Ticker.class)
+                        );
 
                         // 코인 가격 설정 조건 체크
                         Realm realm = Realm.getDefaultInstance();
@@ -266,6 +271,11 @@ public class PersistentService extends Service {
                                 case OMG: {
                                     targetPrice = coinoneTicker.omg.last;
                                     id += 10;
+                                }
+                                break;
+                                case EOS: {
+                                    targetPrice = coinoneTicker.eos.last;
+                                    id += 11;
                                 }
                                 break;
                             }
@@ -338,6 +348,10 @@ public class PersistentService extends Service {
                                 break;
                                 case OMG: {
                                     targetPrice = coinoneTicker.omg.last;
+                                }
+                                break;
+                                case EOS: {
+                                    targetPrice = coinoneTicker.eos.last;
                                 }
                                 break;
                             }
