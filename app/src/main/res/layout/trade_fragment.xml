@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:layoutManager="LinearLayoutManager"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 bind:orderbooks="@{viewModel.asks}"
                 bind:reverse="@{true}" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:layoutManager="LinearLayoutManager"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 bind:orderbooks="@{viewModel.bids}" />
 
         </LinearLayout>

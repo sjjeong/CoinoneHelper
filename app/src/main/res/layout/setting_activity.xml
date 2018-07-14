@@ -5,7 +5,8 @@
 
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="activity"
@@ -183,7 +184,7 @@
                     android:id="@+id/rv_coin_price_unit_alarm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="LinearLayoutManager" />
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
                 <include layout="@layout/divider" />
 
@@ -194,14 +195,15 @@
                     android:onClick="@{(v) -> activity.onDeveloperPageClick(v)}"
                     android:padding="10dp"
                     android:text="@string/developer_page"
-                    android:textColor="@drawable/text_selector" />
+                    android:textColor="@drawable/text_selector"
+                    android:visibility="gone" />
 
                 <Button
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="@{(v) -> activity.onDbRemoveClick(v)}"
                     android:text="DB REMOVE"
-                    android:visibility="@{debug ? View.VISIBLE : View.INVISIBLE}"
-                    android:layout_height="wrap_content" />
+                    android:visibility="@{debug ? View.VISIBLE : View.INVISIBLE}" />
             </LinearLayout>
 
 

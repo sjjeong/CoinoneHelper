@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.database.ServerValue;
 import com.googry.coinonehelper.BuildConfig;
 import com.googry.coinonehelper.Injection;
 import com.googry.coinonehelper.R;
@@ -30,16 +29,12 @@ import com.googry.coinonehelper.ui.main.coin_volume.CoinVolumeFragment;
 import com.googry.coinonehelper.ui.main.compare_another_exchange.CompareAnotherExchangeFragment;
 import com.googry.coinonehelper.ui.main.my_assets.MyAssetsFragment;
 import com.googry.coinonehelper.ui.setting.SettingActivity;
-import com.googry.coinonehelper.ui.widget.ExitAdDialog;
-import com.googry.coinonehelper.util.LogUtil;
 import com.googry.coinonehelper.util.PrefUtil;
 import com.googry.coinonehelper.util.ui.FragmentUtil;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 import com.yarolegovich.slidingrootnav.callback.DragStateListener;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -223,18 +218,12 @@ public class MainActivity extends BaseActivity<MainFragment> {
             mSlidingRootNav.openMenu();
             return;
         }
-        if (BuildConfig.DEBUG) {
-            long currentTime = System.currentTimeMillis();
-            if (mExitTime + 1000 > currentTime) {
-                super.onBackPressed();
-            } else {
-                mExitTime = currentTime;
-                Toast.makeText(this, R.string.want_to_exit_plase_one_more_time, Toast.LENGTH_SHORT).show();
-            }
+        long currentTime = System.currentTimeMillis();
+        if (mExitTime + 1000 > currentTime) {
+            super.onBackPressed();
         } else {
-            ExitAdDialog exitAdDialog = new ExitAdDialog();
-            exitAdDialog.setCancelable(false);
-            exitAdDialog.show(getSupportFragmentManager(), exitAdDialog.getTag());
+            mExitTime = currentTime;
+            Toast.makeText(this, R.string.want_to_exit_plase_one_more_time, Toast.LENGTH_SHORT).show();
         }
     }
 

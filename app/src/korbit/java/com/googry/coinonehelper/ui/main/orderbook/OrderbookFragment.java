@@ -112,7 +112,9 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
                 korbitOrderbook.bids == null) return;
 
         ArrayList<CoinoneOrderbook.Book> askes, bides;
+
         askes = new ArrayList<>();
+
         for (List<String> strings : korbitOrderbook.asks) {
             askes.add(new CoinoneOrderbook.Book(Long.valueOf(strings.get(0)), Double.valueOf(strings.get(1))));
         }

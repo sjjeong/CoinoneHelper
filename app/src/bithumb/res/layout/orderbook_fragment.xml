@@ -36,7 +36,7 @@
                     android:id="@+id/rv_askes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="LinearLayoutManager"/>
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
             </FrameLayout>
 
             <View
@@ -150,7 +150,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
-                app:layoutManager="LinearLayoutManager"/>
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
             <View
                 android:layout_width="1dp"
@@ -167,7 +167,7 @@
                     android:id="@+id/rv_bides"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="LinearLayoutManager"/>
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
             </FrameLayout>
 
         </LinearLayout>

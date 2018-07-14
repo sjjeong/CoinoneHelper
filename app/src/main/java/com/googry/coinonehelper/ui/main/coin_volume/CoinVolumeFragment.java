@@ -2,6 +2,7 @@ package com.googry.coinonehelper.ui.main.coin_volume;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.widget.TextView;
 
 import com.googry.coinonehelper.R;
 import com.googry.coinonehelper.base.ui.BaseFragment;
@@ -30,6 +31,7 @@ public class CoinVolumeFragment extends BaseFragment<CoinVolumeFragmentBinding> 
     @Override
     public void setPresenter(CoinVolumeContract.Presenter presenter) {
         this.mPresenter = presenter;
+
     }
 
     @Override

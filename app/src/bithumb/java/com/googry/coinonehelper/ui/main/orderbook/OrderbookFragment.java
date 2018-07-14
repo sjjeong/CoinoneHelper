@@ -128,6 +128,9 @@ public class OrderbookFragment extends BaseFragment<OrderbookFragmentBinding>
         bithumbOrderbook.data.bids = new ArrayList<>(bithumbOrderbook.data.bids.subList(0, bithumbOrderbook.data.bids.size() < ORDERBOOK_CNT ? bithumbOrderbook.data.bids.size() : ORDERBOOK_CNT));
 
         ArrayList<CoinoneOrderbook.Book> askes, bides;
+
+
+
         askes = new ArrayList<>();
         for (BithumbOrderbook.Book book : bithumbOrderbook.data.asks) {
             askes.add(new CoinoneOrderbook.Book(book.price, book.qty));

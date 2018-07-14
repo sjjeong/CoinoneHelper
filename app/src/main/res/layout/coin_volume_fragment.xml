@@ -76,7 +76,7 @@
                 android:id="@+id/rv_coin_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="LinearLayoutManager"/>
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
